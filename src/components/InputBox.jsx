@@ -1,19 +1,23 @@
 import React from "react";
+import styled from "styled-components";
+
+const InputBoxStyle = styled.input`
+  display: flex;
+  margin: 1rem ;
+  
+`
 
 function InputBox({inputType, placeholder, value, onchange}) {
 
 
   return(
-    /**
-     * @todo styled-components input 만들어서 넣기
-     */
-    <input 
+    <InputBoxStyle
       type={inputType}
       placeholder={placeholder} 
       value={value}
       onChange={onchange}>
 
-    </input>
+    </InputBoxStyle>
   );
 }
 
