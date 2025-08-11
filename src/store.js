@@ -1,3 +1,10 @@
 import { create } from 'zustand';
 
-export default useStore;
+const useInfoStore = create((set) => ({
+  email: '',
+  password: '',
+  setEmail: (email) => set({ email }),
+  setPassword: (password) => set({ password }),
+}))
+
+export default useInfoStore;

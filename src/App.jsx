@@ -1,5 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import OnboardPage from "./pages/OnboardPage";
+import LoginPage from "./pages/LoginPage";
+
 function App() {
-    return <div className="text-3xl font-bold text-blue-500 p-10">Tailwind 성공 👏 이제 시작하자!</div>;
+    return (
+            <Routes>
+                <Route path="/" element={<OnboardPage />} />
+                <Route path="/loginPage" element={<LoginPage />} />
+            </Routes>
+    );
 }
 
 export default App;
