@@ -3,6 +3,7 @@ import InputBox from "./inputBox";
 import InputSubmit from "./InputSubmit";
 import useInfoStore from "../store";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"
 
 const FormStyle = styled.form`
   display: flex;
@@ -21,11 +22,14 @@ const FormStyle2 = styled.div`
 
 function InputForm(){
   const { email, password, setEmail, setPassword } = useInfoStore();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       console.log("성공")
+      alert('로그인 성공')
+      navigate('/home')
     } catch{
       console.log("실패")
     }
