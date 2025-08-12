@@ -38,7 +38,7 @@ function InputForm(){
   return(
     <FormStyle2>
       <FormStyle onSubmit={handleLogin}>
-        <p>로그인</p>
+        <p>Logo</p>
         <InputBox
           inputType={"email"} 
           value={email} 
