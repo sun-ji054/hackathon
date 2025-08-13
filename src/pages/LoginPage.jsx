@@ -1,12 +1,12 @@
 import React from "react";
-import InputForm from "../components/InputForm";
+import LoginForm from "../components/LoginForm";
 import OnboardHeader from "../components/OnboardHeader";
 
 function LoginPage(){
   return(
     <div>
       <OnboardHeader></OnboardHeader>
-      <InputForm></InputForm>
+      <LoginForm></LoginForm>
     </div>
   );
 }

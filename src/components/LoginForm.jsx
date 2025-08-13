@@ -2,25 +2,17 @@ import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
 import useInfoStore from "../store";
-import styled from "styled-components";
+import { FormStyle } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 
-const FormStyle = styled.form`
-  display: flex;
-  width: 50vw;
-  height: 80vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: pink;
-`
+
 const FormStyle2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-function InputForm(){
+function LoginForm(){
   const { email, password, setEmail, setPassword } = useInfoStore();
   const navigate = useNavigate();
 
@@ -57,4 +49,4 @@ function InputForm(){
   );
 }
 
-export default InputForm;
+export default LoginForm;
