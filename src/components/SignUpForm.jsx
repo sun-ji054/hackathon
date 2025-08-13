@@ -1,7 +1,7 @@
 import React from "react";
 import InputBox from "./InputBox";
 import useInfoStore from "../store";
-import { FormStyle } from "./FormStyle";
+import { FormStyle, FormStyle2 } from "./FormStyle";
 
 
 function SignUpForm() {
@@ -10,9 +10,8 @@ function SignUpForm() {
 
   return(
     <div>
-      <div>
         <FormStyle>
-          <p>기본정보</p>
+          <h3>기본정보</h3>
           <InputBox
             inputType={"text"} value={name} placeholder={"이름"} onchange={(e)=>setName(e.target.value)}>
           </InputBox>
@@ -23,7 +22,6 @@ function SignUpForm() {
           <InputBox inputType={"tel"} value={phoneNum} placeholder={"전화번호"} onchange={(e)=>setPhoneNum(e.target.value)}>
           </InputBox>
         </FormStyle>
-      </div>
     </div>
   );
 }

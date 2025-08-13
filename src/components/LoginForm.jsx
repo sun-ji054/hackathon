@@ -2,15 +2,8 @@ import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
 import useInfoStore from "../store";
-import { FormStyle } from "./FormStyle";
+import { FormStyle, FormStyle2 } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
-
-
-const FormStyle2 = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
 
 function LoginForm(){
   const { email, password, setEmail, setPassword } = useInfoStore();
@@ -28,8 +21,8 @@ function LoginForm(){
   } 
 
   return(
-    <FormStyle2>
-      <FormStyle onSubmit={handleLogin}>
+    <FormStyle2 onSubmit={handleLogin}>
+      <FormStyle >
         <p>로그인</p>
         <InputBox
           inputType={"email"} 
