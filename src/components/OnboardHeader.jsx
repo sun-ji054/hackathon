@@ -5,8 +5,6 @@ import OnboardBtn from "./OnboardBtn";
 const OnboardHeaderStyle = styled.header`
   display: flex;
   align-items: center;
-  width: 100vw;
-  height: 10vh;
   padding: 0 1rem;
   background-color: blue;
 `
