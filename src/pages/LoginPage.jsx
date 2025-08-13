@@ -7,7 +7,6 @@ function LoginPage(){
     <div>
       <OnboardHeader></OnboardHeader>
       <LoginForm></LoginForm>
-      <p>블라블라블라</p>
     </div>
   );
 }
