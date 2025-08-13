@@ -2,25 +2,10 @@ import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
 import useInfoStore from "../store";
-import styled from "styled-components";
+import { FormStyle, FormStyle2 } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 
-const FormStyle = styled.form`
-  display: flex;
-  width: 50vw;
-  height: 80vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: pink;
-`
-const FormStyle2 = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-function InputForm(){
+function LoginForm(){
   const { email, password, setEmail, setPassword } = useInfoStore();
   const navigate = useNavigate();
 
@@ -36,8 +21,8 @@ function InputForm(){
   } 
 
   return(
-    <FormStyle2>
-      <FormStyle onSubmit={handleLogin}>
+    <FormStyle2 onSubmit={handleLogin}>
+      <FormStyle >
         <p>로그인</p>
         <InputBox
           inputType={"email"} 
@@ -57,4 +42,4 @@ function InputForm(){
   );
 }
 
-export default InputForm;
+export default LoginForm;
