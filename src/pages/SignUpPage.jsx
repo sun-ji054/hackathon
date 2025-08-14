@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
 import OnboardHeader from "../components/OnboardHeader";
 import RegionBox from "../components/RegionBox";
-import { FormStyle2 } from "../components/FormStyle";
+import { FormNameStyle,CenterStyle } from "../components/FormStyle";
 import SignUpConsent from "../components/SignUpConsent";
 import InputSubmit from "../components/InputSubmit";
 
@@ -21,15 +21,20 @@ function SignUpPage() {
   } 
 
   return(
-    <div>
+    <>
       <OnboardHeader></OnboardHeader>
-      <FormStyle2 onSubmit={handleLogin}>
-        <SignUpForm></SignUpForm>
-        <RegionBox></RegionBox>
-        <SignUpConsent></SignUpConsent>
-        <InputSubmit submitName={"회원가입"}></InputSubmit>
-      </FormStyle2>
-    </div>
+      <div style={{height:"640px", overflowY: "auto" }}>
+        <FormNameStyle>회원가입</FormNameStyle>
+        <div onSubmit={handleLogin}>
+          <SignUpForm></SignUpForm>
+          <RegionBox></RegionBox>
+          <SignUpConsent></SignUpConsent>
+          <CenterStyle>
+            <InputSubmit submitName={"회원가입"}></InputSubmit>
+          </CenterStyle>
+        </div>
+      </div>
+    </>
   );
 }
 
