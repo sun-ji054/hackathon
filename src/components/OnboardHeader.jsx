@@ -4,15 +4,24 @@ import styled from "styled-components";
 import OnboardBtn from "./OnboardBtn";
 
 const OnboardHeaderStyle = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
-  background-color: blue;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #dfdfdf;
+  padding: 0 20px;
 `
-const Logo = styled.p`
-  font-size: xx-large;
-  line-height: 1;
-  margin: 0;
+const Logo = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 35px;
+  border: 1px solid #dfdfdf;
+  border-radius: 7px;
+  font-size: medium;
+  font-weight: 900;
 `
 
 const ButtonGroup = styled.div`
