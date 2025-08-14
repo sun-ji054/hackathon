@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const items = [
     { to: '/ai', label: 'AI' },
-    { to: '/stores', label: 'GPS 지도' },
+    { to: '/mapPage', label: 'GPS 지도' },
     { to: '/', label: '홈' },
     { to: '/couponbook', label: '내 쿠폰북' },
     { to: '/mypage', label: '마이페이지' },

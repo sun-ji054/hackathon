@@ -14,7 +14,7 @@ function LoginForm(){
     try {
       console.log("성공")
       alert('로그인 성공')
-      // navigate('/home')
+      navigate('/home')
     } catch{
       console.log("실패")
     }
