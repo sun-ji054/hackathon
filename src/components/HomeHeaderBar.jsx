@@ -6,7 +6,7 @@ export default function HomeHeaderBar() {
             <div className="flex items-center justify-between px-4 py-3">
                 {/* logo */}
                 <Link
-                    to="/"
+                    to="/home"
                     className="inline-flex items-center justify-center w-16 h-10 border rounded-lg font-semibold"
                 >
                     logo
