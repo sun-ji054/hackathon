@@ -24,7 +24,7 @@ const ADMIN_REGIONS = {
   // ... 실제 전체 데이터로 대체
 };
 
-export const useLocationStore = create((set) => ({
+export const useRegionStore = create((set) => ({
   sidoList: Object.keys(ADMIN_REGIONS),
   gugunList: [],
   dongList: [],
@@ -55,7 +55,12 @@ export const useLocationStore = create((set) => ({
       };
     }),
   selectDong: (dong) => set({ dong: dong }),
-}));
+}))
+
+export const useLocationStore = create((set) => ({
+  location: '',
+  setLocation: (location) => set({location})
+}))
 
 
 

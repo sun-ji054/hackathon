@@ -1,8 +1,8 @@
 import React from "react";
-import {useLocationStore} from "../store";
+import {useRegionStore} from "../store";
 import { FormStyle } from "./FormStyle";
 
-export default function LocationSelect() {
+function RegionBox() {
   const {
     sidoList,
     gugunList,
@@ -13,7 +13,7 @@ export default function LocationSelect() {
     selectSido,
     selectGugun,
     selectDong,
-  } = useLocationStore();
+  } = useRegionStore();
 
   return (
     <FormStyle>
@@ -57,3 +57,5 @@ export default function LocationSelect() {
     </FormStyle>
   );
 }
+
+export default RegionBox;
