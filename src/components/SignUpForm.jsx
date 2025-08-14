@@ -1,6 +1,6 @@
 import React from "react";
 import InputBox from "./InputBox";
-import useInfoStore from "../store";
+import {useInfoStore} from "../store";
 import { FormStyle, FormStyle2 } from "./FormStyle";
 
 

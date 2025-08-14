@@ -1,7 +1,7 @@
 import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
-import useInfoStore from "../store";
+import {useInfoStore} from "../store";
 import { FormStyle, FormStyle2 } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 

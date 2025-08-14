@@ -1,5 +1,5 @@
 import React from "react";
-import useInfoStore from "../store";
+import {useInfoStore} from "../store";
 import { FormStyle } from "./FormStyle";
 
 function SignUpConsent(){
