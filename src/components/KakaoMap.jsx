@@ -1,5 +1,16 @@
 import React from "react";
+import styled from "styled-components"; 
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+
+const MapStoreName = styled.button`
+  display: flex;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #F2592A;
+  -webkit-text-fill-color: white;
+  padding: 3px 5px;
+  font-size: small;
+`
 
 function KakaoMap({ center }) {
   const [loading, error] = useKakaoLoader({
@@ -14,7 +25,7 @@ function KakaoMap({ center }) {
   return (
     <Map center={center} style={{ width: "100%", height: "100%" }} level={3}>
       <MapMarker position={center}>
-        <div style={{ padding: "5px", color: "#000" }}>검색 위치</div>
+        <MapStoreName>검색 위치</MapStoreName>
       </MapMarker>
     </Map>
   );

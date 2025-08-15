@@ -4,6 +4,7 @@ import MapSearch from "../components/MapSearch";
 import MapListBtn from "../components/MapListBtn";
 import MapSort from "../components/MapSort";
 import styled from "styled-components";
+import HomeBottomNav from "../components/HomeBottomNav";
 
 const MapContainer = styled.div`
   position: relative;
@@ -16,34 +17,12 @@ const SearchWrapper = styled.div`
   top: 30px;
   left: 23px;
   z-index: 100;
-
   display: flex;
   align-items: center;
 `;
 
-const MapSortWrapper = styled.div`
-  position: absolute;
-  top: 93px;
-  left: 23px;
-  width: 95%;
-  z-index: 100;
-  white-space: nowrap;
-  overflow-x: auto;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-
-`
-
 function MapPage() {
-  const [center, setCenter] = useState({ lat: 33.450701, lng: 126.570667 }); // 제주도 기본 위치
-
-  const handleWheel = (e) => {
-     e.currentTarget.scrollBy({
-    left: e.deltaY,
-    behavior: "smooth",
-  });
-  };
+  const [center, setCenter] = useState({ lat: 37.6042, lng: 127.0635  }); // 한국외대
 
   return (
     <MapContainer>
@@ -51,10 +30,9 @@ function MapPage() {
       <MapSearch onSearch={setCenter} />
       <MapListBtn></MapListBtn>
       </SearchWrapper>
-      <MapSortWrapper onWheel={handleWheel}>
-        <MapSort></MapSort>
-      </MapSortWrapper>
+      <MapSort></MapSort>
       <KakaoMap center={center} />
+      <HomeBottomNav />
 
     </MapContainer>
   );

@@ -1,35 +1,61 @@
 import { NavLink } from 'react-router-dom';
 
-const items = [
-    { to: '/ai', label: 'AI' },
-    { to: '/mapPage', label: 'GPS 지도' },
-    { to: '/', label: '홈' },
-    { to: '/couponbook', label: '내 쿠폰북' },
-    { to: '/mypage', label: '마이페이지' },
-];
+import aiIcon from '../assets/icons/Ai.png';
+import locationIcon from '../assets/icons/Map.png';
+import homeIcon from '../assets/icons/Home.png';
+import couponIcon from '../assets/icons/Coupon.png';
+import mypageIcon from '../assets/icons/User.png';
 
-export default function HomeBottomNav() {
+// 각 페이지로 넘어갈때 주황색으로 활성화
+import aiIconActive from '../assets/icons/Main_ai.png';
+import locationIconActive from '../assets/icons/Main_map.png';
+import homeIconActive from '../assets/icons/Main_home.png';
+import couponIconActive from '../assets/icons/Main_coupon.png';
+import mypageIconActive from '../assets/icons/Main_user.png';
+
+export default function BottomNav() {
+    const menus = [
+        { to: '/ai', label: 'AI 추천', icon: aiIcon, activeIcon: aiIconActive },
+        { to: '/stores', label: '주변 탐색', icon: locationIcon, activeIcon: locationIconActive },
+        { to: '/home', label: '홈', icon: homeIcon, activeIcon: homeIconActive },
+        { to: '/couponbook', label: '내 쿠폰북', icon: couponIcon, activeIcon: couponIconActive },
+        { to: '/mypage', label: '마이페이지', icon: mypageIcon, activeIcon: mypageIconActive },
+    ];
+
     return (
         <nav
-            className="sticky bottom-0 z-20 bg-white/95 backdrop-blur border-t
-                    pb-[max(10px,env(safe-area-inset-bottom))]"
+            className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white border-t flex justify-between items-center px-5"
+            style={{
+                width: '402px',
+                height: '76px',
+                paddingTop: '6px',
+                paddingBottom: '6px',
+                paddingLeft: '20px',
+                paddingRight: '20px',
+                gap: '10px',
+            }}
         >
-            <ul className="flex justify-around items-center gap-2 px-2 py-2">
-                {items.map((it) => (
-                    <li key={it.to}>
-                        <NavLink
-                            to={it.to}
-                            className={({ isActive }) =>
-                                `inline-flex flex-col items-center justify-center
-                 w-[72px] h-[56px] rounded-full
-                 ${isActive ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-700'}`
-                            }
-                        >
-                            <span className="text-sm">{it.label}</span>
-                        </NavLink>
-                    </li>
-                ))}
-            </ul>
+            {menus.map((menu) => (
+                <NavLink key={menu.to} to={menu.to} className="flex flex-col items-center justify-center">
+                    {({ isActive }) => (
+                        <>
+                            <img
+                                src={isActive ? menu.activeIcon : menu.icon}
+                                alt={menu.label}
+                                className="w-6 h-6 mb-1"
+                            />
+                            <span
+                                style={{
+                                    color: isActive ? '#F2592A' : '#8B6A55',
+                                    fontSize: '14px',
+                                }}
+                            >
+                                {menu.label}
+                            </span>
+                        </>
+                    )}
+                </NavLink>
+            ))}
         </nav>
     );
 }

@@ -8,9 +8,7 @@ const SearchFormStyle = styled.form`
   width: 312px;
   height: 52px;
   border-radius: 25px;
-  border-style: dashed;
-  border-width: 1px;
-  border-color: black;
+  border: 1px solid #DFDFDF;
 `;
 
 const SearchInputStyle = styled.input`
@@ -62,7 +60,7 @@ function MapSearch({ onSearch }) {
     <SearchFormStyle id="mapSearch" onSubmit={handleSearch}>
       <SearchInputStyle
         type="text"
-        placeholder="찾고 싶은 가게를 입력하세요."
+        placeholder="가게를 검색해보세요"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
       />

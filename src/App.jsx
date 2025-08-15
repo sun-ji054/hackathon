@@ -6,13 +6,17 @@ import MobileFrame from './components/MobileFrame';
 import HomePage from './pages/HomePage';
 import MycouponbookPage from './pages/MycouponbookPage';
 import MapPage from './pages/MapPage';
+import MapStorePage from './pages/MapStorePage';
+import MainLayout from './components/Layouts/MainLayout';
+import UseCouponPage from './pages/UseCouponPage';
+import CouponDetailsPage from './pages/CouponDetailsPage';
+import EarnStampsPage from './pages/EarnStampsPage';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
 const MyPage = () => <div className="p-4">마이페이지 (TODO)</div>;
-const Settings = () => <div className="p-4">설정 (TODO)</div>;
-const Notifications = () => <div className="p-4">알림 (TODO)</div>;
+
 
 export default function App() {
     return (
@@ -22,23 +26,88 @@ export default function App() {
                 <Route path="/home" element={<HomePage />} />
 
                 {/* 온보딩(수정 끝나면 사용) */}
+                {/* 하단바 포함 페이지 */}
+                <Route
+                    path="/home"
+                    element={
+                        <MainLayout>
+                            <HomePage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/ai"
+                    element={
+                        <MainLayout>
+                            <AiPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/stores"
+                    element={
+                        <MainLayout>
+                            <StoresPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/couponbook"
+                    element={
+                        <MainLayout>
+                            <MycouponbookPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/mypage"
+                    element={
+                        <MainLayout>
+                            <MyPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/usecoupon"
+                    element={
+                        <MainLayout>
+                            <UseCouponPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/coupondetails"
+                    element={
+                        <MainLayout>
+                            <CouponDetailsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/stamps"
+                    element={
+                        <MainLayout>
+                            <EarnStampsPage />
+                        </MainLayout>
+                    }
+                />
+
+                {/* 하단바 없는 페이지 */}
                 <Route path="/" element={<OnboardPage />} />
 
                 {/* 로그인 */}
                 <Route path="/loginPage" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
 
-                {/* 하단 네비 대상 페이지들 */}
-                <Route path="/ai" element={<AiPage />} />
-                <Route path="/stores" element={<StoresPage />} />
-                <Route path="/couponbook" element={<MycouponbookPage />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/mapPage" element={<MapPage />} />
-
-                {/* 기타 → 홈으로 */}
-                <Route path="*" element={<HomePage />} />
+                {/* 기타 → 홈 */}
+                <Route
+                    path="*"
+                    element={
+                        <MainLayout>
+                            <HomePage />
+                        </MainLayout>
+                    }
+                />
             </Routes>
         </MobileFrame>
     );

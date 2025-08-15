@@ -9,13 +9,13 @@ const MapListBtnStyle = styled.button`
   margin-left: 10px;
   border-radius: 50%;
   border-width: 1px;
-  border-color: #969696;
-  background-color: #DFDFDF;
+  border-color: #F2592A;
+  background-color: white;
 `
 
 function MapListBtn(){
   return(
-    <MapListBtnStyle><Link to="/MapListPage">≡</Link></MapListBtnStyle>
+    <MapListBtnStyle><Link to="/mapStorePage">≡</Link></MapListBtnStyle>
   );
 }
 
