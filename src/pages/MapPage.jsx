@@ -21,29 +21,8 @@ const SearchWrapper = styled.div`
   align-items: center;
 `;
 
-const MapSortWrapper = styled.div`
-  position: absolute;
-  top: 93px;
-  left: 23px;
-  width: 95%;
-  z-index: 100;
-  white-space: nowrap;
-  overflow-x: auto;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-
-`
-
 function MapPage() {
   const [center, setCenter] = useState({ lat: 37.6042, lng: 127.0635  }); // 한국외대
-
-  const handleWheel = (e) => {
-     e.currentTarget.scrollBy({
-    left: e.deltaY,
-    behavior: "smooth",
-  });
-  };
 
   return (
     <MapContainer>
@@ -51,9 +30,7 @@ function MapPage() {
       <MapSearch onSearch={setCenter} />
       <MapListBtn></MapListBtn>
       </SearchWrapper>
-      <MapSortWrapper onWheel={handleWheel}>
-        <MapSort></MapSort>
-      </MapSortWrapper>
+      <MapSort></MapSort>
       <KakaoMap center={center} />
       <HomeBottomNav />
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
 import OnboardHeader from "../components/OnboardHeader";
 import RegionBox from "../components/RegionBox";
-import { FormNameStyle,CenterStyle } from "../components/FormStyle";
+import { FormNameStyle,CenterStyle, SelectStyle, FormStyle2 } from "../components/FormStyle";
 import SignUpConsent from "../components/SignUpConsent";
 import InputSubmit from "../components/InputSubmit";
 
@@ -27,7 +27,8 @@ function SignUpPage() {
         <FormNameStyle>회원가입</FormNameStyle>
         <div onSubmit={handleLogin}>
           <SignUpForm></SignUpForm>
-          <RegionBox></RegionBox>
+          <p style={{marginLeft: "24px", marginBottom: "7px"}}>자주 가는 지역 선택</p>
+          <RegionBox SelectComponent={SelectStyle} FormComponent={FormStyle2}></RegionBox>
           <SignUpConsent></SignUpConsent>
           <CenterStyle>
             <InputSubmit submitName={"회원가입"}></InputSubmit>

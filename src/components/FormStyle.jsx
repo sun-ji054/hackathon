@@ -19,3 +19,13 @@ export const CenterStyle = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+/**회원가입의 지역 선택 스타일 컴포넌트 */
+export const SelectStyle = styled.select`
+  display: inline-block;
+  width: 370px;
+  height: 55px;
+  font-size: medium;
+  margin-bottom: 10px;
+  border: 1px solid black;
+`

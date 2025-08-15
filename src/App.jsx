@@ -6,6 +6,7 @@ import MobileFrame from './components/MobileFrame';
 import HomePage from './pages/HomePage';
 import MycouponbookPage from './pages/MycouponbookPage';
 import MapPage from './pages/MapPage';
+import MapStorePage from './pages/MapStorePage';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/mapPage" element={<MapPage />} />
+                <Route path="/mapStorePage" element={<MapStorePage />} />
 
                 {/* 기타 → 홈으로 */}
                 <Route path="*" element={<HomePage />} />

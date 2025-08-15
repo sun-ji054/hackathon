@@ -1,18 +1,10 @@
 import React from "react";
 import {useRegionStore} from "../store";
-import { FormStyle2, FormNameStyle } from "./FormStyle";
+import { FormStyle2, FormNameStyle, SelectStyle } from "./FormStyle";
 import styled from "styled-components";
 
-const SelectStyle = styled.select`
-  display: inline-block;
-  width: 370px;
-  height: 55px;
-  font-size: medium;
-  margin-bottom: 10px;
-  border: 1px solid black;
-`
 
-function RegionBox() {
+function RegionBox({SelectComponent = "select", FormComponent = "form"}) {
   const {
     sidoList,
     gugunList,
@@ -27,20 +19,19 @@ function RegionBox() {
 
   return (
     <>
-      <p style={{marginLeft: "24px"}}>자주 가는 지역 선택</p>
-      <FormStyle2>
+      <FormComponent>
         {/* 시/도 선택 */}
-        <SelectStyle value={sido} onChange={(e) => selectSido(e.target.value)}>
+          <SelectComponent value={sido} onChange={(e) => selectSido(e.target.value)}>
           <option value="">시/도 선택</option>
           {sidoList.map((sido) => (
             <option key={sido} value={sido}>
               {sido}
             </option>
           ))}
-        </SelectStyle>
+          </SelectComponent>
 
         {/* 구/군/시 선택 */}
-        <SelectStyle
+        <SelectComponent
           value={gugun}
           onChange={(e) => selectGugun(e.target.value)}
           disabled={!sido}
@@ -51,10 +42,10 @@ function RegionBox() {
               {gugun}
             </option>
           ))}
-        </SelectStyle>
+        </SelectComponent>
 
         {/* 동/읍/면 선택 */}
-        <SelectStyle
+        <SelectComponent
           value={dong}
           onChange={(e) => selectDong(e.target.value)}
           disabled={!gugun}
@@ -65,8 +56,8 @@ function RegionBox() {
               {dong}
             </option>
           ))}
-        </SelectStyle>
-      </FormStyle2>
+        </SelectComponent>
+      </FormComponent>
     </>
   );
 }

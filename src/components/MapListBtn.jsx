@@ -15,7 +15,7 @@ const MapListBtnStyle = styled.button`
 
 function MapListBtn(){
   return(
-    <MapListBtnStyle><Link to="/MapListPage">≡</Link></MapListBtnStyle>
+    <MapListBtnStyle><Link to="/mapStorePage">≡</Link></MapListBtnStyle>
   );
 }
 
