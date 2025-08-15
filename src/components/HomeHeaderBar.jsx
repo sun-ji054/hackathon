@@ -4,8 +4,9 @@ export default function HomeHeaderBar() {
     return (
         <header className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
             <div className="flex items-center justify-between px-4 py-3">
+                {/* logo */}
                 <Link
-                    to="/home"
+                    to="/"
                     className="inline-flex items-center justify-center w-16 h-10 border rounded-lg font-semibold"
                 >
                     logo
