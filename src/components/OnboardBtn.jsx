@@ -6,11 +6,12 @@ const OnboardBtnStyle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 1rem;
-  margin: 1rem;
-  padding: 0.8rem 1.5rem;
-  background-color: gray;
-  font-size: 0.9rem;
+  border-radius: 20px;
+  border: 1px solid #969696;
+  padding: 7px 16px;
+  margin-left: 10px;
+  background-color: #DFDFDF;
+  font-size: small;
 `
 
 

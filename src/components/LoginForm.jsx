@@ -1,8 +1,8 @@
 import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
-import useInfoStore from "../store";
-import { FormStyle, FormStyle2 } from "./FormStyle";
+import {useInfoStore} from "../store";
+import { FormStyle2, FormNameStyle } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 
 function LoginForm(){
@@ -14,16 +14,16 @@ function LoginForm(){
     try {
       console.log("성공")
       alert('로그인 성공')
-      // navigate('/home')
+      navigate('/home')
     } catch{
       console.log("실패")
     }
   } 
 
   return(
+    <>
+    <FormNameStyle>로그인</FormNameStyle>
     <FormStyle2 onSubmit={handleLogin}>
-      <FormStyle >
-        <p>로그인</p>
         <InputBox
           inputType={"email"} 
           value={email} 
@@ -37,8 +37,8 @@ function LoginForm(){
           onchange={(e) => setPassword(e.target.value)}>
         </InputBox>
         <InputSubmit submitName={"로그인"}></InputSubmit>
-      </FormStyle>
     </FormStyle2>
+    </>
   );
 }
 
