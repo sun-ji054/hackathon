@@ -1,13 +1,19 @@
 import React from "react";
+import WidthCoupon from "./WidthCoupon";
 import styled from "styled-components";
 
-const StoreBox = styled.div`
-  
+const StoreBoxStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
 `
 
 function MapStore(){
   return(
-    <p></p>
+    <StoreBoxStyle>
+      <WidthCoupon></WidthCoupon>
+    </StoreBoxStyle>
   );
 }
 

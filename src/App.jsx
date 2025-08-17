@@ -43,11 +43,11 @@ export default function App() {
                     }
                 />
                 <Route
-                    path="/stores"
+                    path="/mapPage"
                     element={
-                        <MainLayout>
-                            <StoresPage />
-                        </MainLayout>
+
+                            <MapPage />
+
                     }
                 />
                 <Route
@@ -87,6 +87,14 @@ export default function App() {
                     element={
                         <MainLayout>
                             <EarnStampsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/mapStore"
+                    element={
+                        <MainLayout>
+                            <MapStorePage />
                         </MainLayout>
                     }
                 />
