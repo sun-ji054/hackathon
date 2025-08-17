@@ -39,6 +39,12 @@ export default function HomePage() {
                 {/* 바로 검색하기 */}
                 <h3 className="text-[20px] font-semibold leading-snug pt-[12px]">바로 검색하기</h3>
                 <SearchBar />
+
+                <div className="flex justify-center "></div>
+
+                <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
+                {/* AI 추천 쿠폰 */}
+                <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
             </main>
 
             <HomeBottomNav />
