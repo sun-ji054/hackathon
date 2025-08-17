@@ -13,6 +13,11 @@ function MapStore(){
   return(
     <StoreBoxStyle>
       <WidthCoupon></WidthCoupon>
+      <WidthCoupon></WidthCoupon>
+      <WidthCoupon></WidthCoupon>
+      <WidthCoupon></WidthCoupon>
+      <WidthCoupon></WidthCoupon>
+      <WidthCoupon></WidthCoupon>
     </StoreBoxStyle>
   );
 }

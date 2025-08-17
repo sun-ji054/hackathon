@@ -1,6 +1,7 @@
 import React from "react";
 import MapSort from "../components/MapSort";
 import MapStoreHeader from "../components/MapStoreHeader";
+import HomeBottomNav from "../components/HomeBottomNav";
 import MapStore from "../components/MapStore";
 
 function MapStorePage(){
@@ -8,7 +9,10 @@ function MapStorePage(){
     <div style={{backgroundColor: '#FCFAF7', width: '100%', height:'100%'}}>
       <MapStoreHeader></MapStoreHeader>
       <MapSort></MapSort>
-      <MapStore></MapStore>
+      <div style={{flex: 1, overflowY: 'auto'}}>
+        <MapStore></MapStore>
+      </div>
+      <HomeBottomNav></HomeBottomNav>
     </div>
   );
 }

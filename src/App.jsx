@@ -11,11 +11,12 @@ import MainLayout from './components/Layouts/MainLayout';
 import UseCouponPage from './pages/UseCouponPage';
 import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
+import MyPage from './pages/MyPage';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
-const MyPage = () => <div className="p-4">마이페이지 (TODO)</div>;
+const MyPageTemp = () => <div className="p-4">마이페이지 (TODO)</div>;
 
 
 export default function App() {
@@ -94,9 +95,9 @@ export default function App() {
                 <Route
                     path="/mapStore"
                     element={
-                        <MainLayout>
+                        
                             <MapStorePage />
-                        </MainLayout>
+                        
                     }
                 />
 
