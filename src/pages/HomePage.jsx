@@ -4,7 +4,7 @@ import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line 35.png';
 import CouponCard from '../components/CouponCard';
 import SearchBar from '../components/SearchBar';
-
+import WidthCoupon from '../components/WidthCoupon';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
@@ -24,11 +24,13 @@ export default function HomePage() {
                     <HomeCard to="/stores">주변 탐색</HomeCard>
                     <HomeCard to="/couponbook">내 쿠폰북</HomeCard>
                 </section>
+
                 <div className="flex justify-center pt-[37px]"></div>
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
                 {/* 즐겨찾는 쿠폰 */}
                 <h2 className="text-[20px] font-semibold leading-snug pt-[14px]">즐겨찾는 쿠폰</h2>
+
                 {/* 쿠폰 카드 영역 */}
                 <div className="flex justify-center pt-[12px]">
                     <CouponCard />
@@ -43,8 +45,12 @@ export default function HomePage() {
                 <div className="flex justify-center "></div>
 
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
+
                 {/* AI 추천 쿠폰 */}
                 <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
+                <div className="flex justify-center ml-[2px]">
+                    <WidthCoupon />
+                </div>
             </main>
 
             <HomeBottomNav />
