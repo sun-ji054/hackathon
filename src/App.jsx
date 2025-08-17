@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import OnboardPage from "./pages/OnboardPage";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
+import OnboardPage from './pages/OnboardPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 import MobileFrame from './components/MobileFrame';
 import HomePage from './pages/HomePage';
 import MycouponbookPage from './pages/MycouponbookPage';
@@ -17,15 +17,14 @@ const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
 const MyPage = () => <div className="p-4">마이페이지 (TODO)</div>;
 
-
 export default function App() {
     return (
         <MobileFrame>
             <Routes>
+                <Route path="/" element={<OnboardPage />} />
                 {/* 홈 */}
                 <Route path="/home" element={<HomePage />} />
 
-                {/* 온보딩(수정 끝나면 사용) */}
                 {/* 하단바 포함 페이지 */}
                 <Route
                     path="/home"
