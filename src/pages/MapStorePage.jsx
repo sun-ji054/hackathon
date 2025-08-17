@@ -1,12 +1,14 @@
 import React from "react";
 import MapSort from "../components/MapSort";
 import MapStoreHeader from "../components/MapStoreHeader";
+import MapStore from "../components/MapStore";
 
 function MapStorePage(){
   return(
     <div style={{backgroundColor: '#FCFAF7', width: '100%', height:'100%'}}>
       <MapStoreHeader></MapStoreHeader>
       <MapSort></MapSort>
+      <MapStore></MapStore>
     </div>
   );
 }

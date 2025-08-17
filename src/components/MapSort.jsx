@@ -13,7 +13,7 @@ const MapSortStyle = styled.button`
   -webkit-text-fill-color: #8B6A55;
   margin-right: 6px;
 
-  ${(props) => props.first && `
+  ${(props) => props.$first && `
     background-color : #F2592A;
     border-color: #F2592A;
     -webkit-text-fill-color: #FFFFFF
@@ -45,7 +45,7 @@ function MapSort(){
    */
   return(
     <MapSortWrapper onWheel={handleWheel}>
-      <MapSortStyle first={true}>전체</MapSortStyle>
+      <MapSortStyle $first={true}>전체</MapSortStyle>
       <MapSortStyle>저장된 쿠폰</MapSortStyle>
       <MapSortStyle>카페</MapSortStyle>
       <MapSortStyle>브런치</MapSortStyle>
