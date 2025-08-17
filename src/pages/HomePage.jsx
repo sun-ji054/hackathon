@@ -5,9 +5,54 @@ import lineImg from '../assets/Line 35.png';
 import CouponCard from '../components/CouponCard';
 import SearchBar from '../components/SearchBar';
 import WidthCoupon from '../components/WidthCoupon';
+import CouponCarousel from '../components/CouponCarousel';
+
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
+    const coupons = [
+        {
+            name: '한시십일분',
+            description: '음료 10잔 마시면 1잔 무료',
+            progress: 9,
+            total: 10,
+            expire: '4개월 후 만료',
+            photo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+            name: '마루이치',
+            description: '라멘 5그릇 시 식전주 서비스',
+            progress: 2,
+            total: 5,
+            expire: '2개월 후 만료',
+            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+            name: '마루이치',
+            description: '라멘 5그릇 시 식전주 서비스',
+            progress: 2,
+            total: 5,
+            expire: '2개월 후 만료',
+            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+            name: '마루이치',
+            description: '라멘 5그릇 시 식전주 서비스',
+            progress: 2,
+            total: 5,
+            expire: '2개월 후 만료',
+            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+            name: '마루이치',
+            description: '라멘 5그릇 시 식전주 서비스',
+            progress: 2,
+            total: 5,
+            expire: '2개월 후 만료',
+            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
+        },
+    ];
+
     return (
         <div className="flex flex-col h-full">
             <HomeHeaderBar />
@@ -32,10 +77,11 @@ export default function HomePage() {
                 <h2 className="text-[20px] font-semibold leading-snug pt-[14px]">즐겨찾는 쿠폰</h2>
 
                 {/* 쿠폰 카드 영역 */}
-                <div className="flex justify-center pt-[12px]">
-                    <CouponCard />
+                <div className="pt-[12px]">
+                    <CouponCarousel coupons={coupons} />
                 </div>
-                <div className="flex justify-center "></div>
+
+                <div className="flex justify-center pt-[20px]"></div>
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
                 {/* 바로 검색하기 */}
