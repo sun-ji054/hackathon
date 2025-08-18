@@ -20,6 +20,12 @@ const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+const MapSortWrapper = styled.div`
+  position: absolute;
+  top: 93px;
+  left: 23px;
+  z-index: 100;
+`
 
 function MapPage() {
   const [center, setCenter] = useState({ lat: 37.6042, lng: 127.0635  }); // 한국외대
@@ -30,7 +36,9 @@ function MapPage() {
       <MapSearch onSearch={setCenter} />
       <MapListBtn></MapListBtn>
       </SearchWrapper>
-      <MapSort top='93px'></MapSort>
+      <MapSortWrapper>
+        <MapSort></MapSort>
+      </MapSortWrapper>
       <KakaoMap center={center} />
       <BottomNav />
 

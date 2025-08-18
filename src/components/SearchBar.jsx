@@ -2,11 +2,7 @@ import searchIcon from '../assets/icons/Search.png';
 
 export default function SearchBar({ className = '' }) {
     return (
-<<<<<<< HEAD
-        <div className="mx-auto w-[380px]">
-=======
-        <div className={`pl-4 w-[380px] ${className}`}>
->>>>>>> cfb040bb93799941b1b8501b452aaeed6d92b940
+        <div className={`mx-auto w-[380px] ${className}`}>
             <div className="flex items-center border border-[#DCDCDC] rounded-[14px] overflow-hidden bg-white h-[51px]">
                 {/* 인풋박스, api연결해야함 */}
                 <input
