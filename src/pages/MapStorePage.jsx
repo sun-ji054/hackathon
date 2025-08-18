@@ -9,6 +9,7 @@ import styled from "styled-components";
 const MapSortWrapper = styled.div`
   margin-top: 10px;
   margin-left: 23px;
+  padding-bottom: 5px;
 `
 
 function MapStorePage(){
