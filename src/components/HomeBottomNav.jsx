@@ -24,7 +24,7 @@ export default function BottomNav() {
 
     return (
         <nav
-            className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white border-t flex justify-between items-center px-5"
+            className="justify-centerh-[56px] px-[20px] bg-white border-t flex justify-between items-center px-5"
             style={{
                 width: '430px',
                 height: '76px',
