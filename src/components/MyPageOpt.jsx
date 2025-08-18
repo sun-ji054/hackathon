@@ -5,23 +5,24 @@ import arrow2 from '../assets/icons/Arrow2.png';
 const OptStyle = styled.div`
   display: flex;
   align-items: center;
-  width: 303px;
+  justify-content: space-between;
   height: 24px;
   background-color: white;
-  margin: 7px 0 3px 25px;
+  margin: 5px 0 3px 25px;
+  cursor: pointer;
+  padding-right: 30px;
 `
 const Img = styled.div`
   display: flex;
   align-items: center;
   height: 24px;
-  margin-left: 238px;
 `
 
-function MyPageOpt(){
+function MyPageOpt({text}){
   return(
     <>
       <OptStyle>
-        <p>프로필</p>
+        <p>{text}</p>
         <Img>
           <img src={arrow2} alt="버튼"></img>
         </Img>

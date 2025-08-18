@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const UnderStyle = styled.div`
-  width: 346px;
+  width: 380px;
   background-color: white;
   border: 1px solid #CFCFCF;
   border-top: 1px dotted #CFCFCF;

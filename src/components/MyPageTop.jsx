@@ -5,7 +5,7 @@ import arrow_org from "../assets/icons/Arrow_org.png";
 
 const TopStyle = styled.div`
   display: flex;
-  width: 346px;
+  width: 380px;
   background-color: white;
   border: 1px solid #CFCFCF;
   border-bottom: none;
@@ -24,7 +24,8 @@ const Logout = styled.div`
   display: flex;
   align-items: center;
   height: 24px;
-  margin: 12px 3px 0 50px;
+  margin: 12px 3px 0 80px;
+  cursor: pointer;
 `
 
 function MyPageTop(){
