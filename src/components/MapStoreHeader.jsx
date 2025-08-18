@@ -7,6 +7,7 @@ const MapStoreStyle = styled.header`
   width: 100%;
   height: 64px;
   background-color:#FCF9F7;
+  margin-bottom: 5px;
 `
 
 function MapStoreHeader(){

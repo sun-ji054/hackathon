@@ -6,7 +6,7 @@ const StoreBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 55px;
 `
 
 function MapStore(){

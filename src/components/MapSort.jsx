@@ -19,9 +19,12 @@ const MapSortStyle = styled.button`
     -webkit-text-fill-color: #FFFFFF
   `}
 `
+/**storePage지에 sort까지 스크롤바가 생김. absolute라서 흐름에 포함 안돼서 그럼. 
+ * 아예 position을 바꿀지, sort 배경에 색을 추가할 지 고민
+*/
 const MapSortWrapper = styled.div`
   position: absolute;
-  top: 93px;
+  top: ${(props) => props.top};
   left: 23px;
   width: 95%;
   z-index: 10;
@@ -32,7 +35,7 @@ const MapSortWrapper = styled.div`
   }
 `
 
-function MapSort(){
+function MapSort({top}){
   const handleWheel = (e) => {
      e.currentTarget.scrollBy({
     left: e.deltaY,
@@ -44,7 +47,7 @@ function MapSort(){
    * todo 데이터 불러와서 연결
    */
   return(
-    <MapSortWrapper onWheel={handleWheel}>
+    <MapSortWrapper top={top} onWheel={handleWheel}>
       <MapSortStyle $first={true}>전체</MapSortStyle>
       <MapSortStyle>저장된 쿠폰</MapSortStyle>
       <MapSortStyle>카페</MapSortStyle>

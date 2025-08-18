@@ -4,7 +4,7 @@ import MapSearch from "../components/MapSearch";
 import MapListBtn from "../components/MapListBtn";
 import MapSort from "../components/MapSort";
 import styled from "styled-components";
-import HomeBottomNav from "../components/HomeBottomNav";
+import BottomNav from "../components/HomeBottomNav";
 
 const MapContainer = styled.div`
   position: relative;
@@ -30,9 +30,9 @@ function MapPage() {
       <MapSearch onSearch={setCenter} />
       <MapListBtn></MapListBtn>
       </SearchWrapper>
-      <MapSort></MapSort>
+      <MapSort top='93px'></MapSort>
       <KakaoMap center={center} />
-      <HomeBottomNav />
+      <BottomNav />
 
     </MapContainer>
   );
