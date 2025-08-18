@@ -62,7 +62,9 @@ function KakaoMap({ center }) {
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
-      <KaKaoStore></KaKaoStore>
+      <div style={{display:'flex', justifyContent:'center'}}>
+        <KaKaoStore></KaKaoStore>
+      </div>
     </div>
   );
 }
