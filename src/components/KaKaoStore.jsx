@@ -29,7 +29,6 @@ const TextBox = styled.div`
   flex-direction: column;
   gap: 3px;
 `
-
 const StoreName =styled.p`
   width: 153px;
   height: 24px;
@@ -59,8 +58,8 @@ const X = styled.div`
 const BoxImg = styled.img`
   display: block;
   height: auto;
-  width: auto;           // 원본 크기 유지
-  max-height: 24px;      // 너무 크면 박스 안 넘지 않도록 제한 (원본 크기만큼은 보장)
+  width: auto; 
+  max-height: 24px; 
 `;
 const Box = styled.div`
   display: flex;
