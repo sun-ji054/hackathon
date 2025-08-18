@@ -1,33 +1,69 @@
-import React from "react";
-import styled from "styled-components"; 
-import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
-
-const MapStoreName = styled.button`
-  display: flex;
-  text-align: center;
-  border-radius: 8px;
-  background-color: #F2592A;
-  -webkit-text-fill-color: white;
-  padding: 3px 5px;
-  font-size: small;
-`
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import KaKaoStore from "./KaKaoStore";
+import { useMapStore } from "../store";
 
 function KakaoMap({ center }) {
-  const [loading, error] = useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAOMAP_KEY,
-    libraries: ["services", "clusterer"],
-  });
+  const mapRef = useRef(null); /**{current: null} */
+  const { setSelectedStore } = useMapStore();
 
-  if (error)
-    return <div>지도 로딩 중 오류 발생: {error.message}</div>;
-  if (loading) return <div>지도 로딩 중...</div>;
+  useEffect(() => {
+    // 렌더링 될 때 실행되는 코드
+    const script = document.createElement("script");
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAOMAP_KEY}&autoload=false`;
+    script.async = true;
+
+    script.onload = () => {
+      window.kakao.maps.load(() => {
+        const container = mapRef.current;
+        const options = {
+          center: new window.kakao.maps.LatLng(center.lat, center.lng),
+          level: 3,
+        };
+        const map = new window.kakao.maps.Map(container, options);
+
+        // 가게 데이터 예시
+        const stores = [
+          {
+            id: 1,
+            name: "🍔 햄버거 가게",
+            desc: "맛있는 수제버거 전문점",
+            position: { lat: center.lat, lng: center.lng },
+          },
+          {
+            id: 2,
+            name: "☕ 카페 B",
+            desc: "아메리카노가 맛있는 카페",
+            position: { lat: center.lat + 0.001, lng: center.lng + 0.001 },
+          },
+        ];
+
+
+        stores.forEach((store) => {
+          const marker = new window.kakao.maps.Marker({
+            position: new window.kakao.maps.LatLng(
+              store.position.lat,
+              store.position.lng
+            ),
+            map,
+          });
+
+          // 마커 클릭 이벤트
+          window.kakao.maps.event.addListener(marker, "click", () => {
+            setSelectedStore(store);
+          });
+        });
+      });
+    };
+
+    document.head.appendChild(script);
+  }, [center, setSelectedStore]);
 
   return (
-    <Map center={center} style={{ width: "100%", height: "100%" }} level={3}>
-      <MapMarker position={center}>
-        <MapStoreName>검색 위치</MapStoreName>
-      </MapMarker>
-    </Map>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+      <KaKaoStore></KaKaoStore>
+    </div>
   );
 }
 
