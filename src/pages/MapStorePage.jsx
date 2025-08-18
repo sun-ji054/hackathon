@@ -20,7 +20,7 @@ function MapStorePage(){
       <MapSortWrapper>
         <MapSort></MapSort>
       </MapSortWrapper>
-      <div style={{flex: 1, overflowY: 'auto', height: '500px'}}>
+      <div style={{flex: 1, overflowY: 'auto', height: '495px'}}>
         <MapStore></MapStore>
       </div>
       <HomeBottomNav></HomeBottomNav>
