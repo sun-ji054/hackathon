@@ -6,7 +6,7 @@ import MyPageUnder from "../components/MyPageUnder";
 import MyPageTop from "../components/MyPageTop";
 
 function MyPage(){
-const {name} = useInfoStore();
+// const {name} = useInfoStore();
 
   return(
     <div>
