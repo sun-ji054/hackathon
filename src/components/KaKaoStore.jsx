@@ -104,7 +104,7 @@ function KaKaoStore() {
         </X>
         </Top>
         <TextBox>
-          <StoreName>도란도란곱창</StoreName>
+          <StoreName>{selectedStore.name}</StoreName>
           <Time>매일 15:00 - 02:00</Time>
           <Benefit>4회 방문하면 볶음밥 무료!</Benefit>
         </TextBox>
