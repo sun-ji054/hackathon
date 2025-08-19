@@ -18,7 +18,7 @@ const SignUp = styled.p`
 
 function LoginPage(){
   return(
-    <div style={{backgroundColor:'#FCFAF7'}}>
+    <div style={{backgroundColor:'#FCFAF7', height: '100%'}}>
       <Logo></Logo>
       <LoginForm></LoginForm>
       <div style={{display:'flex', justifyContent:'center'}}>

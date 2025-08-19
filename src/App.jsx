@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import OnboardPage from './pages/OnboardPage';
+
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import MobileFrame from './components/MobileFrame';
@@ -22,7 +22,7 @@ export default function App() {
     return (
         <MobileFrame>
             <Routes>
-                <Route path="/" element={<OnboardPage />} />
+                
                 {/* 홈 */}
                 <Route path="/home" element={<HomePage />} />
 
@@ -101,10 +101,10 @@ export default function App() {
                 />
 
                 {/* 하단바 없는 페이지 */}
-                <Route path="/" element={<OnboardPage />} />
+                
 
                 {/* 로그인 */}
-                <Route path="/loginPage" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
 
                 {/* 기타 → 홈 */}
