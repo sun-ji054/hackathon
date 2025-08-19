@@ -5,7 +5,7 @@ import KakaoMarker from "./KaKaoMarker";
 
 function KakaoMap({ center }) {
   const mapRef = useRef(null);
-  const { setSelectedStore } = useMapStore();
+  const { selectedStore, setSelectedStore } = useMapStore();
   const [map, setMap] = useState(null);
 
   // Kakao map 로딩
@@ -34,7 +34,7 @@ function KakaoMap({ center }) {
   const stores = [
     {
       id: 1,
-      name: "햄버거 가게",
+      name: "도란도란곱창",
       desc: "맛있는 수제버거 전문점",
       position: { lat: center.lat, lng: center.lng },
     },
@@ -57,6 +57,7 @@ function KakaoMap({ center }) {
             key={store.id}
             map={map}
             store={store}
+            isActive={selectedStore?.id === store.id}
             onClick={setSelectedStore} //클릭하면 store가 클릭한 가게로 바뀜
           />
         ))}
