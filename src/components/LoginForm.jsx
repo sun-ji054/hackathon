@@ -27,13 +27,13 @@ function LoginForm(){
         <InputBox
           inputType={"email"} 
           value={email} 
-          placeholder={"이메일"}
+          placeholder={"아이디나 닉네임을 입력하세요"}
           onchange={(e) => setEmail(e.target.value)}>
         </InputBox>
         <InputBox 
           inputType={"password"} 
           value={password} 
-          placeholder={"비밀번호"}
+          placeholder={"비밀번호를 입력하세요"}
           onchange={(e) => setPassword(e.target.value)}>
         </InputBox>
         <InputSubmit submitName={"로그인"}></InputSubmit>
