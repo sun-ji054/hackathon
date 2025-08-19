@@ -15,16 +15,13 @@ import MyPage from './pages/MyPage';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
-const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
-const MyPageTemp = () => <div className="p-4">마이페이지 (TODO)</div>;
 
 export default function App() {
     return (
         <MobileFrame>
             <Routes>
+                {/* 온보딩 */}
                 <Route path="/" element={<OnboardPage />} />
-                {/* 홈 */}
-                <Route path="/home" element={<HomePage />} />
 
                 {/* 하단바 포함 페이지 */}
                 <Route
@@ -43,14 +40,7 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/mapPage"
-                    element={
-
-                            <MapPage />
-
-                    }
-                />
+                <Route path="/mapPage" element={<MapPage />} />
                 <Route
                     path="/couponbook"
                     element={
@@ -91,19 +81,9 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/mapStore"
-                    element={
-                        
-                            <MapStorePage />
-                        
-                    }
-                />
+                <Route path="/mapStore" element={<MapStorePage />} />
 
                 {/* 하단바 없는 페이지 */}
-                <Route path="/" element={<OnboardPage />} />
-
-                {/* 로그인 */}
                 <Route path="/loginPage" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
 

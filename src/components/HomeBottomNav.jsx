@@ -33,7 +33,7 @@ export default function BottomNav() {
                 paddingLeft: '20px',
                 paddingRight: '20px',
                 gap: '10px',
-                zIndex: '100'
+                zIndex: '100',
             }}
         >
             {menus.map((menu) => (
