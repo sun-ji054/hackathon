@@ -2,6 +2,7 @@ import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
 import CloseIcon from '../assets/icons/Close_LG.png';
+import CouponCard from '../components/CouponCard';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -25,8 +26,7 @@ export default function CouponDetailsPage() {
                     <p className="text-[16px] font-medium leading-snug">스탬프 현황을 볼 수 있어요.</p>
                 </div>
 
-                {/* 메인 스크롤 영역 */}
-                <main className="flex-1 overflow-y-auto px-4 py-4 space-y-4">{/* TODO: 상세 쿠폰 내용 */}</main>
+                <CouponCard name="라스트오더" progress={3} total={10} photo="https://picsum.photos/200/150" />
 
                 <StoreInfoCard />
 

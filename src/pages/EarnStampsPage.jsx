@@ -4,6 +4,7 @@ import Line from '../assets/icons/StampLine.png';
 
 import CloseIcon from '../assets/icons/Close_LG.png';
 import PreviousIcon from '../assets/icons/Arrow_Left_LG.png';
+import ThumbsupIcon from '../assets/icons/Success.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function EarnStampsPage() {
@@ -21,7 +22,7 @@ export default function EarnStampsPage() {
                     src={CloseIcon}
                     alt="close"
                     className="w-[20px] h-[20px] cursor-pointer"
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate('/couponbook')}
                 />
             </div>
 
@@ -33,9 +34,10 @@ export default function EarnStampsPage() {
 
             {/* 메인 영역 */}
             <main className="flex-1 overflow-y-auto px-4 py-4">
-                <div className="bg-[#FCFAF7] rounded-3xl w-[311px] h-[151px] mx-auto mt-5 shadow-md p-5">
+                <div className="bg-[#FCFAF7] rounded-3xl w-[330px] h-[155px] mx-auto mt-5 shadow-md p-5">
                     <div className="flex justify-end mt-[14px]"></div>
                 </div>
+                <img src={ThumbsupIcon} alt="success" className="w-[208px] h-[208px] mx-auto mt-[40px]" />
             </main>
 
             {/* 하단바 */}

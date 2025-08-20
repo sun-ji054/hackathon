@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://서버주소/api', // 백엔드 주소로 교체
+    baseURL: 'https://hufs-likelion.store',
     withCredentials: true,
 });
 
