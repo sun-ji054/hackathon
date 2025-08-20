@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
-import OnboardHeader from "../components/OnboardHeader";
+import SignUpForm2 from "../components/SignUpForm2";
+import SignUpBack from "../components/SignUpBack";
 import RegionBox from "../components/RegionBox";
-import { FormNameStyle,CenterStyle, SelectStyle, FormStyle3 } from "../components/FormStyle";
-import SignUpConsent from "../components/SignUpConsent";
+import { FormNameStyle2, CenterStyle, SelectStyle, FormStyle3, Subheading, Subheading2 } from "../components/FormStyle";
+
 import InputSubmit from "../components/InputSubmit";
 import { signUp } from "../api/AuthApi";
+import styled from "styled-components";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -29,16 +31,17 @@ function SignUpPage() {
 
   return(
     <>
-      <OnboardHeader></OnboardHeader>
-      <div style={{height:"640px", overflowY: "auto" }}>
-        <FormNameStyle>회원가입</FormNameStyle>
+
+      <div style={{backgroundColor:'#FCFAF7', height: '100%', overflowY: "auto" }}>
+        <SignUpBack></SignUpBack>
+        <FormNameStyle2>회원가입</FormNameStyle2>
         <form onSubmit={handleSignUp}>
           <SignUpForm></SignUpForm>
-          <p style={{marginLeft: "24px", marginBottom: "7px"}}>자주 가는 지역 선택</p>
+          <SignUpForm2></SignUpForm2>
+          <Subheading2>자주 가는 지역 선택</Subheading2>
           <RegionBox SelectComponent={SelectStyle} FormComponent={FormStyle3}></RegionBox>
-          <SignUpConsent></SignUpConsent>
           <CenterStyle>
-            <InputSubmit submitName={"회원가입"}></InputSubmit>
+            <InputSubmit submitName={"가입하기"}></InputSubmit>
           </CenterStyle>
         </form>
       </div>
