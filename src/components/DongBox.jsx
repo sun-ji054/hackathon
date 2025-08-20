@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocationStore } from "../store/locationStore";
+import { useLocationStore } from "../store/useLocationStore";
 import RegionBox from "./RegionBox";
 import styled from "styled-components";
 import { Wrapper, DongShow, Dropdown, SelectedDong } from "./DongBoxStyle";

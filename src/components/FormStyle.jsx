@@ -8,6 +8,13 @@ export const FormStyle2 = styled.form`
   justify-content: center;
   margin-bottom: 17px;
 `
+export const FormStyle3 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 17px;
+`
 export const FormNameStyle = styled.p`
   display: inline-block;
   margin: 30px auto 10px 24px;

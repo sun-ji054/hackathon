@@ -1,10 +1,8 @@
 import React from "react";
-import { useLocationStore } from "../store/locationStore";
-import { FormStyle2, FormNameStyle, SelectStyle } from "./FormStyle";
-import styled from "styled-components";
+import { useLocationStore } from "../store/useLocationStore";
 
 
-function RegionBox({SelectComponent = "select", FormComponent = "form"}) {
+function RegionBox({SelectComponent = "select", FormComponent = "div"}) {
   const {
     provinceList,
     cityList,
@@ -21,7 +19,7 @@ function RegionBox({SelectComponent = "select", FormComponent = "form"}) {
     <>
       <FormComponent>
         {/* 시/도 선택 */}
-          <SelectComponent value={province} onChange={(e) => selectProvince(e.target.value)}>
+          <SelectComponent value={province || ''} onChange={(e) => selectProvince(e.target.value)}>
           <option value="">시/도 선택</option>
           {provinceList.map((province) => (
             <option key={province} value={province}>
@@ -32,7 +30,7 @@ function RegionBox({SelectComponent = "select", FormComponent = "form"}) {
 
         {/* 구/군/시 선택 */}
         <SelectComponent
-          value={city}
+          value={city || ''}
           onChange={(e) => selectCity(e.target.value)}
           disabled={!province}
         >
@@ -46,7 +44,7 @@ function RegionBox({SelectComponent = "select", FormComponent = "form"}) {
 
         {/* 동/읍/면 선택 */}
         <SelectComponent
-          value={district}
+          value={district || ''}
           onChange={(e) => selectDistrict(e.target.value)}
           disabled={!city}
         >

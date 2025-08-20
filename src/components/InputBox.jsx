@@ -11,7 +11,7 @@ const InputBoxStyle = styled.input`
   border-radius: 14px;
 `
 
-function InputBox({inputType, placeholder, value, onchange}) {
+function InputBox({inputType, placeholder, value, onChange}) {
 
 
   return(
@@ -19,7 +19,7 @@ function InputBox({inputType, placeholder, value, onchange}) {
       type={inputType}
       placeholder={placeholder} 
       value={value}
-      onChange={onchange}>
+      onChange={onChange}>
 
     </InputBoxStyle>
   );

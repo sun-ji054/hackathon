@@ -1,9 +1,11 @@
 import {api} from './Api';
 import {userInfoStore} from '../store/userInfoStore';
+import { useLocationStore } from '../store/useLocationStore';
 
 //회원가입
 export const signUp = async () => {
-  const {username, email, password, phone, province, city, district} = userInfoStore.getState();
+  const {username, email, password, phone} = userInfoStore.getState();
+  const {province, city, district} = useLocationStore.getState();
 
   try {
     const response = await api.post("/accounts/auth/register/customer/", {
@@ -11,12 +13,18 @@ export const signUp = async () => {
       email,
       password,
       phone,
-      province,
-      city,
-      district
+      favorite_locations: [
+        {
+          province,
+          city,
+          district,
+        }
+      ]
     });
+    console.log(response.data)
     return response.data;
   } catch (error) {
+    console.error("회원가입 실패:", error.response?.data || error.message);
     return null;
   }
 };
@@ -26,10 +34,11 @@ export const login = async () => {
   const {identifier, password} = userInfoStore.getState();
 
   try {
-    const response = await api.post("/accounts/auth/login", {
+    const response = await api.post("/accounts/auth/login/", {
       identifier,
       password
     });
+    
 
     if (response.data && response.data.access) {
       localStorage.setItem('token', response.data.access);

@@ -2,9 +2,10 @@ import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
 import {userInfoStore} from "../store/userInfoStore";
-import { FormStyle2, FormNameStyle } from "./FormStyle";
+import { FormStyle2,FormNameStyle } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 import {login} from "../api/AuthApi";
+import styled from "styled-components";
 
 function LoginForm(){
   const { identifier, password, setIdentifier , setPassword } = userInfoStore();
@@ -29,13 +30,13 @@ function LoginForm(){
           inputType={"text"} 
           value={identifier} 
           placeholder={"아이디나 닉네임을 입력하세요"}
-          onchange={(e) => setIdentifier(e.target.identifier)}>
+          onChange={(e) => setIdentifier(e.target.value)}>
         </InputBox>
         <InputBox 
           inputType={"password"} 
           value={password} 
           placeholder={"비밀번호를 입력하세요"}
-          onchange={(e) => setPassword(e.target.value)}>
+          onChange={(e) => setPassword(e.target.value)}>
         </InputBox>
         <InputSubmit submitName={"로그인"}></InputSubmit>
     </FormStyle2>
