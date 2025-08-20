@@ -1,34 +1,35 @@
 import React from "react";
 import InputBox from "./InputBox";
 import InputSubmit from "./InputSubmit";
-import {useInfoStore} from "../store";
+import {userInfoStore} from "../store/userInfoStore";
 import { FormStyle2, FormNameStyle } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
+import {login} from "../api/AuthApi";
 
 function LoginForm(){
-  const { email, password, setEmail, setPassword } = useInfoStore();
+  const { identifier, password, setIdentifier , setPassword } = userInfoStore();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      console.log("성공")
-      alert('로그인 성공')
-      navigate('/home')
-    } catch{
-      console.log("실패")
+    const response = await login();
+    if (response) {
+      alert("로그인 성공");
+      navigate("/home");
+    } else {
+      alert("로그인 실패");
     }
-  } 
+  };
 
   return(
     <>
     <FormNameStyle>로그인</FormNameStyle>
     <FormStyle2 onSubmit={handleLogin}>
         <InputBox
-          inputType={"email"} 
-          value={email} 
+          inputType={"text"} 
+          value={identifier} 
           placeholder={"아이디나 닉네임을 입력하세요"}
-          onchange={(e) => setEmail(e.target.value)}>
+          onchange={(e) => setIdentifier(e.target.identifier)}>
         </InputBox>
         <InputBox 
           inputType={"password"} 

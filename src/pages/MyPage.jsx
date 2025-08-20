@@ -1,6 +1,6 @@
 import React from "react";
 import HomeHeaderBar from "../components/HomeHeaderBar";
-import { useInfoStore } from "../store";
+import { userInfoStore } from "../store/userInfoStore";
 import MyPageOpt from "../components/MyPageOpt";
 import MyPageUnder from "../components/MyPageUnder";
 import MyPageTop from "../components/MyPageTop";
