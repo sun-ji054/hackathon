@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import KaKaoStore from "./KaKaoStore";
-import { useMapStore } from "../store";
+import { useMapStore } from "../store/useMapStore";
+import { useCouponStore } from "../store/useCouponStore";
 import KakaoMarker from "./KaKaoMarker";
 
 function KakaoMap({ center }) {
   const mapRef = useRef(null);
   const { selectedStore, setSelectedStore } = useMapStore();
+  const { coupons, fetchCoupons } = useCouponStore();
   const [map, setMap] = useState(null);
+
 
   // Kakao map 로딩
   useEffect(() => {
@@ -28,23 +31,19 @@ function KakaoMap({ center }) {
     };
 
     document.head.appendChild(script); //script dom에 추가
-  }, [center]); //center 바뀔 때 
+  }, []);
 
-  // 가게 데이터 예시
-  const stores = [
-    {
-      id: 1,
-      name: "도란도란곱창",
-      desc: "맛있는 수제버거 전문점",
-      position: { lat: center.lat, lng: center.lng },
-    },
-    {
-      id: 2,
-      name: "카페 B",
-      desc: "아메리카노가 맛있는 카페",
-      position: { lat: center.lat + 0.001, lng: center.lng + 0.001 },
-    },
-  ];
+  useEffect(() => {
+  if (map) {
+    const moveLatLng = new window.kakao.maps.LatLng(center.lat, center.lng);
+    map.panTo(moveLatLng); // 부드럽게 이동
+  }
+}, [center, map]);
+
+  // 쿠폰 데이터 가져오기
+  useEffect(() => {
+    fetchCoupons();
+  },[fetchCoupons]);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
@@ -52,15 +51,23 @@ function KakaoMap({ center }) {
 
       {/* 마커 렌더링 */}
       {map &&
-        stores.map((store) => (
-          <KakaoMarker
-            key={store.id}
-            map={map}
-            store={store}
-            isActive={selectedStore?.id === store.id}
-            onClick={setSelectedStore} //클릭하면 store가 클릭한 가게로 바뀜
-          />
-        ))}
+        coupons.map((coupon) => {
+          const store = {
+            ...coupon,
+            id: coupon.id,
+            name: coupon.place.name,
+            position: { lat: parseFloat(coupon.place.lat), lng: parseFloat(coupon.place.lng) },
+          };
+          return (
+            <KakaoMarker
+              key={store.id}
+              map={map}
+              store={store}
+              isActive={selectedStore?.id === store.id}
+              onClick={setSelectedStore}
+            />
+          );
+        })}
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <KaKaoStore />
