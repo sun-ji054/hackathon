@@ -5,6 +5,7 @@ import ThumbsupIcon from '../assets/icons/Success.png';
 import CloseIcon from '../assets/icons/Close_LG.png';
 import PreviousIcon from '../assets/icons/Arrow_Left_LG.png';
 import { useNavigate } from 'react-router-dom';
+import AddStamps from '../components/AddStamps';
 
 export default function EarnStampsPage() {
     const navigate = useNavigate();
@@ -31,15 +32,12 @@ export default function EarnStampsPage() {
                 <p className="text-[16px] leading-snug">새로운 스탬프가 추가되었어요.</p>
             </div>
 
-            {/* 메인 영역 */}
-            <main className="flex-1 overflow-y-auto px-4 py-4">
-                <div className="bg-[#FCFAF7] rounded-3xl w-[311px] h-[151px] mx-auto mt-5 shadow-md p-5">
-                    <div className="flex justify-end mt-[14px]"></div>
-                </div>
-                <div className="flex justify-center mt-6">
-                    <img src={ThumbsupIcon} alt="Success" className="w-[210px] h-[210px]" />
-                </div>
-            </main>
+            {/* 쿠폰 */}
+            <AddStamps />
+
+            <div className="flex justify-center mt-7">
+                <img src={ThumbsupIcon} alt="Success" className="w-[210px] h-[210px]" />
+            </div>
 
             {/* 하단바 */}
             <HomeBottomNav />
