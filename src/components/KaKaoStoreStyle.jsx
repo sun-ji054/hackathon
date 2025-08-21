@@ -27,7 +27,8 @@ export const TextBox = styled.div`
   gap: 3px;
 `
 export const StoreName =styled.p`
-  width: 153px;
+display: inline-block;
+  width: auto;
   height: 24px;
   font-size: 20px;
   font-weight: 600;
