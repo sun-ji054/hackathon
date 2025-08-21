@@ -32,36 +32,35 @@ function KakaoMarker({ map, store, isActive, onClick }) {
   useEffect(() => {
   if (!map || !window.kakao) return;
 
-  const markerId = `marker-${store.id}`;
+  const el = document.createElement("div");
+  el.style.cssText = `
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:#F2592A;
+    color:white;
+    font-size:12px;
+    font-weight:600;
+    padding:8px 12px;
+    border-radius:16px;
+    cursor:pointer;
+  `;
+  el.innerText = store.name;
+
+  // 클릭 이벤트 연결
+  el.addEventListener("click", () => {
+    if (onClick) onClick(store);
+  });
+
   const overlay = new window.kakao.maps.CustomOverlay({
     position: new window.kakao.maps.LatLng(store.position.lat, store.position.lng),
     yAnchor: 1,
+    content: el,
     map,
-    clickable: true,
   });
 
-  const updateContent = () => {
-    const content = ReactDOMServer.renderToString(
-      <MarkerBox id={markerId} className={isActive ? "active" : ""}>
-        {store.name}
-      </MarkerBox>
-    );
-    overlay.setContent(content);
-  };
-
-  updateContent(); // 처음 content 설정
-
-  setTimeout(() => {
-    const el = document.getElementById(markerId);
-    if (el) {
-      el.addEventListener("click", () => {
-        if (onClick) onClick(store);
-      });
-    }
-  }, 0);
-
   return () => overlay.setMap(null);
-}, [map, store, onClick, isActive]);
+}, [map, store, onClick]);
 
 
 }
