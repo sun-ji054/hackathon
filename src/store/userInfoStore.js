@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 
+
 export const userInfoStore = create((set) => ({
+  id: null,
   identifier: '',
   username: '',
   email: '',
@@ -15,4 +17,6 @@ export const userInfoStore = create((set) => ({
   setPhone: (phone) => set({ phone }),
   setAgree: () => set((state) => ({ agree: !state.agree })),
 
+  setUserInfo: ({id,username, email}) =>
+    set({id, username, email})
 }))

@@ -2,7 +2,7 @@ import React from "react";
 import { useLocationStore } from "../store/useLocationStore";
 
 
-function RegionBox({SelectComponent = "select", FormComponent = "div"}) {
+function RegionBox({onSelectDong, SelectComponent = "select", FormComponent = "div"}) {
   const {
     provinceList,
     cityList,
@@ -14,6 +14,12 @@ function RegionBox({SelectComponent = "select", FormComponent = "div"}) {
     selectCity,
     selectDistrict,
   } = useLocationStore();
+
+  const handleDistrictChange = (e) => {
+    const value = e.target.value;
+    selectDistrict(value); 
+    if (onSelectDong) onSelectDong(value);
+  };
 
   return (
     <>
@@ -45,7 +51,7 @@ function RegionBox({SelectComponent = "select", FormComponent = "div"}) {
         {/* 동/읍/면 선택 */}
         <SelectComponent
           value={district || ''}
-          onChange={(e) => selectDistrict(e.target.value)}
+          onChange={handleDistrictChange}
           disabled={!city}
         >
           <option value="">동/읍/면 선택</option>

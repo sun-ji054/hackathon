@@ -1,17 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocationStore } from "../store/useLocationStore";
 import RegionBox from "./RegionBox";
-import styled from "styled-components";
 import { Wrapper, DongShow, Dropdown, SelectedDong } from "./DongBoxStyle";
 import arrow from "../assets/icons/Arrow.png";
 
 
 function DongBox() {
-  /**처음에 불러올 때는 '자주 가는 지역'의 '동'을 불러와야 하니까 쓰지만 사용자 맞춤 동도 필요할 듯 */
-  /**아니면 사용자 맞춤 동이라는 변수 만들고 처음은 자주 가는 지역의 동과 똑같이 설정 -> 수정 */
-  const { district, setDistrict} = useLocationStore();
+  const { district: globalDistrict} = useLocationStore();
+  const [ customDistrict, setCustomDistrict ] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    if (globalDistrict) {
+      setCustomDistrict(globalDistrict);
+    }
+  },[globalDistrict]);
 
   // 바깥 클릭 감지
   useEffect(() => {
@@ -26,8 +30,8 @@ function DongBox() {
 
    // 동 선택 시 실행될 함수
    /**이렇게 되면 '자주 가는 지역'에서 선택한 동이 바뀌어버림 */
-  const handleSelectDong = (districtName) => {
-    setDistrict(districtName); 
+  const handleSelectDong = (customDistrict) => {
+    setCustomDistrict(customDistrict); 
     setIsOpen(false);
   };
 
@@ -35,7 +39,7 @@ function DongBox() {
     <Wrapper ref={wrapperRef}>
       <SelectedDong onClick={() => setIsOpen(!isOpen)}>
         <DongShow>
-        {district || "동 선택"}
+        {customDistrict || "동 선택"}
         </DongShow>
         <img src={arrow} alt="버튼"></img>
       </SelectedDong>

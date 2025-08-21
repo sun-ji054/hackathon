@@ -39,11 +39,29 @@ export const login = async () => {
       password
     });
     
-
     if (response.data && response.data.access) {
       localStorage.setItem('token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
     };
+
+    const meRes = await api.get('/accounts/auth/me/',{
+      headers: { Authorization: `Bearer ${response.data.access}` }
+    });
+
+    const meData = meRes.data;
+
+    userInfoStore.getState().setUserInfo({
+      id: meData.id,
+      username: meData.username,
+      email: meData.email
+    });
+    if (meData.favorite_locations && meData.favorite_locations.length > 0) {
+      const favLocation = meData.favorite_locations[0];
+      
+      useLocationStore.getState().selectProvince(favLocation.province);
+      useLocationStore.getState().selectCity(favLocation.city);
+      useLocationStore.getState().selectDistrict(favLocation.district);
+    }
 
     console.log("로그인 성공:", response.data);
     return response.data;

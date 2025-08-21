@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 import { api } from '../api/Api';
+import { persist } from 'zustand/middleware';
 
-export const useLocationStore = create((set) => ({
+export const useLocationStore = create(
+  persist(
+  (set) => ({
   // 서버에서 받아온 원본 데이터
   locations: [],
 
@@ -22,7 +25,6 @@ export const useLocationStore = create((set) => ({
         locations: data,
         provinceList: Object.keys(data),
       });
-
     } catch (error) {
       console.error("지역 데이터 가져오기 실패:", error);
     }
@@ -45,4 +47,7 @@ export const useLocationStore = create((set) => ({
     })),
 
   selectDistrict: (district) => set({ district }),
+}),{
+  name: 'useLocationStorage',
+  partialize: (state) => ({district: state.district})
 }));
