@@ -39,7 +39,10 @@ export default function UseCouponPage() {
                     <p className="text-[16px] leading-[15px] text-black">영수증의 거래번호를 입력하세요.</p>
                     <SearchBarNon className="pt-4" />
                     <div className="flex justify-end mt-[14px]">
-                        <button className="w-[140px] h-[44px] rounded-[10px] border-4 border-[#F2592A] bg-white text-[#F2592A] font-bold text-[17px] shadow-sm">
+                        <button
+                            className="w-[140px] h-[44px] rounded-[10px] border-4 border-[#F2592A] bg-white text-[#F2592A] font-bold text-[17px] shadow-sm"
+                            onClick={() => navigate('/stamps')}
+                        >
                             스탬프 찍기
                         </button>
                     </div>

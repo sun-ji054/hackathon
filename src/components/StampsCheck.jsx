@@ -1,17 +1,26 @@
-import { Star, Trash2, Check } from 'lucide-react';
+import { Star, Trash2 } from 'lucide-react';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
-export default function StampsCheck({ className = '' }) {
+export default function StampsCheck({ className = '', onClick }) {
     const total = 10; // 총 스탬프 개수
     const used = 9; // 찍힌 스탬프 개수
 
+    const handleCardClick = (e) => {
+        if (typeof onClick === 'function') onClick(e);
+    };
+    const stop = (e) => e.stopPropagation();
+
     return (
         <div className="flex justify-center items-center bg-[#F2592A]">
+            {/* 카드 전체를 클릭 가능한 영역으로 */}
             <div
-                className={`relative bg-[#FCFAF7] rounded-3xl shadow-xl w-[320px] overflow-hidden mx-auto ${className}`}
+                onClick={handleCardClick}
+                className={`relative cursor-pointer bg-[#FCFAF7] rounded-3xl shadow-xl w-[320px] overflow-hidden mx-auto ${className}`}
+                role="button"
+                tabIndex={0}
             >
-                {/* 가게 이미지 */}
+                {/* 가게 이미지 영역 */}
                 <div className="relative z-10 h-[450px]">
                     <img
                         src="https://picsum.photos/400/300"
@@ -19,12 +28,12 @@ export default function StampsCheck({ className = '' }) {
                         className="w-full h-full object-cover rounded-3xl"
                     />
 
-                    {/* 우상단 버튼 */}
+                    {/* 우상단 버튼 (상위 클릭 전파 방지) */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2">
-                        <button className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
+                        <button onClick={stop} className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
                             <Star className="w-5 h-5 text-[#F2592A]" />
                         </button>
-                        <button className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
+                        <button onClick={stop} className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
                             <Trash2 className="w-5 h-5 text-[#F2592A]" />
                         </button>
                     </div>
@@ -50,10 +59,9 @@ export default function StampsCheck({ className = '' }) {
                     </div>
                 </div>
 
-                {/* 스탬프 리스트 (점선 박스) */}
-
+                {/* 스탬프 리스트 */}
                 <div className="relative -mt-[14px] px-2 pb-2 z-0">
-                    <div className="rounded-b-[20px] rounded-t-none border-2 border-dashed border-[#8B6A55] border-t-transparent p-5">
+                    <div className="rounded-b-[20px] rounded-t-none border-2 border-dashed border-[#8B6A55] border-t-transparent p-5 bg-[#FCFAF7]">
                         <div className="grid grid-cols-5 gap-3 pt-2">
                             {Array.from({ length: total }).map((_, i) => (
                                 <div key={i} className="w-12 h-12 mx-auto">
