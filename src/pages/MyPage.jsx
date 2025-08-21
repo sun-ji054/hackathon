@@ -33,10 +33,6 @@ const Text2 =styled.p`
 function MyPage(){
   const {username} = userInfoStore();
 
-  useEffect(() => {
-    userInfoStore.persist.rehydrate();
-  })
-
   return(
     <Background>
       <HomeHeaderBar></HomeHeaderBar>
