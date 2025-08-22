@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
 import HomeHeaderBar from "../components/HomeHeaderBar";
-import { userInfoStore } from "../store/userInfoStore";
+import {userInfoStore} from "../store/userInfoStore";
 import MyPageOpt from "../components/MyPageOpt";
 import MyPageUnder from "../components/MyPageUnder";
 import MyPageTop from "../components/MyPageTop";
@@ -31,12 +31,12 @@ const Text2 =styled.p`
   font-weight: medium;
 `
 function MyPage(){
-// const {name} = useInfoStore();
+  const {username} = userInfoStore();
 
   return(
     <Background>
       <HomeHeaderBar></HomeHeaderBar>
-      <Text>홍길동님의 마이페이지</Text>
+      <Text>{username}님의 마이페이지</Text>
       <Text2>프로필을 수정할 수 있어요.</Text2>
 
       <SelectBox>
@@ -66,5 +66,3 @@ function MyPage(){
 }
 
 export default MyPage;
-
-/**홍길동 자리에 {username} 넣기 */

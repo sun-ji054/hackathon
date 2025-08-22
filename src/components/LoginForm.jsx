@@ -5,7 +5,6 @@ import {userInfoStore} from "../store/userInfoStore";
 import { FormStyle2,FormNameStyle } from "./FormStyle";
 import { useNavigate } from "react-router-dom"
 import {login} from "../api/AuthApi";
-import styled from "styled-components";
 
 function LoginForm(){
   const { identifier, password, setIdentifier , setPassword } = userInfoStore();

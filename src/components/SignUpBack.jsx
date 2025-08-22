@@ -18,16 +18,24 @@ const BackText = styled.p`
   font-weight: 500;
   -webkit-text-fill-color: #8B6A55;
 `
+const BackLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+`;
+
 
 function SignUpBack(){
   return(
     <BackBox>
-      <BackIcon src={backArrow} alt="뒤로"></BackIcon>
-      <Link to={'/'}>
+      <BackLink to={'/'}>
+        <BackIcon src={backArrow} alt="뒤로" />
         <BackText>로그인으로 돌아가기</BackText>
-      </Link>
+      </BackLink>
     </BackBox>
   );
 }
+
 
 export default SignUpBack;

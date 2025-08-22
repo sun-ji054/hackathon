@@ -3,6 +3,7 @@ import KaKaoStore from "./KaKaoStore";
 import { useMapStore } from "../store/useMapStore";
 import { useCouponStore } from "../store/useCouponStore";
 import KakaoMarker from "./KaKaoMarker";
+import KakaoNowMarker from "./KakaoNowMarker";
 
 function KakaoMap({ center }) {
   const mapRef = useRef(null);
@@ -56,7 +57,10 @@ function KakaoMap({ center }) {
             ...coupon,
             id: coupon.id,
             name: coupon.place.name,
-            position: { lat: parseFloat(coupon.place.lat), lng: parseFloat(coupon.place.lng) },
+            position: {
+              lat: parseFloat(coupon.place.lat),
+              lng: parseFloat(coupon.place.lng),
+            },
           };
           return (
             <KakaoMarker
@@ -68,6 +72,8 @@ function KakaoMap({ center }) {
             />
           );
         })}
+
+      {map && <KakaoNowMarker map={map} />}
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <KaKaoStore />
