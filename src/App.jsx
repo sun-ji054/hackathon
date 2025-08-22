@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import MobileFrame from './components/MobileFrame';
@@ -12,21 +12,21 @@ import UseCouponPage from './pages/UseCouponPage';
 import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
-import { useLocationStore } from "./store/useLocationStore";
+
+import { useLocationStore } from './store/useLocationStore';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
-const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
-const MyPageTemp = () => <div className="p-4">마이페이지 (TODO)</div>;
 
 export default function App() {
     const fetchLocations = useLocationStore((state) => state.fetchLocations);
-    useEffect(() => {fetchLocations();}, [fetchLocations]);
-    
+    useEffect(() => {
+        fetchLocations();
+    }, [fetchLocations]);
+
     return (
         <MobileFrame>
             <Routes>
-                
                 {/* 홈 */}
                 <Route path="/home" element={<HomePage />} />
 
@@ -47,14 +47,7 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/mapPage"
-                    element={
-
-                            <MapPage />
-
-                    }
-                />
+                <Route path="/mapPage" element={<MapPage />} />
                 <Route
                     path="/couponbook"
                     element={
@@ -95,17 +88,9 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/mapStore"
-                    element={
-                        
-                            <MapStorePage />
-                        
-                    }
-                />
+                <Route path="/mapStore" element={<MapStorePage />} />
 
                 {/* 하단바 없는 페이지 */}
-                
 
                 {/* 로그인 */}
                 <Route path="/" element={<LoginPage />} />

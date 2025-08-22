@@ -1,11 +1,12 @@
-import HomeHeaderBar from '../components/HomeHeaderBar';
+import CouponbookHeaderBar from '../components/CouponbookHeaderBar';
 import HomeBottomNav from '../components/HomeBottomNav';
 import CouponCarousel from '../components/CouponCarousel';
-import lineImg from '../assets/Line 35.png';
+import lineImg from '../assets/Line-35.png';
 import CouponStats from '../components/CouponStats';
 import SearchBar from '../components/SearchBar';
 import MapSort from '../components/MapSort';
 import WidthCoupon from '../components/WidthCoupon';
+
 export default function MycouponbookPage() {
     const coupons = [
         {
@@ -36,7 +37,7 @@ export default function MycouponbookPage() {
 
     return (
         <div className="flex flex-col h-full bg-[#FCF9F7]">
-            <HomeHeaderBar />
+            <CouponbookHeaderBar />
             <main className="flex-1 overflow-y-auto px-4 py-4 pt-[40px]">
                 {/* 내 쿠폰북 */}
                 <section className="text-left space-y-1">
@@ -69,7 +70,7 @@ export default function MycouponbookPage() {
                 </div>
 
                 <div className="flex justify-center mt-[14px]">
-                    <WidthCoupon />
+                    <WidthCoupon className="pb-20" />
                 </div>
             </main>
         </div>
