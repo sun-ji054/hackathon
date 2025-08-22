@@ -49,8 +49,7 @@ function MapSort() {
             <MapSortStyle>카페</MapSortStyle>
             <MapSortStyle>브런치</MapSortStyle>
             <MapSortStyle>음식점</MapSortStyle>
-            <MapSortStyle>음식점</MapSortStyle>
-            <MapSortStyle>음식점</MapSortStyle>
+            <MapSortStyle>현재 영업 중</MapSortStyle>
         </MapSortWrapper>
     );
 }

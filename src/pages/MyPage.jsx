@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import HomeHeaderBar from "../components/HomeHeaderBar";
 import {userInfoStore} from "../store/userInfoStore";
 import MyPageOpt from "../components/MyPageOpt";
@@ -6,6 +6,7 @@ import MyPageUnder from "../components/MyPageUnder";
 import MyPageTop from "../components/MyPageTop";
 import MyPageTop2 from "../components/MyPageTop2";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Background = styled.div`
   background-color: #FCFAF7;
@@ -43,8 +44,10 @@ function MyPage(){
         <div style={{marginBottom:'20px'}}>
           <MyPageTop></MyPageTop>
           <MyPageUnder>
-            <div style={{margin:'15px 0 15px 0'}}>
-              <MyPageOpt text='프로필'></MyPageOpt>
+        <div style={{margin:'15px 0 15px 0'}}>
+        <Link to='/profilePage'>
+          <MyPageOpt text='프로필'></MyPageOpt>
+        </Link>
               <MyPageOpt text='아이디/비밀번호 변경'></MyPageOpt>
               <MyPageOpt text='회원 탈퇴'></MyPageOpt>
             </div>

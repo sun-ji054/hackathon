@@ -14,6 +14,7 @@ import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
 
 import { useLocationStore } from './store/useLocationStore';
+import ProfilePage from './pages/ProfilePage';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
@@ -85,6 +86,14 @@ export default function App() {
                     element={
                         <MainLayout>
                             <EarnStampsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/profilePage"
+                    element={
+                        <MainLayout>
+                            <ProfilePage />
                         </MainLayout>
                     }
                 />
