@@ -29,7 +29,3 @@ function MapStorePage(){
 }
 
 export default MapStorePage;
-
-/**
- * todo 언니 검색 컴포넌트 받아서 헤더와 sort 사이에 넣기
- */
