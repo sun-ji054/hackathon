@@ -1,9 +1,10 @@
 import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import Line from '../assets/icons/StampLine.png';
-import ThumbsupIcon from '../assets/icons/Success.png';
+
 import CloseIcon from '../assets/icons/Close_LG.png';
 import PreviousIcon from '../assets/icons/Arrow_Left_LG.png';
+import ThumbsupIcon from '../assets/icons/Success.png';
 import { useNavigate } from 'react-router-dom';
 import AddStamps from '../components/AddStamps';
 
@@ -22,7 +23,7 @@ export default function EarnStampsPage() {
                     src={CloseIcon}
                     alt="close"
                     className="w-[20px] h-[20px] cursor-pointer"
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate('/couponbook')}
                 />
             </div>
 

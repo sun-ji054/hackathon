@@ -22,7 +22,7 @@ export default function UseCouponPage() {
                     src={CloseIcon}
                     alt="close"
                     className="w-[20px] h-[20px] cursor-pointer"
-                    onClick={() => navigate('/coupondetails')}
+                    onClick={() => navigate('/couponbook')}
                 />
             </div>
 
@@ -38,6 +38,7 @@ export default function UseCouponPage() {
                     <h2 className="text-[20px] font-bold text-black">영수증 번호</h2>
                     <p className="text-[16px] leading-[15px] text-black">영수증의 거래번호를 입력하세요.</p>
                     <SearchBarNon className="pt-4" />
+
                     <div className="flex justify-end mt-[14px]">
                         <button
                             className="w-[140px] h-[44px] rounded-[10px] border-4 border-[#F2592A] bg-white text-[#F2592A] font-bold text-[17px] shadow-sm"
