@@ -1,4 +1,4 @@
-import api from '../api/Api';
+import { api } from './Api';
 import { userInfoStore } from '../store/userInfoStore';
 import { useLocationStore } from '../store/useLocationStore';
 
