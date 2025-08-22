@@ -1,7 +1,7 @@
 import HomeHeaderBar from '../components/HomeHeaderBar';
 import HomeCard from '../components/HomeCard';
 import HomeBottomNav from '../components/HomeBottomNav';
-import lineImg from '../assets/Line 35.png';
+import lineImg from '../assets/Line-35.png';
 import CouponCard from '../components/CouponCard';
 import SearchBar from '../components/SearchBar';
 import WidthCoupon from '../components/WidthCoupon';
@@ -71,7 +71,7 @@ export default function HomePage() {
 
                 <section className="flex justify-center gap-3 pt-[21px]">
                     <HomeCard to="/ai">AI 추천</HomeCard>
-                    <HomeCard to="/stores">주변 탐색</HomeCard>
+                    <HomeCard to="/mapPage">주변 탐색</HomeCard>
                     <HomeCard to="/couponbook">내 쿠폰북</HomeCard>
                 </section>
 
@@ -100,7 +100,9 @@ export default function HomePage() {
                 {/* AI 추천 쿠폰 */}
                 <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
                 <div className="flex justify-center ml-[2px]">
-                    <WidthCoupon/>
+
+                    <WidthCoupon className="pb-20" />
+
                 </div>
             </main>
 

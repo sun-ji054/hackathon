@@ -1,14 +1,25 @@
-// 백 로직에 맞게 다시 설정해야 함. 지금은 dummy임
+import { useNavigate } from 'react-router-dom';
+
 const CouponCard = ({ name, description, progress, total, expire, photo }) => {
     const percentage = (progress / total) * 100;
+    const navigate = useNavigate();
 
     return (
-        <div className="w-full h-[348px] bg-white rounded-[20px] shadow-md overflow-hidden relative flex flex-col">
+        <div
+            onClick={() => navigate('/coupondetails')}
+            className="w-full h-[348px] bg-white rounded-[20px] shadow-md overflow-hidden relative flex flex-col cursor-pointer"
+        >
             {/* 배경 사진 */}
             {photo && <img src={photo} alt={name} className="w-full h-[180px] object-cover" />}
 
             {/* 오른쪽 상단 버튼 */}
-            <button className="absolute top-4 right-4 border border-[#F2592A] font-bold text-[#F2592A] text-[12px] rounded-full px-2 py-1 bg-white">
+            <button
+                onClick={(e) => {
+                    e.stopPropagation(); // 카드 클릭과 분리
+                    alert('스탬프 찍기 버튼 눌림!');
+                }}
+                className="absolute top-4 right-4 border border-[#F2592A] font-bold text-[#F2592A] text-[12px] rounded-full px-2 py-1 bg-white"
+            >
                 스탬프 찍기
             </button>
 
@@ -33,4 +44,5 @@ const CouponCard = ({ name, description, progress, total, expire, photo }) => {
         </div>
     );
 };
+
 export default CouponCard;
