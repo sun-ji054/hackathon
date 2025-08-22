@@ -65,7 +65,7 @@ export default function HomePage() {
             {/* 본문 */}
             <main className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-[#FCF9F7] pt-[110px]">
                 <section className="text-left space-y-1">
-                    <h1 className="text-[24px] font-bold leading-snug ">반가워요, {username}님!</h1>
+                    <h1 className="text-[24px] font-bold leading-snug ">반가워요, {username || '익명'}님!</h1>
                     <p className="text-[16px] font-mediup leading-sung ">오늘도 새로운 스탬프를 모아보세요.</p>
                 </section>
 

@@ -70,3 +70,34 @@ export const login = async () => {
     return null;
   }
 };
+
+//로그아웃
+export const logout = async () => {
+  try {
+    const accessToken = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    if (!accessToken || !refreshToken) {
+      console.warn("토큰이 존재하지 않습니다.");
+      return;
+    }
+
+    const response = await api.post(
+      '/accounts/auth/logout/',
+      { refresh_token: refreshToken },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+
+    console.log("로그아웃 성공:", response.data);
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+
+    userInfoStore.persist?.clearStorage();
+    useLocationStore.persist?.clearStorage();
+
+    console.log('로그아웃 성공');
+  }catch (error) {
+    console.error('로그아웃 실패:', error);
+  }
+};

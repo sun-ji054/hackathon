@@ -36,7 +36,7 @@ function MyPage(){
   return(
     <Background>
       <HomeHeaderBar></HomeHeaderBar>
-      <Text>{username}님의 마이페이지</Text>
+      <Text>{username || '익명'}님의 마이페이지</Text>
       <Text2>프로필을 수정할 수 있어요.</Text2>
 
       <SelectBox>
