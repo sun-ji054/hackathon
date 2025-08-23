@@ -31,11 +31,11 @@ export const signUp = async () => {
 
 //로그인
 export const login = async () => {
-    const { identifier, password } = userInfoStore.getState();
+    const { username,email, password } = userInfoStore.getState();
 
     try {
         const response = await api.post('/accounts/auth/login/', {
-            identifier,
+            identifier: username || email,
             password,
         });
 

@@ -5,14 +5,14 @@ export const userInfoStore = create(
   persist(
     (set) => ({
       id: null,
-      identifier: '',
+      // identifier: '',
       username: '',
       email: '',
       password: '',
       phone: '',
       agree: false,
 
-      setIdentifier: (identifier) => set({ identifier }),
+      // setIdentifier: (identifier) => set({ identifier }),
       setUsername: (username) => set({ username }),
       setEmail: (email) => set({ email }),
       setPassword: (password) => set({ password }),

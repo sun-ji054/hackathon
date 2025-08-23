@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import {login} from "../api/AuthApi";
 
 function LoginForm(){
-  const { identifier, password, setIdentifier , setPassword } = userInfoStore();
+  const { username, password, setUsername , setPassword } = userInfoStore();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -27,9 +27,9 @@ function LoginForm(){
     <FormStyle2 onSubmit={handleLogin}>
         <InputBox
           inputType={"text"} 
-          value={identifier} 
+          value={username} 
           placeholder={"아이디나 닉네임을 입력하세요"}
-          onChange={(e) => setIdentifier(e.target.value)}>
+          onChange={(e) => setUsername(e.target.value)}>
         </InputBox>
         <InputBox 
           inputType={"password"} 
