@@ -12,6 +12,7 @@ import UseCouponPage from './pages/UseCouponPage';
 import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
+import DeactivePage from './pages/DeactivatePage';
 
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
@@ -103,6 +104,14 @@ export default function App() {
                     element={
                         <MainLayout>
                             <MyPage_ID />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/deactivePage"
+                    element={
+                        <MainLayout>
+                            <DeactivePage />
                         </MainLayout>
                     }
                 />

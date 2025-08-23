@@ -31,20 +31,27 @@ export const useLocationStore = create(
             },
 
             selectProvince: (province) =>
-                set((state) => ({
-                    province,
-                    cityList: province ? Object.keys(state.locations[province] || {}) : [],
-                    city: '',
-                    districtList: [],
-                    district: '',
-                })),
+                set((state) => {
+                    const cityData = state.locations?.[province];
+                    return {
+                        province,
+                        cityList: province ? Object.keys(cityData || {}) : [],
+                        city: '',
+                        districtList: [],
+                        district: '',
+                    };
+                }),
 
             selectCity: (city) =>
-                set((state) => ({
-                    city,
-                    districtList: state.province && city ? state.locations[state.province][city] || [] : [],
-                    district: '',
-                })),
+                set((state) => {
+                    const provinceData = state.locations?.[state.province];
+                    return {
+                        city,
+                        districtList: provinceData?.[city] || [],
+                        district: '',
+                    };
+                }),
+
 
             selectDistrict: (district) => set({ district }),
         }),

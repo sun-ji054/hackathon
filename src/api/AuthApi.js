@@ -74,7 +74,7 @@ export const login = async () => {
 //로그아웃
 export const logout = async () => {
     try {
-        const accessToken = localStorage.getItem('token');
+        const accessToken = localStorage.getItem('access_token');
         const refreshToken = localStorage.getItem('refresh_token');
 
         if (!accessToken || !refreshToken) {
@@ -90,7 +90,7 @@ export const logout = async () => {
 
         console.log('로그아웃 성공:', response.data);
 
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
         userInfoStore.persist?.clearStorage();

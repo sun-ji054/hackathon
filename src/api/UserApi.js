@@ -21,3 +21,16 @@ export const updateProfile = async (updateData) => {
   }
 };
 
+//회원탈퇴
+export const deactivate = async () => {
+  const {password} = userInfoStore();
+
+  try{
+    const response = await api.delete('accounts/deactivate', password);
+
+    console.log(response.data);
+} catch(error) {
+  console.error(error)
+}
+};
+
