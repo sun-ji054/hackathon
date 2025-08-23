@@ -6,21 +6,18 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
-    if (
-      config.url === '/accounts/auth/register/customer/' ||
-      config.url === '/accounts/auth/login/'
-    ) {
-      delete config.headers.Authorization;
-      return config;
-    }
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (err) => Promise.reject(err)
+    (config) => {
+        if (config.url === '/accounts/auth/register/customer/' || config.url === '/accounts/auth/login/') {
+            delete config.headers.Authorization;
+            return config;
+        }
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (err) => Promise.reject(err)
 );
 
 api.interceptors.response.use(
