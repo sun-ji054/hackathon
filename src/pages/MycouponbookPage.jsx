@@ -1,3 +1,5 @@
+// src/pages/MycouponbookPage.jsx
+import { useEffect } from 'react';
 import CouponbookHeaderBar from '../components/CouponbookHeaderBar';
 import HomeBottomNav from '../components/HomeBottomNav';
 import CouponCarousel from '../components/CouponCarousel';
@@ -7,33 +9,25 @@ import SearchBar from '../components/SearchBar';
 import MapSort from '../components/MapSort';
 import WidthCoupon from '../components/WidthCoupon';
 
+// 스토어들
+import couponStatsStore from '../store/couponStatsStore';
+import favoriteCouponsStore from '../store/favoriteCouponsStore';
+
 export default function MycouponbookPage() {
-    const coupons = [
-        {
-            name: '한시십일분',
-            description: '음료 10잔 마시면 1잔 무료',
-            progress: 9,
-            total: 10,
-            expire: '4개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-    ];
+    // 내 쿠폰북 ID(=stats.id) 확보
+    const { stats, fetchStats } = couponStatsStore();
+    // 즐겨찾기 목록
+    const { items: favoriteCoupons, loading: favLoading, error: favError, fetchFavorites } = favoriteCouponsStore();
+
+    // 쿠폰북 ID 없으면 한 번 가져오기 (이미 다른 곳에서 가져오고 있으면 중복 호출돼도 문제 없음)
+    useEffect(() => {
+        if (!stats?.id) fetchStats();
+    }, [stats?.id, fetchStats]);
+
+    // 쿠폰북 ID가 생기면 즐겨찾기 조회
+    useEffect(() => {
+        if (stats?.id) fetchFavorites(stats.id);
+    }, [stats?.id, fetchFavorites]);
 
     return (
         <div className="flex flex-col h-full bg-[#FCF9F7]">
@@ -47,22 +41,31 @@ export default function MycouponbookPage() {
 
                 <CouponStats className="mt-[21px]" />
 
-                {/* 라인 이미지 */}
-                <div className="flex justify-center pt-[20px]"></div>
+                {/* 라인 */}
+                <div className="flex justify-center pt-[20px]" />
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
                 {/* 즐겨찾는 쿠폰 */}
                 <h2 className="text-[20px] font-semibold leading-snug pt-[23px]">즐겨찾기</h2>
                 <p className="text-[16px] font-mediup leading-[30px] ">자주 가는 장소의 쿠폰들</p>
-                {/* 쿠폰 카드 영역 */}
+
                 <div className="pt-[23px]">
-                    <CouponCarousel coupons={coupons} />
+                    {favLoading ? (
+                        <p>불러오는 중...</p>
+                    ) : favError ? (
+                        <p className="text-red-500">{favError}</p>
+                    ) : favoriteCoupons.length === 0 ? (
+                        <p className="text-[#8B6A55]">즐겨찾기한 쿠폰이 없습니다.</p>
+                    ) : (
+                        <CouponCarousel coupons={favoriteCoupons} />
+                    )}
                 </div>
-                {/* 라인 이미지 */}
-                <div className="flex justify-center pt-[20px]"></div>
+
+                {/* 라인 */}
+                <div className="flex justify-center pt-[20px]" />
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
-                {/* 저장한 모든 쿠폰 */}
+                {/* 저장한 모든 쿠폰 (기존 그대로) */}
                 <h3 className="text-[20px] font-semibold leading-snug pt-[23px] ">저장한 모든 쿠폰</h3>
                 <SearchBar className="pt-[23px] " />
                 <div className="ml-[17px] mt-[10px]">
@@ -73,6 +76,7 @@ export default function MycouponbookPage() {
                     <WidthCoupon className="pb-20" />
                 </div>
             </main>
+            <HomeBottomNav />
         </div>
     );
 }
