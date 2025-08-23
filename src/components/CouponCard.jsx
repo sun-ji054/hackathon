@@ -16,7 +16,7 @@ const CouponCard = ({ name, description, progress, total, expire, photo }) => {
             <button
                 onClick={(e) => {
                     e.stopPropagation(); // 카드 클릭과 분리
-                    navigate('/usecoupon');
+                    navigate('/usecoupon', { state: { couponId } });
                 }}
                 className="absolute top-4 right-4 border border-[#F2592A] font-bold text-[#F2592A] text-[12px] rounded-full px-2 py-1 bg-white"
             >
