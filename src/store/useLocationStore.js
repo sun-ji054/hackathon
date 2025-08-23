@@ -26,7 +26,7 @@ export const useLocationStore = create(
                         provinceList: Object.keys(data),
                     });
                 } catch (error) {
-                    console.error('지역 데이터 가져오기 실패:', error);
+                    console.log('지역 데이터 가져오기 실패:', error.response?.data);
                 }
             },
 

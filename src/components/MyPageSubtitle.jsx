@@ -5,6 +5,7 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 600;
   margin: 10px 0 6px 26px;
+  align-self: flex-start;
 `
 
 function MyPageSubtitle({subtitle}){

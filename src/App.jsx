@@ -15,6 +15,7 @@ import MyPage from './pages/MyPage';
 
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
+import MyPage_ID from './pages/MyPage_ID';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
@@ -94,6 +95,14 @@ export default function App() {
                     element={
                         <MainLayout>
                             <ProfilePage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/myPage_ID"
+                    element={
+                        <MainLayout>
+                            <MyPage_ID />
                         </MainLayout>
                     }
                 />

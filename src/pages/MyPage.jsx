@@ -48,8 +48,10 @@ function MyPage(){
         <Link to='/profilePage'>
           <MyPageOpt text='프로필'></MyPageOpt>
         </Link>
-              <MyPageOpt text='아이디/비밀번호 변경'></MyPageOpt>
-              <MyPageOpt text='회원 탈퇴'></MyPageOpt>
+        <Link to='/myPage_ID'>
+           <MyPageOpt text='아이디/비밀번호 변경'></MyPageOpt>
+        </Link>
+            <MyPageOpt text='회원 탈퇴'></MyPageOpt>
             </div>
         </MyPageUnder>
 
