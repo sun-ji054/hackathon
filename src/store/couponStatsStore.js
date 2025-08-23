@@ -11,7 +11,7 @@ const initialStats = {
 
 const CREATE_ENDPOINT = '/couponbook/';
 
-const useCouponStatsStore = create((set) => ({
+const couponStatsStore = create((set) => ({
     stats: initialStats,
     loading: false,
     error: null,
@@ -59,4 +59,4 @@ const useCouponStatsStore = create((set) => ({
     },
 }));
 
-export default useCouponStatsStore;
+export default couponStatsStore;

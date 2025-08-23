@@ -26,9 +26,8 @@ function KaKaoStore() {
         </Top>
         <TextBox>
           <StoreName>{place.name}</StoreName>
-          <Time>{place.opens_at} - {place.closes_at}</Time>
-          <Benefit>{selectedStore.reward_info.amount}회 방문하면{" "}
-            {selectedStore.reward_info.reward}</Benefit>
+          <Time>매일 {place.opens_at} - {place.closes_at}</Time>
+          <Benefit>{selectedStore.reward_info.reward}</Benefit>
         </TextBox>
       </div>
     </StoreInfoBox>

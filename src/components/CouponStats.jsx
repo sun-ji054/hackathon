@@ -17,7 +17,7 @@ export default function CouponStats({ className = '' }) {
             style={{ width: '360px', height: '90px' }}
         >
             <div className="flex-1 text-center relative">
-                <p className="text-[#F2592A] font-bold text-2xl">{stats.favorite_coupons ?? 0}</p>
+                <p className="text-[#F2592A] font-bold text-2xl">{stats.favorite_counts ?? 0}</p>
                 <p className="text-[#8B6A55] text-[16px]">즐겨찾기</p>
                 <img
                     src={lineImg}

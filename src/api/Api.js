@@ -1,37 +1,26 @@
-// src/api/Api.js
 import axios from 'axios';
 
 export const api = axios.create({
     baseURL: 'https://hufs-likelion.store',
     headers: { 'Content-Type': 'application/json' },
-    // 쿠키 인증을 쓴다면 다음 줄 주석 해제
-    // withCredentials: true,
 });
 
-// 인증이 필요없는 엔드포인트
-const AUTH_WHITELIST = ['/accounts/auth/register/customer/', '/accounts/auth/login/', '/accounts/auth/refresh/'];
-
 api.interceptors.request.use(
-    (config) => {
-        // 헤더 안전 초기화
-        config.headers = config.headers || {};
-
-        const url = config.url || '';
-
-        // 화이트리스트는 Authorization 제거
-        if (AUTH_WHITELIST.some((p) => url.endsWith(p))) {
-            delete config.headers.Authorization;
-            return config;
-        }
-        const token = localStorage.getItem('access_token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        } else {
-            delete config.headers.Authorization;
-        }
-        return config;
-    },
-    (err) => Promise.reject(err)
+  (config) => {
+    if (
+      config.url === '/accounts/auth/register/customer/' ||
+      config.url === '/accounts/auth/login/'
+    ) {
+      delete config.headers.Authorization;
+      return config;
+    }
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (err) => Promise.reject(err)
 );
 
 api.interceptors.response.use(
@@ -70,6 +59,3 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default api;
-export { api };
