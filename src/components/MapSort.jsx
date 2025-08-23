@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCouponStore } from '../store/useCouponStore';
 import styled from 'styled-components';
 
 const MapSortStyle = styled.button`
@@ -31,7 +32,15 @@ const MapSortWrapper = styled.div`
     }
 `;
 
+const TAGS = ['전체', '저장된 쿠폰', '카페', '브런치', '음식점', '현재 영업 중'];
+
 function MapSort() {
+    const { selectedTag, setSelectedTag, fetchCoupons } = useCouponStore();
+
+    useEffect(() => {
+        fetchCoupons();
+    },[]);
+
     const handleWheel = (e) => {
         e.currentTarget.scrollBy({
             left: e.deltaY,
@@ -39,18 +48,18 @@ function MapSort() {
         });
     };
 
-    /**
-     * todo 데이터 불러와서 연결
-     */
     return (
         <MapSortWrapper onWheel={handleWheel}>
-            <MapSortStyle $first={true}>전체</MapSortStyle>
-            <MapSortStyle>저장된 쿠폰</MapSortStyle>
-            <MapSortStyle>카페</MapSortStyle>
-            <MapSortStyle>브런치</MapSortStyle>
-            <MapSortStyle>음식점</MapSortStyle>
-            <MapSortStyle>현재 영업 중</MapSortStyle>
-        </MapSortWrapper>
+            {TAGS.map((tag) => (
+        <MapSortStyle
+        key={tag}
+        $first={selectedTag === tag}
+        onClick={() => setSelectedTag(tag)}
+        >
+        {tag}
+        </MapSortStyle>
+    ))}
+    </MapSortWrapper>
     );
 }
 

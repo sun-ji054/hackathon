@@ -8,7 +8,8 @@ import KakaoNowMarker from './KakaoNowMarker';
 function KakaoMap({ center }) {
     const mapRef = useRef(null);
     const { selectedStore, setSelectedStore } = useMapStore();
-    const { coupons, fetchCoupons } = useCouponStore();
+    const { fetchCoupons, filteredCoupons } = useCouponStore();
+    const coupons = filteredCoupons();
     const [map, setMap] = useState(null);
 
     // Kakao map 로딩

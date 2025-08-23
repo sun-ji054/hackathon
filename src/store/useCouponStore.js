@@ -6,6 +6,7 @@ export const useCouponStore = create((set) => ({
     coupons: [],
     loading: false,
     error: null,
+    selectedTag: '전체',
 
     fetchCoupons: async () => {
         set({ loading: true, error: null });
@@ -16,4 +17,11 @@ export const useCouponStore = create((set) => ({
             set({ error: error.message, loading: false });
         }
     },
+
+    setSelectedTag: (tag) => set({selectedTag: tag}),
+    filteredCoupons: () => {
+        const state = useCouponStore.getState();
+        if (state.selectedTag === '전체') return state.coupons;
+        return state.coupons.filter(c => c.tags?.includes(state.selectedTag));
+    }
 }));

@@ -53,14 +53,14 @@ function WidthCoupon({ coupon }) {
     return (
         <div>
             <StoreStyle>
-                <PhotoStyle src={place.img_url} alt="가게img"></PhotoStyle>
+                <PhotoStyle src={place.image_url} alt="가게img"></PhotoStyle>
                 <TextBox>
                     <StoreName>{place.name}</StoreName>
                     <Time>
-                        {place.opens_at} - {place.closes_at}
+                        매일 {place.opens_at} - {place.closes_at}
                     </Time>
                     <Benefit>
-                        {reward_info.amount}회 방문하면 {reward_info.reward}{' '}
+                        {reward_info.reward}
                     </Benefit>
                     <Num>선착순 {first_n_persons}명</Num>
                 </TextBox>

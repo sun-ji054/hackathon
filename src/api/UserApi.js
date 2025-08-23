@@ -23,14 +23,18 @@ export const updateProfile = async (updateData) => {
 
 //회원탈퇴
 export const deactivate = async () => {
-  const {password} = userInfoStore();
+  const {password} = userInfoStore.getState();
 
   try{
-    const response = await api.delete('accounts/deactivate', password);
+    const response = await api.delete('accounts/deactivate', {
+      data: { password }
+    });
 
-    console.log(response.data);
+    console.log("회원 탈퇴 성공:", response.data);
+    return response.data;
 } catch(error) {
-  console.error(error)
+  console.error("회원 탈퇴 실패", error.response?.data || error.message);
+  return null;
 }
 };
 
