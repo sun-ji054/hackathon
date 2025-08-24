@@ -1,3 +1,4 @@
+// "저장한 모든 쿠폰" 정보 담긴 스토어임 //
 import { create } from 'zustand';
 import { api } from '../api/Api';
 
