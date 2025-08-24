@@ -22,7 +22,7 @@ export default function UseCouponPage() {
         })() ??
         null;
 
-    const { registerStamp, loading } = registerStampsStore();
+    const { registerStamp, loading, error } = registerStampsStore();
 
     const handleStamp = async () => {
         // SearchBarNon 내부 input 값을 DOM에서 그대로 읽음 (모양/컴포넌트 수정 X)
@@ -43,9 +43,8 @@ export default function UseCouponPage() {
         }
 
         const ok = await registerStamp(couponId, receiptNumber); // POST /couponbook/coupons/{couponId}/stamps/
-        if (ok) {
-            navigate('/stamps');
-        }
+        if (ok) navigate('/stamps');
+        else if (error) alert(error); // ← 서버 에러 보여주기
     };
 
     return (
