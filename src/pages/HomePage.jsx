@@ -55,8 +55,7 @@ export default function HomePage() {
         },
     ];
 
-    const {username} = userInfoStore();
-    
+    const { username } = userInfoStore();
 
     return (
         <div className="flex flex-col h-full">
@@ -100,9 +99,7 @@ export default function HomePage() {
                 {/* AI 추천 쿠폰 */}
                 <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
                 <div className="flex justify-center ml-[2px]">
-
                     <WidthCoupon className="pb-20" />
-
                 </div>
             </main>
 
