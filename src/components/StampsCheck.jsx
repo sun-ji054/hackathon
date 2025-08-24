@@ -1,14 +1,56 @@
+import { useEffect, useMemo } from 'react';
+import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
+import { useNavigate } from 'react-router-dom';
 import { Star, Trash2 } from 'lucide-react';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
-export default function StampsCheck({ className = '', onClick }) {
-    const total = 10; // 총 스탬프 개수
-    const used = 9; // 찍힌 스탬프 개수
+export default function StampsCheck({ couponbookId, couponId, className = '', onClick }) {
+    const navigate = useNavigate();
+
+    const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
+    const loading = useCouponbookCouponsStore((s) => s.loading);
+    const error = useCouponbookCouponsStore((s) => s.error);
+    const byId = useCouponbookCouponsStore((s) => s.couponsById);
+    const order = useCouponbookCouponsStore((s) => s.order);
+
+    useEffect(() => {
+        fetchCoupons(couponbookId);
+    }, [couponbookId, fetchCoupons]);
+
+    const coupon = useMemo(() => {
+        const idStr = couponId != null ? String(couponId) : '';
+        if (idStr && byId[idStr]) return byId[idStr];
+        const firstId = order?.[0];
+        return firstId ? byId[firstId] : undefined;
+    }, [couponId, byId, order]);
+
+    const total = Number(coupon?.max_stamps ?? coupon?.reward_info?.amount ?? 0);
+    const used = Number(coupon?.current_stamps ?? 0);
+    const pct = total ? Math.min(100, Math.max(0, (used / total) * 100)) : 0;
+
+    const name = coupon?.place?.name || (loading ? '불러오는 중…' : error ? `정보 없음 (${error})` : '정보 없음');
+    const desc = coupon?.reward_info
+        ? `${coupon.reward_info.amount ?? total}회 방문하면 ${coupon.reward_info.reward ?? ''}`.trim()
+        : total
+        ? `스탬프 ${total}개 채우면 보상`
+        : '';
+    const photo = coupon?.place?.image_url || 'https://picsum.photos/400/300';
+
+    // ✅ 여기서 최종 couponId를 결정
+    const resolvedId = coupon?.id ?? (couponId != null ? Number(couponId) : null);
 
     const handleCardClick = (e) => {
-        if (typeof onClick === 'function') onClick(e);
+        // 부모가 onClick을 넘겼다면 (e, couponId) 로 전달
+        if (typeof onClick === 'function') {
+            return onClick(e, resolvedId);
+        }
+        // 기본 동작: id가 있으면 /usecoupon 으로 이동하며 state로 전달
+        if (resolvedId) {
+            navigate('/usecoupon', { state: { couponId: resolvedId } });
+        }
     };
+
     const stop = (e) => e.stopPropagation();
 
     return (
@@ -22,11 +64,7 @@ export default function StampsCheck({ className = '', onClick }) {
             >
                 {/* 가게 이미지 영역 */}
                 <div className="relative z-10 h-[450px]">
-                    <img
-                        src="https://picsum.photos/400/300"
-                        alt="store"
-                        className="w-full h-full object-cover rounded-3xl"
-                    />
+                    <img src={photo} alt="store" className="w-full h-full object-cover rounded-3xl" />
 
                     {/* 우상단 버튼 (상위 클릭 전파 방지) */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2">
@@ -40,16 +78,13 @@ export default function StampsCheck({ className = '', onClick }) {
 
                     {/* 가게명 + 설명 + 진행바 */}
                     <div className="absolute bottom-[30px] left-3 text-white">
-                        <h2 className="px-3 font-bold text-[28px]">한시십일분</h2>
-                        <p className="px-3 text-[16px] text-[#C5C5C5]">음료 10잔 마시면 1잔 무료</p>
+                        <h2 className="px-3 font-bold text-[28px]">{name}</h2>
+                        <p className="px-3 text-[16px] text-[#C5C5C5]">{desc}</p>
 
                         <div className="pl-3 pt-1">
                             <div className="flex items-center justify-between">
                                 <div className="w-full h-[6px] bg-gray-200 rounded-full mr-2">
-                                    <div
-                                        className="h-[6px] bg-[#F2592A] rounded-full"
-                                        style={{ width: `${(used / total) * 100}%` }}
-                                    />
+                                    <div className="h-[6px] bg-[#F2592A] rounded-full" style={{ width: `${pct}%` }} />
                                 </div>
                                 <span className="text-xs text-[#F2592A]">
                                     {used}/{total}

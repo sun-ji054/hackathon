@@ -1,15 +1,55 @@
-import { useMemo } from 'react';
+// src/components/AddStamps.jsx
+import { useEffect, useMemo } from 'react';
+import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
+/**
+ * StampsCheck와 동일한 로직으로
+ *   - couponbookId가 주어지면 해당 쿠폰북의 쿠폰 목록 로드
+ *   - couponId가 주어지면 그 쿠폰, 없으면 첫 쿠폰 사용
+ *   - max_stamps / current_stamps로 total/used 계산
+ * 그리고 total/used prop이 넘어오면 그 값을 최우선으로 사용합니다(override).
+ */
 export default function AddStamps({
-    total = 10,
-    used = 9,
+    couponbookId,
+    couponId,
     className = '',
-    glow = true, // 마지막 스탬프 글로우 그림자
-    animate = true, // 마지막 스탬프 애니메이션
+    glow = true,
+    animate = true,
+    total: totalOverride,
+    used: usedOverride,
 }) {
-    const lastFilledIndex = useMemo(() => (used > 0 ? Math.min(used - 1, total - 1) : -1), [used, total]);
+    const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
+    const byId = useCouponbookCouponsStore((s) => s.couponsById);
+    const order = useCouponbookCouponsStore((s) => s.order);
+
+    // 쿠폰 목록 로드
+    useEffect(() => {
+        fetchCoupons(couponbookId);
+    }, [couponbookId, fetchCoupons]);
+
+    // 사용할 쿠폰 하나 선택(명시적 couponId > 첫 번째 쿠폰)
+    const coupon = useMemo(() => {
+        const idStr = couponId != null ? String(couponId) : '';
+        if (idStr && byId[idStr]) return byId[idStr];
+        const firstId = order?.[0];
+        return firstId ? byId[firstId] : undefined;
+    }, [couponId, byId, order]);
+
+    // API 값 → 표시 값
+    const computedTotal = Number(coupon?.max_stamps ?? coupon?.reward_info?.amount ?? 0);
+    const computedUsed = Number(coupon?.current_stamps ?? 0);
+
+    // prop override 우선
+    const totalRaw = totalOverride ?? computedTotal;
+    const usedRaw = usedOverride ?? computedUsed;
+
+    // 안전 클램핑
+    const total = Math.max(0, Number.isFinite(totalRaw) ? totalRaw : 0);
+    const used = Math.max(0, Math.min(total, Number.isFinite(usedRaw) ? usedRaw : 0));
+
+    const lastFilledIndex = useMemo(() => (used > 0 ? Math.min(used - 1, Math.max(0, total - 1)) : -1), [used, total]);
 
     return (
         <div
@@ -26,7 +66,7 @@ export default function AddStamps({
 
                     return (
                         <div
-                            key={`${i}-${isLast ? used : 'static'}`} // used 변경 시 마지막만 리마운트 → 애니 재생
+                            key={`${i}-${isLast ? used : 'static'}`}
                             className={[
                                 'relative w-[44px] h-[44px] mx-auto flex items-center justify-center',
                                 glow && isLast ? 'shadow-[0_10px_24px_rgba(242,89,42,0.35)] rounded-full' : '',
