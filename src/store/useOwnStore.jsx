@@ -1,4 +1,3 @@
-// src/store/useOwnStore.js
 import { create } from 'zustand';
 import { api } from '../api/Api';
 

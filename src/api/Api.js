@@ -35,6 +35,7 @@ api.interceptors.response.use(
             }
 
             try {
+                // 서버가 기대하는 key: refresh_token
                 const res = await api.post('/accounts/auth/refresh/', { refresh: refreshToken });
                 const newAccess = res.data.access;
                 localStorage.setItem('access_token', newAccess);

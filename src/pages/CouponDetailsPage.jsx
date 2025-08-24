@@ -23,7 +23,10 @@ export default function CouponDetailsPage() {
                 <h1 className="text-[24px] font-bold leading-snug mt-[53px]">쿠폰 상세보기</h1>
                 <p className="text-[16px] font-medium leading-snug">스탬프 현황을 볼 수 있어요.</p>
 
-                <StampsCheck className="mt-[28px] mb-[60px]" onClick={() => navigate('/usecoupon')} />
+                <StampsCheck
+                    className="mt-[28px] mb-[60px]"
+                    onClick={(e, id) => id && navigate('/usecoupon', { state: { couponId: id } })}
+                />
                 <StoreInfoCard />
             </main>
 

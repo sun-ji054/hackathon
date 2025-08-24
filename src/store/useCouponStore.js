@@ -12,7 +12,7 @@ export const useCouponStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await api.get('/couponbook/coupon-templates', { params });
-            console.log("✅ coupons API response:", response.data);
+            // console.log("✅ coupons API response:", response.data);
             set({ coupons: response.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });

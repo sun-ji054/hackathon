@@ -1,10 +1,13 @@
 import { useEffect, useMemo } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
+import { useNavigate } from 'react-router-dom';
 import { Star, Trash2 } from 'lucide-react';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
 export default function StampsCheck({ couponbookId, couponId, className = '', onClick }) {
+    const navigate = useNavigate();
+
     const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
     const loading = useCouponbookCouponsStore((s) => s.loading);
     const error = useCouponbookCouponsStore((s) => s.error);
@@ -34,9 +37,20 @@ export default function StampsCheck({ couponbookId, couponId, className = '', on
         : '';
     const photo = coupon?.place?.image_url || 'https://picsum.photos/400/300';
 
+    // ✅ 여기서 최종 couponId를 결정
+    const resolvedId = coupon?.id ?? (couponId != null ? Number(couponId) : null);
+
     const handleCardClick = (e) => {
-        if (typeof onClick === 'function') onClick(e);
+        // 부모가 onClick을 넘겼다면 (e, couponId) 로 전달
+        if (typeof onClick === 'function') {
+            return onClick(e, resolvedId);
+        }
+        // 기본 동작: id가 있으면 /usecoupon 으로 이동하며 state로 전달
+        if (resolvedId) {
+            navigate('/usecoupon', { state: { couponId: resolvedId } });
+        }
     };
+
     const stop = (e) => e.stopPropagation();
 
     return (
