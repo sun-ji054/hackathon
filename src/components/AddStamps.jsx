@@ -11,6 +11,7 @@ export default function AddStamps({
     animate = true,
     total: totalOverride,
     used: usedOverride,
+    stampsToAdd = 0,
 }) {
     const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
     const byId = useCouponbookCouponsStore((s) => s.couponsById);
@@ -36,9 +37,12 @@ export default function AddStamps({
     const totalRaw = totalOverride ?? computedTotal;
     const usedRaw = usedOverride ?? computedUsed;
 
+    // used 값에 `stampsToAdd`를 더해서 임시로 증가된 스탬프 개수를 표시
+    const usedWithOptimisticUpdate = usedRaw + (stampsToAdd || 0);
+
     // 안전 클램핑
     const total = Math.max(0, Number.isFinite(totalRaw) ? totalRaw : 0);
-    const used = Math.max(0, Math.min(total, Number.isFinite(usedRaw) ? usedRaw : 0));
+    const used = Math.max(0, Math.min(total, Number.isFinite(usedWithOptimisticUpdate) ? usedWithOptimisticUpdate : 0));
 
     const lastFilledIndex = useMemo(() => (used > 0 ? Math.min(used - 1, Math.max(0, total - 1)) : -1), [used, total]);
 
