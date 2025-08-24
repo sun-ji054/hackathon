@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: 'https://hufs-likelion.store',
+    baseURL: 'https://mypublishjy.site',
     headers: { 'Content-Type': 'application/json' },
 });
 
@@ -39,7 +39,7 @@ api.interceptors.response.use(
 
       try {
         // 서버가 기대하는 key: refresh_token
-        const res = await api.post("/accounts/auth/refresh/", { refresh_token: refreshToken });
+        const res = await api.post("/accounts/auth/refresh/", { refresh: refreshToken });
         const newAccess = res.data.access;
         localStorage.setItem("access_token", newAccess);
 
