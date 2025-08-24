@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import mapIcon from '../assets/icons/Place.png';
 import clockIcon from '../assets/icons/Time.png';
@@ -10,33 +10,28 @@ function hhmm(t) {
     return m ? `${m[1].padStart(2, '0')}:${m[2]}` : String(t);
 }
 
-export default function StoreInfoCard({ couponbookId, couponId, className = '' }) {
-    const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
+export default function StoreInfoCard({ couponId, className = '' }) {
+    const fetchCoupon = useCouponbookCouponsStore((s) => s.fetchCoupon);
     const loading = useCouponbookCouponsStore((s) => s.loading);
     const error = useCouponbookCouponsStore((s) => s.error);
-
-    const place = useCouponbookCouponsStore((s) => {
-        const id = String(couponId ?? '');
-        const byId = s.couponsById?.[id];
-        if (byId?.place) return byId.place;
-
-        const all = (s.order || []).map((k) => s.couponsById?.[k]).filter(Boolean);
-
-        const viaUrl = all.find((c) => c.coupon_url && c.coupon_url.endsWith(`/coupons/${id}/`));
-        if (viaUrl?.place) return viaUrl.place;
-
-        const viaPlace = all.find((c) => String(c?.place?.id) === id);
-        if (viaPlace?.place) return viaPlace.place;
-
-        const first = all[0];
-        return first?.place;
-    });
+    const byId = useCouponbookCouponsStore((s) => s.couponsById);
+    const order = useCouponbookCouponsStore((s) => s.order); // ✅ order 추가
 
     useEffect(() => {
-        fetchCoupons(couponbookId ? Number(couponbookId) : undefined);
-    }, [couponbookId, fetchCoupons]);
+        if (couponId) {
+            fetchCoupon(couponId);
+        }
+    }, [couponId, fetchCoupon]);
 
-    const address = place?.address ?? (loading ? '불러오는 중…' : '정보 없음');
+    const coupon = useMemo(() => {
+        const idStr = couponId != null ? String(couponId) : '';
+        if (idStr && byId[idStr]) return byId[idStr];
+        const firstId = order?.[0];
+        return firstId ? byId[firstId] : undefined;
+    }, [couponId, byId, order]);
+
+    const place = coupon?.place;
+    const address = place?.address ?? (loading ? '불러오는 중…' : error ? `정보 없음 (${error})` : '정보 없음'); // ✅ 에러 처리 개선
     const opens = hhmm(place?.opens_at);
     const closes = hhmm(place?.closes_at);
     const lastOrder = hhmm(place?.last_order);
@@ -55,10 +50,7 @@ export default function StoreInfoCard({ couponbookId, couponId, className = '' }
                         <img src={mapIcon} alt="map" className="w-5 h-5 mt-1" />
                         <div>
                             <p className="font-semibold text-[#8B6A55]">위치</p>
-                            <p className="text-[#595959] text-sm">
-                                {address}
-                                {error && !place ? ` (${error})` : ''}
-                            </p>
+                            <p className="text-[#595959] text-sm">{address}</p>
                         </div>
                     </div>
 

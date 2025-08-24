@@ -5,13 +5,7 @@ import { api } from '../api/Api';
 const API_PREFIX = (import.meta.env.VITE_API_PREFIX || '').replace(/\/$/, '');
 
 function buildPath(couponbookId) {
-    const parts = [
-        API_PREFIX.replace(/^\//, ''), // "api" 혹은 ""
-        'couponbook',
-        'couponbooks',
-        String(couponbookId),
-        'favorites',
-    ];
+    const parts = [API_PREFIX.replace(/^\//, ''), 'couponbook', 'couponbooks', String(couponbookId), 'favorites'];
     return '/' + parts.filter(Boolean).join('/') + '/';
 }
 
@@ -47,7 +41,6 @@ const favoriteCouponsStore = create((set) => ({
                     expire: typeof days === 'number' ? `${days}일 남음` : '',
                     photo: place.image_url || '',
 
-                    // 나중에 쓸 수도 있는 원본/ID들
                     id: fav.id, // favorite id
                     couponId: c.id, // coupon id
                     raw: fav,
