@@ -33,7 +33,7 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
 
     const name = coupon?.place?.name || (loading ? '불러오는 중…' : error ? `정보 없음 (${error})` : '정보 없음');
     const desc = coupon?.reward_info
-        ? `${coupon.reward_info.amount ?? total}회 방문하면 ${coupon.reward_info.reward ?? ''}`.trim()
+        ? ` ${coupon.reward_info.reward ?? ''}`.trim()
         : total
         ? `스탬프 ${total}개 채우면 보상`
         : '';

@@ -15,7 +15,6 @@ export const useAICouponStore = create((set, get) => ({
         }
         set({ loading: true, error: null });
         try {
-            // ✅ API 엔드포인트 변경
             const { data } = await api.get(`/couponbook/coupon-templates/${couponId}/`);
             const idStr = String(data.id);
             const prev = get().couponsById;
