@@ -5,18 +5,20 @@ import { Star, Trash2 } from 'lucide-react';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
-export default function StampsCheck({ couponbookId, couponId, className = '', onClick }) {
+export default function StampsCheck({ couponId, className = '', onClick }) {
     const navigate = useNavigate();
 
-    const fetchCoupons = useCouponbookCouponsStore((s) => s.fetchCoupons);
+    // ✅ 단일 쿠폰 조회만 사용
+    const fetchCoupon = useCouponbookCouponsStore((s) => s.fetchCoupon);
     const loading = useCouponbookCouponsStore((s) => s.loading);
     const error = useCouponbookCouponsStore((s) => s.error);
     const byId = useCouponbookCouponsStore((s) => s.couponsById);
     const order = useCouponbookCouponsStore((s) => s.order);
 
+    // ✅ couponId가 있을 때만 호출
     useEffect(() => {
-        fetchCoupons(couponbookId);
-    }, [couponbookId, fetchCoupons]);
+        if (couponId) fetchCoupon(couponId);
+    }, [couponId, fetchCoupon]);
 
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
@@ -37,18 +39,12 @@ export default function StampsCheck({ couponbookId, couponId, className = '', on
         : '';
     const photo = coupon?.place?.image_url || 'https://picsum.photos/400/300';
 
-    // ✅ 여기서 최종 couponId를 결정
+    // ✅ 최종 쿠폰 ID (없으면 기본 내비 막음)
     const resolvedId = coupon?.id ?? (couponId != null ? Number(couponId) : null);
 
     const handleCardClick = (e) => {
-        // 부모가 onClick을 넘겼다면 (e, couponId) 로 전달
-        if (typeof onClick === 'function') {
-            return onClick(e, resolvedId);
-        }
-        // 기본 동작: id가 있으면 /usecoupon 으로 이동하며 state로 전달
-        if (resolvedId) {
-            navigate('/usecoupon', { state: { couponId: resolvedId } });
-        }
+        if (typeof onClick === 'function') return onClick(e, resolvedId);
+        if (resolvedId) navigate('/usecoupon', { state: { couponId: resolvedId } });
     };
 
     const stop = (e) => e.stopPropagation();

@@ -1,16 +1,8 @@
-// src/components/AddStamps.jsx
 import { useEffect, useMemo } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 
-/**
- * StampsCheck와 동일한 로직으로
- *   - couponbookId가 주어지면 해당 쿠폰북의 쿠폰 목록 로드
- *   - couponId가 주어지면 그 쿠폰, 없으면 첫 쿠폰 사용
- *   - max_stamps / current_stamps로 total/used 계산
- * 그리고 total/used prop이 넘어오면 그 값을 최우선으로 사용합니다(override).
- */
 export default function AddStamps({
     couponbookId,
     couponId,
@@ -29,7 +21,6 @@ export default function AddStamps({
         fetchCoupons(couponbookId);
     }, [couponbookId, fetchCoupons]);
 
-    // 사용할 쿠폰 하나 선택(명시적 couponId > 첫 번째 쿠폰)
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];
