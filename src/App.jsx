@@ -13,6 +13,7 @@ import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
 import DeactivePage from './pages/DeactivatePage';
+import { useOwnStore } from './store/useOwnStore';
 
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
@@ -23,9 +24,13 @@ const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 
 export default function App() {
     const fetchLocations = useLocationStore((state) => state.fetchLocations);
+    const {fetchOwn} = useOwnStore();
     useEffect(() => {
         fetchLocations();
     }, [fetchLocations]);
+    useEffect(() => {
+        fetchOwn();
+    }, [fetchOwn]);
 
     return (
         <MobileFrame>

@@ -48,7 +48,7 @@ const Num = styled.p`
 function WidthCoupon({ coupon }) {
     if (!coupon) return null;
 
-    const { place, reward_info, first_n_persons } = coupon;
+    const { place, reward_info, current_n_remaining } = coupon;
 
     return (
         <div>
@@ -62,7 +62,7 @@ function WidthCoupon({ coupon }) {
                     <Benefit>
                         {reward_info.reward}
                     </Benefit>
-                    <Num>선착순 {first_n_persons}명</Num>
+                    <Num>선착순 {current_n_remaining}명</Num>
                 </TextBox>
             </StoreStyle>
         </div>

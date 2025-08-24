@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import axios from 'axios';
 import { api } from '../api/Api';
 
 export const useCouponStore = create((set) => ({
@@ -8,20 +7,17 @@ export const useCouponStore = create((set) => ({
     error: null,
     selectedTag: '전체',
 
-    fetchCoupons: async () => {
+    // params: { tag, district, is_open ... }
+    fetchCoupons: async (params = {}) => {
         set({ loading: true, error: null });
         try {
-            const response = await api.get('/couponbook/coupon-templates');
+            const response = await api.get('/couponbook/coupon-templates', { params });
+            // console.log("✅ coupons API response:", response.data);
             set({ coupons: response.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
     },
 
-    setSelectedTag: (tag) => set({selectedTag: tag}),
-    filteredCoupons: () => {
-        const state = useCouponStore.getState();
-        if (state.selectedTag === '전체') return state.coupons;
-        return state.coupons.filter(c => c.tags?.includes(state.selectedTag));
-    }
+    setSelectedTag: (tag) => set({ selectedTag: tag }),
 }));

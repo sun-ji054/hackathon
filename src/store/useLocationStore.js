@@ -18,7 +18,7 @@ export const useLocationStore = create(
             // API 호출
             fetchLocations: async () => {
                 try {
-                    const response = await api.get('/api/locations/hierarchy/');
+                    const response = await api.get('/api/locations/');
                     const data = response.data;
 
                     set({

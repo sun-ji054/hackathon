@@ -17,11 +17,12 @@ const MapSortStyle = styled.button`
     ${(props) =>
         props.$first &&
         `
-    background-color : #F2592A;
-    border-color: #F2592A;
-    -webkit-text-fill-color: #FFFFFF
-  `}
+        background-color : #F2592A;
+        border-color: #F2592A;
+        -webkit-text-fill-color: #FFFFFF
+    `}
 `;
+
 const MapSortWrapper = styled.div`
     width: 95%;
     z-index: 10;
@@ -38,8 +39,21 @@ function MapSort() {
     const { selectedTag, setSelectedTag, fetchCoupons } = useCouponStore();
 
     useEffect(() => {
-        fetchCoupons();
-    },[]);
+        fetchCoupons(); // 첫 렌더링 시 전체 쿠폰 불러오기
+    }, []);
+
+    const handleClick = (tag) => {
+        setSelectedTag(tag);
+        if (tag === '전체') {
+            fetchCoupons();
+        } else if (tag === '현재 영업 중') {
+            fetchCoupons({ is_open: true });
+        } else if (tag === '저장된 쿠폰') {
+            fetchCoupons({ already_own: true });
+        } else {
+            fetchCoupons({ tag }); // 서버에 tag=카페 식으로 요청
+        }
+    };
 
     const handleWheel = (e) => {
         e.currentTarget.scrollBy({
@@ -51,15 +65,15 @@ function MapSort() {
     return (
         <MapSortWrapper onWheel={handleWheel}>
             {TAGS.map((tag) => (
-        <MapSortStyle
-        key={tag}
-        $first={selectedTag === tag}
-        onClick={() => setSelectedTag(tag)}
-        >
-        {tag}
-        </MapSortStyle>
-    ))}
-    </MapSortWrapper>
+                <MapSortStyle
+                    key={tag}
+                    $first={selectedTag === tag}
+                    onClick={() => handleClick(tag)}
+                >
+                    {tag}
+                </MapSortStyle>
+            ))}
+        </MapSortWrapper>
     );
 }
 
