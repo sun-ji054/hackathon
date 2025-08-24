@@ -1,32 +1,43 @@
 import { useState, useEffect } from "react";
 import searchIcon from "../assets/icons/Search.png";
 import { useCouponStore } from "../store/useCouponStore";
+
 export default function SearchBar({ className = "" }) {
     const [keyword, setKeyword] = useState("");
-    const [selectedKeyword, setSelectedKeyword] = useState(""); // ✅ 마지막 선택 값
+    const [selectedKeyword, setSelectedKeyword] = useState(""); // 마지막 선택 값
     const [showDropdown, setShowDropdown] = useState(false);
     const fetchCoupons = useCouponStore((state) => state.fetchCoupons);
     const coupons = useCouponStore((state) => state.coupons);
 
-    // 디바운스 검색
+    // 디바운스 자동완성 검색
     useEffect(() => {
         if (!keyword.trim() || keyword === selectedKeyword) {
-            setShowDropdown(false); // ✅ 선택값과 같으면 드롭다운 닫기
+            setShowDropdown(false);
             return;
         }
 
         const timer = setTimeout(() => {
-            fetchCoupons({ name: keyword }, false); // 로딩 없이 검색
+            fetchCoupons({ name: keyword }, false); // 로딩 없이 자동완성
             setShowDropdown(true);
         }, 300);
 
         return () => clearTimeout(timer);
     }, [keyword, selectedKeyword, fetchCoupons]);
 
+    // 드롭다운에서 아이템 클릭
     const handleSelect = (name) => {
         setKeyword(name);           // 검색창에 값 넣기
         setSelectedKeyword(name);   // 마지막 선택값 저장
         setShowDropdown(false);     // 드롭다운 닫기
+        fetchCoupons({ name });     // 선택 시 API 호출
+    };
+
+    // 🔥 돋보기 클릭 시 검색
+    const handleSearch = () => {
+        if (!keyword.trim()) return;
+        setSelectedKeyword(keyword); // 선택값 갱신
+        setShowDropdown(false);      // 드롭다운 닫기
+        fetchCoupons({ name: keyword }); // API 호출
     };
 
     return (
@@ -39,11 +50,15 @@ export default function SearchBar({ className = "" }) {
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button className="bg-[#F35B1B] w-[51px] h-full flex items-center justify-center">
+                <button
+                    className="bg-[#F35B1B] w-[51px] h-full flex items-center justify-center"
+                    onClick={handleSearch} // 돋보기 클릭 이벤트
+                >
                     <img src={searchIcon} alt="검색" className="w-5 h-5" />
                 </button>
             </div>
 
+            {/* 자동완성 드롭다운 */}
             {showDropdown && coupons.length > 0 && (
                 <div className="absolute mt-2 w-full border border-gray-200 rounded-lg bg-white shadow-lg max-h-80 overflow-y-auto z-50">
                     {coupons.map((coupon) => (
