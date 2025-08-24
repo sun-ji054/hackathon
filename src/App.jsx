@@ -14,6 +14,7 @@ import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
 import DeactivePage from './pages/DeactivatePage';
 import { useOwnStore } from './store/useOwnStore';
+import AICouponDetailsPage from './pages/AICouponDetailsPage';
 
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
@@ -85,6 +86,14 @@ export default function App() {
                     element={
                         <MainLayout>
                             <CouponDetailsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/aicoupondetails"
+                    element={
+                        <MainLayout>
+                            <AICouponDetailsPage />
                         </MainLayout>
                     }
                 />
