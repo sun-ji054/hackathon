@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import MyPageBG from "../components/MyPageBG";
 import BacktoMyPage from "../components/BacktoMyPage";
 import MyPageTitle from "../components/MyPageTitle";
-import MyPageSubtitle from "../components/MyPageSubTitle";
+import MyPageSubtitle from "../components/MyPageSubtitle";
 import MyPageInput from "../components/MyPageInput";
 import MyPageSubmit from "../components/MyPageSubmit";
 import { userInfoStore } from "../store/userInfoStore";
