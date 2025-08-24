@@ -1,3 +1,4 @@
+//"저장한 모든 쿠폰" 상세보기
 import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
