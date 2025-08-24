@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import KaKaoStore from './KaKaoStore';
 import { useMapStore } from '../store/useMapStore';
 import { useCouponStore } from '../store/useCouponStore';
-import KakaoMarker from './KakaoMarker';
+import KakaoMarker from './KaKaoMarker';
 import KakaoNowMarker from './KakaoNowMarker';
 
 function KakaoMap({ center }) {
