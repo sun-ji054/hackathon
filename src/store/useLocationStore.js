@@ -52,7 +52,6 @@ export const useLocationStore = create(
                     };
                 }),
 
-
             selectDistrict: (district) => set({ district }),
         }),
         {

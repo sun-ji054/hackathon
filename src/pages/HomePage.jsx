@@ -2,62 +2,35 @@ import HomeHeaderBar from '../components/HomeHeaderBar';
 import HomeCard from '../components/HomeCard';
 import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
-import CouponCard from '../components/CouponCard';
 import SearchBar from '../components/SearchBar';
 import WidthCoupon from '../components/WidthCoupon';
 import CouponCarousel from '../components/CouponCarousel';
 import { userInfoStore } from '../store/userInfoStore';
 import CurationStore from '../components/CurationStore';
 
-import { Link } from 'react-router-dom';
+import couponStatsStore from '../store/couponStatsStore';
+import favoriteCouponsStore from '../store/favoriteCouponsStore';
+
 import { useEffect } from 'react';
 
 export default function HomePage() {
-    const coupons = [
-        {
-            name: '한시십일분',
-            description: '음료 10잔 마시면 1잔 무료',
-            progress: 9,
-            total: 10,
-            expire: '4개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-            name: '마루이치',
-            description: '라멘 5그릇 시 식전주 서비스',
-            progress: 2,
-            total: 5,
-            expire: '2개월 후 만료',
-            photo: 'https://images.unsplash.com/photo-1528731708534-816fe59f90cb?q=80&w=1200&auto=format&fit=crop',
-        },
-    ];
+    const { username } = userInfoStore();
 
-    const {username} = userInfoStore();
-    
+    // 내 쿠폰북 ID 확보
+    const { stats, fetchStats } = couponStatsStore();
+
+    // 즐겨찾기 목록
+    const { items: favoriteCoupons, loading: favLoading, error: favError, fetchFavorites } = favoriteCouponsStore();
+
+    // 쿠폰북 ID 없으면 가져오기
+    useEffect(() => {
+        if (!stats?.id) fetchStats();
+    }, [stats?.id, fetchStats]);
+
+    // 쿠폰북 ID 생기면 즐겨찾기 조회
+    useEffect(() => {
+        if (stats?.id) fetchFavorites(stats.id);
+    }, [stats?.id, fetchFavorites]);
 
     return (
         <div className="flex flex-col h-full">
@@ -79,12 +52,17 @@ export default function HomePage() {
                 <div className="flex justify-center pt-[37px]"></div>
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
-                {/* 즐겨찾는 쿠폰 */}
                 <h2 className="text-[20px] font-semibold leading-snug pt-[14px]">즐겨찾는 쿠폰</h2>
-
-                {/* 쿠폰 카드 영역 */}
                 <div className="pt-[12px]">
-                    <CouponCarousel coupons={coupons} />
+                    {favLoading ? (
+                        <p>불러오는 중...</p>
+                    ) : favError ? (
+                        <p className="text-red-500">{favError}</p>
+                    ) : favoriteCoupons.length === 0 ? (
+                        <p className="text-[#8B6A55]">즐겨찾기한 쿠폰이 없습니다.</p>
+                    ) : (
+                        <CouponCarousel coupons={favoriteCoupons} />
+                    )}
                 </div>
 
                 <div className="flex justify-center pt-[20px]"></div>
@@ -98,10 +76,12 @@ export default function HomePage() {
 
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
-                {/* AI 추천 쿠폰 */}
+                {/* AI 추천 쿠폰*/}
                 <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
+
                 <div style={{flex: 1, overflowY: 'auto', height: '495px'}}>
                     <CurationStore />
+
                 </div>
             </main>
 
