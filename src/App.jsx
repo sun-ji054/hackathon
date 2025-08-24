@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import OnboardPage from "./pages/OnboardPage";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
+import React, { useEffect } from 'react';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 import MobileFrame from './components/MobileFrame';
 import HomePage from './pages/HomePage';
 import MycouponbookPage from './pages/MycouponbookPage';
@@ -11,21 +11,33 @@ import MainLayout from './components/Layouts/MainLayout';
 import UseCouponPage from './pages/UseCouponPage';
 import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
+import MyPage from './pages/MyPage';
+import DeactivePage from './pages/DeactivatePage';
+import { useOwnStore } from './store/useOwnStore';
+
+import { useLocationStore } from './store/useLocationStore';
+import ProfilePage from './pages/ProfilePage';
+import MyPage_ID from './pages/MyPage_ID';
 
 // 임시 페이지(파일 없을 때 에러 방지용)
 const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
-const StoresPage = () => <div className="p-4">GPS 지도 (TODO)</div>;
-const MyPage = () => <div className="p-4">마이페이지 (TODO)</div>;
-
 
 export default function App() {
+    const fetchLocations = useLocationStore((state) => state.fetchLocations);
+    const {fetchOwn} = useOwnStore();
+    useEffect(() => {
+        fetchLocations();
+    }, [fetchLocations]);
+    useEffect(() => {
+        fetchOwn();
+    }, [fetchOwn]);
+
     return (
         <MobileFrame>
             <Routes>
                 {/* 홈 */}
                 <Route path="/home" element={<HomePage />} />
 
-                {/* 온보딩(수정 끝나면 사용) */}
                 {/* 하단바 포함 페이지 */}
                 <Route
                     path="/home"
@@ -43,14 +55,7 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/stores"
-                    element={
-                        <MainLayout>
-                            <StoresPage />
-                        </MainLayout>
-                    }
-                />
+                <Route path="/mapPage" element={<MapPage />} />
                 <Route
                     path="/couponbook"
                     element={
@@ -91,12 +96,36 @@ export default function App() {
                         </MainLayout>
                     }
                 />
+                <Route
+                    path="/profilePage"
+                    element={
+                        <MainLayout>
+                            <ProfilePage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/myPage_ID"
+                    element={
+                        <MainLayout>
+                            <MyPage_ID />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/deactivePage"
+                    element={
+                        <MainLayout>
+                            <DeactivePage />
+                        </MainLayout>
+                    }
+                />
+                <Route path="/mapStore" element={<MapStorePage />} />
 
                 {/* 하단바 없는 페이지 */}
-                <Route path="/" element={<OnboardPage />} />
 
                 {/* 로그인 */}
-                <Route path="/loginPage" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
 
                 {/* 기타 → 홈 */}

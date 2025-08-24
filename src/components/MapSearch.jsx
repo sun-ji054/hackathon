@@ -2,35 +2,39 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocationStore } from "../store";
 
+import search from "../assets/icons/Search.png";
+
 const SearchFormStyle = styled.form`
   display: flex;
   background-color: white;
-  width: 312px;
+  width: 329px;
   height: 52px;
+  align-items: center;
   border-radius: 25px;
-  border: 1px solid #DFDFDF;
+  border: 2px solid #DCDCDC;
+  box-shadow: 0 4px 8px 0 #00000040;
 `;
 
 const SearchInputStyle = styled.input`
   display: inline-block;
-  width: 255px;
+  width: 263px;
   height: 39px;
-  margin-top: 5.5px;
   margin-left: 17px;
-  -webkit-text-fill-color: #969696;
   outline: none;
+  -webkit-text-fill-color: #8B6A55;
+  font-size: 16px;
+  font-weight: 400;
   z-index: 1;
 `
 
 const SearchBtnStyle = styled.button`
-  background-color: #DFDFDF;
-  width: 53px;
-  height: 39px;
-  margin-top: 5.5px;
-  margin-right: 5px;
-  border-radius: 17px;
-  border-color: #969696;
-  border-width: 1px;
+  display: flex;
+  background-color: #F2592A;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 `;
 
 function MapSearch({ onSearch }) {
@@ -64,7 +68,9 @@ function MapSearch({ onSearch }) {
         value={location}
         onChange={(e) => setLocation(e.target.value)}
       />
-      <SearchBtnStyle type="submit">🔍</SearchBtnStyle>
+      <SearchBtnStyle type="submit">
+        <img src={search} alt="검색" ></img>
+      </SearchBtnStyle>
     </SearchFormStyle>
   );
 }

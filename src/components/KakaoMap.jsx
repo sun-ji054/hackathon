@@ -1,34 +1,81 @@
-import React from "react";
-import styled from "styled-components"; 
-import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
-
-const MapStoreName = styled.button`
-  display: flex;
-  text-align: center;
-  border-radius: 8px;
-  background-color: #F2592A;
-  -webkit-text-fill-color: white;
-  padding: 3px 5px;
-  font-size: small;
-`
+import React, { useEffect, useRef, useState } from 'react';
+import KaKaoStore from './KaKaoStore';
+import { useMapStore } from '../store/useMapStore';
+import { useCouponStore } from '../store/useCouponStore';
+import KakaoMarker from './KakaoMarker';
+import KakaoNowMarker from './KakaoNowMarker';
 
 function KakaoMap({ center }) {
-  const [loading, error] = useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAOMAP_KEY,
-    libraries: ["services", "clusterer"],
-  });
+    const mapRef = useRef(null);
+    const { selectedStore, setSelectedStore } = useMapStore();
+    const { coupons } = useCouponStore();
+    const [map, setMap] = useState(null);
 
-  if (error)
-    return <div>지도 로딩 중 오류 발생: {error.message}</div>;
-  if (loading) return <div>지도 로딩 중...</div>;
+    // Kakao map 로딩
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAOMAP_KEY}&autoload=false`;
+        script.async = true;
 
-  return (
-    <Map center={center} style={{ width: "100%", height: "100%" }} level={3}>
-      <MapMarker position={center}>
-        <MapStoreName>검색 위치</MapStoreName>
-      </MapMarker>
-    </Map>
-  );
+        script.onload = () => {
+            window.kakao.maps.load(() => {
+                const container = mapRef.current;
+                const options = {
+                    center: new window.kakao.maps.LatLng(center.lat, center.lng),
+                    level: 3,
+                };
+                const createdMap = new window.kakao.maps.Map(container, options);
+                setMap(createdMap);
+            });
+        };
+
+        document.head.appendChild(script);
+    }, []);
+
+    useEffect(() => {
+        if (map) {
+            const moveLatLng = new window.kakao.maps.LatLng(center.lat, center.lng);
+            map.panTo(moveLatLng);
+        }
+    }, [center, map]);
+
+    return (
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
+
+            {/* 마커 렌더링 */}
+            {map &&
+                coupons.map((coupon) => {
+                    if (!coupon.place?.lat || !coupon.place?.lng) return null;
+
+                    const store = {
+                        ...coupon,
+                        id: coupon.id,
+                        name: coupon.place.name,
+                        position: {
+                            lat: parseFloat(coupon.place.lat),
+                            lng: parseFloat(coupon.place.lng),
+                        },
+                    };
+
+                    return (
+                        <KakaoMarker
+                            key={store.id}
+                            map={map}
+                            store={store}
+                            isActive={selectedStore?.id === store.id}
+                            onClick={setSelectedStore}
+                        />
+                    );
+                })}
+
+            {map && <KakaoNowMarker map={map} />}
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <KaKaoStore />
+            </div>
+        </div>
+    );
 }
 
 export default KakaoMap;

@@ -1,5 +1,5 @@
 import React from "react";
-import {useInfoStore} from "../store";
+import {userInfoStore} from "../store/userInfoStore";
 import styled from "styled-components";
 
 const ConsentStyle = styled.div`
@@ -16,7 +16,7 @@ const CheckStyle = styled.div`
 `
 
 function SignUpConsent(){
-  const {agree, setAgree} = useInfoStore();
+  const {agree, setAgree} = userInfoStore();
 
   return(
     <>

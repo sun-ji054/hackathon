@@ -1,0 +1,22 @@
+import { create } from "zustand";
+import { api } from '../api/Api';
+import { useOwnStore } from "./useOwnStore";
+
+export const useAllSavedStore = create((set) => ({
+  allSaved: [],
+  loading: false,
+  error: null,
+
+  fetchAllSaved: async () => {
+    const { own } = useOwnStore.getState();
+    if (!own?.id) return;
+
+    set({ loading: true, error: null });
+    try {
+      const res = await api.get(`/couponbook/couponbooks/${own.id}/coupons/`);
+      set({ allSaved: res.data, loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+}));

@@ -1,13 +1,24 @@
 import { Link } from 'react-router-dom';
+import AiIcon from '../assets/icons/Ai_white.png';
+import MapIcon from '../assets/icons/Map_white.png';
+import CouponIcon from '../assets/icons/Coupon_white.png';
 
 export default function HomeCard({ to, children }) {
+    const iconMap = {
+        'AI 추천': AiIcon,
+        '주변 탐색': MapIcon,
+        '내 쿠폰북': CouponIcon,
+    };
+
     return (
         <Link
             to={to}
-            className="block rounded-2xl border bg-zinc-100 text-zinc-800 shadow-sm
-                 px-4 py-10 md:py-12 hover:bg-zinc-200 transition-colors"
+            className="flex flex-col items-center justify-center gap-2
+                 w-[106px] h-[102px] rounded-full bg-[#F2592A] text-white
+                 shadow-md hover:opacity-90 transition"
         >
-            <div className="text-center text-[18px] leading-relaxed font-medium">{children}</div>
+            <img src={iconMap[children]} alt={children} />
+            <span className="text-sm font-medium">{children}</span>
         </Link>
     );
 }

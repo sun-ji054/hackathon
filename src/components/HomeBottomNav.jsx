@@ -16,7 +16,7 @@ import mypageIconActive from '../assets/icons/Main_user.png';
 export default function BottomNav() {
     const menus = [
         { to: '/ai', label: 'AI 추천', icon: aiIcon, activeIcon: aiIconActive },
-        { to: '/stores', label: '주변 탐색', icon: locationIcon, activeIcon: locationIconActive },
+        { to: '/mapPage', label: '주변 탐색', icon: locationIcon, activeIcon: locationIconActive },
         { to: '/home', label: '홈', icon: homeIcon, activeIcon: homeIconActive },
         { to: '/couponbook', label: '내 쿠폰북', icon: couponIcon, activeIcon: couponIconActive },
         { to: '/mypage', label: '마이페이지', icon: mypageIcon, activeIcon: mypageIconActive },
@@ -24,15 +24,16 @@ export default function BottomNav() {
 
     return (
         <nav
-            className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white border-t flex justify-between items-center px-5"
+            className="fixed bottom-0 justify-centerh-[56px] px-[20px] bg-white border-t flex justify-between items-center px-5"
             style={{
-                width: '402px',
+                width: '430px',
                 height: '76px',
                 paddingTop: '6px',
                 paddingBottom: '6px',
                 paddingLeft: '20px',
                 paddingRight: '20px',
                 gap: '10px',
+                zIndex: '100',
             }}
         >
             {menus.map((menu) => (
