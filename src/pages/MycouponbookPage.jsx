@@ -8,23 +8,23 @@ import CouponStats from '../components/CouponStats';
 import SearchBar from '../components/SearchBar';
 import MapSort from '../components/MapSort';
 import WidthCoupon from '../components/WidthCoupon';
+import AllSavedStore from '../components/AllSavedStore';
 
 // 스토어들
 import couponStatsStore from '../store/couponStatsStore';
 import favoriteCouponsStore from '../store/favoriteCouponsStore';
 
 export default function MycouponbookPage() {
-    // 내 쿠폰북 ID(=stats.id) 확보
+
     const { stats, fetchStats } = couponStatsStore();
-    // 즐겨찾기 목록
     const { items: favoriteCoupons, loading: favLoading, error: favError, fetchFavorites } = favoriteCouponsStore();
 
-    // 쿠폰북 ID 없으면 한 번 가져오기 (이미 다른 곳에서 가져오고 있으면 중복 호출돼도 문제 없음)
+
     useEffect(() => {
         if (!stats?.id) fetchStats();
     }, [stats?.id, fetchStats]);
 
-    // 쿠폰북 ID가 생기면 즐겨찾기 조회
+
     useEffect(() => {
         if (stats?.id) fetchFavorites(stats.id);
     }, [stats?.id, fetchFavorites]);
@@ -36,18 +36,20 @@ export default function MycouponbookPage() {
                 {/* 내 쿠폰북 */}
                 <section className="text-left space-y-1">
                     <h1 className="text-[24px] font-bold leading-snug">내 쿠폰북</h1>
-                    <p className="text-[16px] font-mediup leading-sung ">저장한 모든 쿠폰들을 볼 수 있어요.</p>
+                    <p className="text-[16px] font-mediup leading-sung ">
+                        저장한 모든 쿠폰들을 볼 수 있어요.
+                    </p>
                 </section>
 
                 <CouponStats className="mt-[21px]" />
 
-                {/* 라인 */}
                 <div className="flex justify-center pt-[20px]" />
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
-                {/* 즐겨찾는 쿠폰 */}
                 <h2 className="text-[20px] font-semibold leading-snug pt-[23px]">즐겨찾기</h2>
-                <p className="text-[16px] font-mediup leading-[30px] ">자주 가는 장소의 쿠폰들</p>
+                <p className="text-[16px] font-mediup leading-[30px] ">
+                    자주 가는 장소의 쿠폰들
+                </p>
 
                 <div className="pt-[23px]">
                     {favLoading ? (
@@ -61,19 +63,28 @@ export default function MycouponbookPage() {
                     )}
                 </div>
 
-                {/* 라인 */}
                 <div className="flex justify-center pt-[20px]" />
                 <img src={lineImg} alt="라인 이미지" className="w-full h-auto" />
 
-                {/* 저장한 모든 쿠폰 (기존 그대로) */}
-                <h3 className="text-[20px] font-semibold leading-snug pt-[23px] ">저장한 모든 쿠폰</h3>
-                <SearchBar className="pt-[23px] " />
+                <h3 className="text-[20px] font-semibold leading-snug pt-[23px] ">
+                    저장한 모든 쿠폰
+                </h3>
+                <SearchBar className="pt-[23px]" />
                 <div className="ml-[17px] mt-[10px]">
                     <MapSort />
                 </div>
 
-                <div className="flex justify-center mt-[14px]">
-                    <WidthCoupon className="pb-20" />
+                <div
+                    style={{
+                        flex: 1,
+                        overflowY: 'scroll',
+                        height: '495px',
+                        scrollbarWidth: 'none', // Firefox
+                        msOverflowStyle: 'none', // IE, Edge
+                    }}
+                    className="no-scrollbar"
+                >
+                    <AllSavedStore />
                 </div>
             </main>
             <HomeBottomNav />

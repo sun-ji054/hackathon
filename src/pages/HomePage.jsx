@@ -101,7 +101,7 @@ export default function HomePage() {
                 {/* AI 추천 쿠폰 */}
                 <h4 className="text-[20px] font-semibold leading-snug pt-[12px]">AI가 추천하는 오늘의 쿠폰</h4>
                 <div style={{flex: 1, overflowY: 'auto', height: '495px'}}>
-                    {/* <CurationStore /> */}
+                    <CurationStore />
                 </div>
             </main>
 
