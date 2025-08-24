@@ -1,4 +1,3 @@
-// src/components/StampsCheck.js
 import { useEffect, useMemo } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import { Star, Trash2 } from 'lucide-react';
@@ -12,12 +11,10 @@ export default function StampsCheck({ couponbookId, couponId, className = '', on
     const byId = useCouponbookCouponsStore((s) => s.couponsById);
     const order = useCouponbookCouponsStore((s) => s.order);
 
-    // 쿠폰북 ID가 없으면 스토어가 own-couponbook으로 자동 조회
     useEffect(() => {
         fetchCoupons(couponbookId);
     }, [couponbookId, fetchCoupons]);
 
-    // 쿠폰 선택: id 일치 → 첫 쿠폰
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];

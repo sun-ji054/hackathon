@@ -1,4 +1,3 @@
-// src/pages/MycouponbookPage.jsx
 import { useEffect } from 'react';
 import CouponbookHeaderBar from '../components/CouponbookHeaderBar';
 import HomeBottomNav from '../components/HomeBottomNav';
