@@ -45,27 +45,24 @@ const Num = styled.p`
     -webkit-text-fill-color: #8b6a55;
     margin: 17px 0 0 153px;
 `;
-function WidthCoupon({ coupon }) {
+
+function WidthCoupon({ coupon, onClick }) {
     if (!coupon) return null;
 
     const { place, reward_info, current_n_remaining } = coupon;
 
     return (
-        <div>
-            <StoreStyle>
-                <PhotoStyle src={place.image_url} alt="가게img"></PhotoStyle>
-                <TextBox>
-                    <StoreName>{place.name}</StoreName>
-                    <Time>
-                        매일 {place.opens_at} - {place.closes_at}
-                    </Time>
-                    <Benefit>
-                        {reward_info.reward}
-                    </Benefit>
-                    <Num>선착순 {current_n_remaining}명</Num>
-                </TextBox>
-            </StoreStyle>
-        </div>
+        <StoreStyle onClick={onClick}>
+            <PhotoStyle src={place.image_url} alt="가게img"></PhotoStyle>
+            <TextBox>
+                <StoreName>{place.name}</StoreName>
+                <Time>
+                    매일 {place.opens_at} - {place.closes_at}
+                </Time>
+                <Benefit>{reward_info.reward}</Benefit>
+                <Num>선착순 {current_n_remaining}명</Num>
+            </TextBox>
+        </StoreStyle>
     );
 }
 

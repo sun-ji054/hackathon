@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useAllSavedStore } from '../store/useAllSavedStore';
 import { useOwnStore } from '../store/useOwnStore';
 import WidthCoupon from './WidthCoupon';
@@ -12,6 +13,7 @@ const StoreBoxStyle = styled.div`
 `;
 
 function AllSavedStore() {
+    const navigate = useNavigate();
     const { allSaved, fetchAllSaved, loading, error } = useAllSavedStore();
     const { own, fetchOwn } = useOwnStore();
 
@@ -30,7 +32,11 @@ function AllSavedStore() {
     return (
         <StoreBoxStyle>
             {allSaved.map((coupon) => (
-                <WidthCoupon key={coupon.id} coupon={coupon} />
+                <WidthCoupon
+                    key={coupon.id}
+                    coupon={coupon}
+                    onClick={() => navigate(`/coupondetails?couponId=${coupon.id}`)}
+                />
             ))}
         </StoreBoxStyle>
     );
