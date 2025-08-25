@@ -24,7 +24,7 @@ const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 
 export default function App() {
     const fetchLocations = useLocationStore((state) => state.fetchLocations);
-    const {fetchOwn} = useOwnStore();
+    const { fetchOwn } = useOwnStore();
     useEffect(() => {
         fetchLocations();
     }, [fetchLocations]);

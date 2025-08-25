@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: 'https://mypublishjy.site',
+    baseURL: 'https://hufs-likelion.store',
     headers: { 'Content-Type': 'application/json' },
 });
 
@@ -34,13 +34,11 @@ api.interceptors.response.use(
                 return Promise.reject(error);
             }
 
-
-      try {
-        // 서버가 기대하는 key: refresh_token
-        const res = await api.post("/accounts/auth/refresh/", { refresh: refreshToken });
-        const newAccess = res.data.access;
-        localStorage.setItem("access_token", newAccess);
-
+            try {
+                // 서버가 기대하는 key: refresh_token
+                const res = await api.post('/accounts/auth/refresh/', { refresh: refreshToken });
+                const newAccess = res.data.access;
+                localStorage.setItem('access_token', newAccess);
 
                 error.config.headers['Authorization'] = `Bearer ${newAccess}`;
                 return api(error.config);

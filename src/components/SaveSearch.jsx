@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import searchIcon from "../assets/icons/Search.png";
-import { useCouponStore } from "../store/useCouponStore";
+import { useAllSavedStore } from "../store/useAllSavedStore";
 
 export default function SearchBar({ className = "" }) {
     const [keyword, setKeyword] = useState("");
     const [selectedKeyword, setSelectedKeyword] = useState(""); // 마지막 선택 값
     const [showDropdown, setShowDropdown] = useState(false);
-    const fetchCoupons = useCouponStore((state) => state.fetchCoupons);
-    const coupons = useCouponStore((state) => state.coupons);
+    const fetchAllSaved = useAllSavedStore((state) => state.fetchAllSaved);
+    const coupons = useAllSavedStore((state) => state.coupons);
 
     // 디바운스 자동완성 검색
     useEffect(() => {
@@ -17,19 +17,19 @@ export default function SearchBar({ className = "" }) {
         }
 
         const timer = setTimeout(() => {
-            fetchCoupons({ name: keyword }, false); // 로딩 없이 자동완성
+            fetchAllSaved({ name: keyword }, false); // 로딩 없이 자동완성
             setShowDropdown(true);
         }, 300);
 
         return () => clearTimeout(timer);
-    }, [keyword, selectedKeyword, fetchCoupons]);
+    }, [keyword, selectedKeyword, fetchAllSaved]);
 
     // 드롭다운에서 아이템 클릭
     const handleSelect = (name) => {
         setKeyword(name);           // 검색창에 값 넣기
         setSelectedKeyword(name);   // 마지막 선택값 저장
         setShowDropdown(false);     // 드롭다운 닫기
-        fetchCoupons({ name });     // 선택 시 API 호출
+        fetchAllSaved({ name });     // 선택 시 API 호출
     };
 
     // 🔥 돋보기 클릭 시 검색
@@ -37,7 +37,7 @@ export default function SearchBar({ className = "" }) {
         if (!keyword.trim()) return;
         setSelectedKeyword(keyword); // 선택값 갱신
         setShowDropdown(false);      // 드롭다운 닫기
-        fetchCoupons({ name: keyword }); // API 호출
+        fetchAllSaved({ name: keyword }); // API 호출
     };
 
     return (

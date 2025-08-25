@@ -1,4 +1,4 @@
-// "저장한 모든 쿠폰" 정보 담긴 스토어임 //
+// store/useCouponbookCouponsStore.js
 import { create } from 'zustand';
 import { api } from '../api/Api';
 
@@ -8,24 +8,35 @@ export const useCouponbookCouponsStore = create((set, get) => ({
     loading: false,
     error: null,
 
-    // couponbookId가 없으면 내 쿠폰북 id를 먼저 조회
-    fetchCoupons: async (couponbookId) => {
+    // 단일 쿠폰 상세 조회: GET /couponbook/coupons/{coupon_id}/
+    fetchCoupon: async (couponId) => {
+        if (!couponId) {
+            set({ error: '쿠폰 ID 없음' });
+            return;
+        }
         set({ loading: true, error: null });
         try {
-            let id = couponbookId;
-            if (!id) {
-                const { data: mine } = await api.get('/couponbook/own-couponbook/');
-                id = mine.id; // 내 쿠폰북 id
-            }
-            const { data } = await api.get(`/couponbook/couponbooks/${id}/coupons/`);
-            const map = Object.fromEntries(data.map((c) => [String(c.id), c]));
-            const order = data.map((c) => String(c.id));
-            set({ couponsById: map, order, loading: false, error: null });
+            const { data } = await api.get(`/couponbook/coupons/${couponId}/`);
+            const idStr = String(data.id);
+            const prev = get().couponsById;
+            const order = get().order.includes(idStr) ? get().order : [...get().order, idStr];
+
+            set({
+                couponsById: { ...prev, [idStr]: data },
+                order,
+                loading: false,
+                error: null,
+            });
         } catch (e) {
             set({
                 loading: false,
                 error: e.response?.data?.detail || e.message || '불러오기 실패',
             });
         }
+    },
+
+    // (이전 코드 호환용) fetchCoupons 호출해도 내부적으로 단일 조회만 호출
+    fetchCoupons: async (_couponbookId, couponId) => {
+        return get().fetchCoupon(couponId);
     },
 }));
