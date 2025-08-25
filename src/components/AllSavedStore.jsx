@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import WidthCoupon from "./WidthCoupon";
+import WidthCoupon2 from "./WidthCoupon2";
 import styled from "styled-components";
 import { useAllSavedStore } from "../store/useAllSavedStore";
 
@@ -26,7 +26,7 @@ function AllSavedStore() {
         <p>저장된 쿠폰이 없습니다.</p>
       ) : (
         coupons.map((coupon) => (
-          <WidthCoupon key={coupon.id} coupon={coupon} />
+          <WidthCoupon2 key={coupon.id} coupon={coupon} />
         ))
       )}
     </StoreBoxStyle>
