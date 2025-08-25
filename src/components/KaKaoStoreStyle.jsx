@@ -66,6 +66,7 @@ export const Box = styled.div`
   border: 1px solid #8B6A55;
   border-radius: 20px;
   padding: 0 8px;
+  cursor: pointer;
 `
 export const BoxText = styled.p`
   font-size: 13px;

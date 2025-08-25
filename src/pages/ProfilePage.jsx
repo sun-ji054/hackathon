@@ -42,7 +42,7 @@ function ProfilePage(){
         <img src={image} alt="프로필img" style={{width: "120px", height: "120px", objectFit: "cover", borderRadius: "50%"}}/>
         <ImgChange>사진 변경하기</ImgChange>
       </div>
-      <MyPageSubTitle subtitle='닉네임' />
+      <MyPageSubtitle subtitle='닉네임' />
       <form
         onSubmit={handleSubmit}
         style={{display:'flex', flexDirection:"column", alignItems:"center", gap:"18px"}}>

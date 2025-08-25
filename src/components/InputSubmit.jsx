@@ -11,6 +11,7 @@ const SubmitStyle = styled.input`
   font-size: 20px;
   font-weight: bolder;
   -webkit-text-fill-color: white;
+  cursor: pointer;
 `
 
 function InputSubmit({submitName}){
