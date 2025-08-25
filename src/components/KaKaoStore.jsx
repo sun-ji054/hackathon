@@ -2,7 +2,7 @@ import React from "react";
 import { useMapStore } from "../store/useMapStore";
 import { saveCoupon } from "../api/CouponApi"; // 저장 API
 import x from "../assets/icons/X.png";
-import box from "../assets/icons/box.png";
+import box from "../assets/icons/Box.png";
 import { 
   StoreInfoBox, PhotoStyle, TextBox, StoreName, Time, Benefit,
   X, BoxImg, Top, Box, BoxText 
