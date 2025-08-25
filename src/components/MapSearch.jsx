@@ -1,4 +1,3 @@
-// src/components/MapSearch.jsx
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useCouponStore } from "../store/useCouponStore";
