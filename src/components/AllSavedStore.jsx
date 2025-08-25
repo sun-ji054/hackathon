@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAllSavedStore } from '../store/useAllSavedStore';
 import { useOwnStore } from '../store/useOwnStore';
-import WidthCoupon from './WidthCoupon';
+import WidthCoupon2 from './WidthCoupon2';
 
 const StoreBoxStyle = styled.div`
     display: flex;
@@ -46,7 +46,7 @@ function AllSavedStore() {
     return (
         <StoreBoxStyle>
             {coupons.map((coupon) => (
-                <WidthCoupon
+                <WidthCoupon2
                     key={coupon.id}
                     coupon={coupon}
                     onClick={() => navigate(`/coupondetails?couponId=${coupon.id}`)}
