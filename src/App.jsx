@@ -46,14 +46,7 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route
-                    path="/ai"
-                    element={
-                        <MainLayout>
-                            <AiPage />
-                        </MainLayout>
-                    }
-                />
+
                 <Route path="/mapPage" element={<MapPage />} />
                 <Route
                     path="/couponbook"
