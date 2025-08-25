@@ -18,16 +18,11 @@ function AllSavedStore() {
     const { own, fetchOwn } = useOwnStore();
 
     useEffect(() => {
-        if (!own?.id) {
-            fetchOwn();
-        } else {
-            fetchAllSaved();
-        }
-    }, [own?.id, fetchOwn, fetchAllSaved]);
+        fetchAllSaved(); // 전체 쿠폰 가져오기
+    }, [fetchAllSaved]);
 
-    if (loading) return <p>로딩중...</p>;
+    if (loading) return <p>불러오는 중...</p>;
     if (error) return <p>에러 발생: {error}</p>;
-    if (!allSaved || allSaved.length === 0) return <p>쿠폰이 없습니다.</p>;
 
     return (
         <StoreBoxStyle>
