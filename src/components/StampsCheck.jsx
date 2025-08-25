@@ -1,12 +1,18 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import { useNavigate } from 'react-router-dom';
-import { Star, Trash2 } from 'lucide-react';
+import { Star } from 'lucide-react';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
+import { api } from '../api/Api';
+import couponStatsStore from '../store/couponStatsStore';
 
 export default function StampsCheck({ couponId, className = '', onClick }) {
     const navigate = useNavigate();
+
+    // ✅ 스토어에서 쿠폰북 ID를 가져오고 로딩 상태도 가져옵니다.
+    const { stats, loading: statsLoading } = couponStatsStore();
+    const couponbookId = stats?.id;
 
     // ✅ 단일 쿠폰 조회만 사용
     const fetchCoupon = useCouponbookCouponsStore((s) => s.fetchCoupon);
@@ -14,6 +20,10 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
     const error = useCouponbookCouponsStore((s) => s.error);
     const byId = useCouponbookCouponsStore((s) => s.couponsById);
     const order = useCouponbookCouponsStore((s) => s.order);
+
+    // ✅ 즐겨찾기 상태를 관리하는 로컬 state
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [favoriteId, setFavoriteId] = useState(null);
 
     // ✅ couponId가 있을 때만 호출
     useEffect(() => {
@@ -26,6 +36,17 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
         const firstId = order?.[0];
         return firstId ? byId[firstId] : undefined;
     }, [couponId, byId, order]);
+
+    // ✅ coupon 객체가 업데이트될 때마다 즐겨찾기 상태를 동기화
+    useEffect(() => {
+        if (coupon?.favorite_id) {
+            setIsFavorite(true);
+            setFavoriteId(coupon.favorite_id);
+        } else {
+            setIsFavorite(false);
+            setFavoriteId(null);
+        }
+    }, [coupon]);
 
     const total = Number(coupon?.max_stamps ?? coupon?.reward_info?.amount ?? 0);
     const used = Number(coupon?.current_stamps ?? 0);
@@ -49,6 +70,37 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
 
     const stop = (e) => e.stopPropagation();
 
+    // ✅ 별 버튼 클릭 시 즐겨찾기 상태를 토글
+    const handleFavoriteClick = async (e) => {
+        e.stopPropagation();
+        if (!couponbookId || !coupon?.id) {
+            console.error('쿠폰북 ID 또는 쿠폰 ID를 찾을 수 없습니다.');
+            return;
+        }
+
+        try {
+            if (isFavorite) {
+                // 즐겨찾기 해제: DELETE 요청 엔드포인트 수정
+                await api.delete(`/couponbook/own-couponbook/favorites/${favoriteId}/`);
+                setIsFavorite(false);
+                setFavoriteId(null);
+            } else {
+                // 즐겨찾기 추가: POST 요청
+                const { data } = await api.post(`/couponbook/couponbooks/${couponbookId}/favorites/`, {
+                    coupon: coupon.id,
+                });
+                setIsFavorite(true);
+                setFavoriteId(data.id);
+            }
+        } catch (e) {
+            console.error('즐겨찾기 상태 변경 실패:', e.response?.data?.detail || e.message);
+            alert('즐겨찾기 상태 변경에 실패했습니다.');
+        }
+    };
+
+    // ✅ 쿠폰북과 쿠폰 데이터 로딩 중인지 확인
+    const isDataLoading = statsLoading || loading;
+
     return (
         <div className="flex justify-center items-center bg-[#F2592A]">
             {/* 카드 전체를 클릭 가능한 영역으로 */}
@@ -64,11 +116,15 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
 
                     {/* 우상단 버튼 (상위 클릭 전파 방지) */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2">
-                        <button onClick={stop} className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
-                            <Star className="w-5 h-5 text-[#F2592A]" />
-                        </button>
-                        <button onClick={stop} className="bg-white/90 rounded-full p-2 shadow border border-[#F2592A]">
-                            <Trash2 className="w-5 h-5 text-[#F2592A]" />
+                        {/* ✅ 로딩 중일 때 버튼 비활성화 및 스타일 변경 */}
+                        <button
+                            onClick={handleFavoriteClick}
+                            disabled={isDataLoading}
+                            className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${
+                                isDataLoading ? 'cursor-not-allowed opacity-50' : ''
+                            }`}
+                        >
+                            <Star className={`w-5 h-5 ${isFavorite ? 'text-[#F2592A]' : 'text-gray-400'}`} />
                         </button>
                     </div>
 
