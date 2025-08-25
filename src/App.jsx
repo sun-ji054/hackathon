@@ -15,7 +15,7 @@ import MyPage from './pages/MyPage';
 import DeactivePage from './pages/DeactivatePage';
 import { useOwnStore } from './store/useOwnStore';
 import AICouponDetailsPage from './pages/AICouponDetailsPage';
-
+import AINonSavedCouponDetailsPage from './pages/AINonSavedCouponDetails';
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
 import MyPage_ID from './pages/MyPage_ID';
@@ -38,7 +38,6 @@ export default function App() {
             <Routes>
                 {/* 홈 */}
                 <Route path="/home" element={<HomePage />} />
-
                 {/* 하단바 포함 페이지 */}
                 <Route
                     path="/home"
@@ -98,6 +97,14 @@ export default function App() {
                     }
                 />
                 <Route
+                    path="/ainewcoupondetails"
+                    element={
+                        <MainLayout>
+                            <AINonSavedCouponDetailsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
                     path="/stamps"
                     element={
                         <MainLayout>
@@ -130,13 +137,10 @@ export default function App() {
                     }
                 />
                 <Route path="/mapStore" element={<MapStorePage />} />
-
                 {/* 하단바 없는 페이지 */}
-
                 {/* 로그인 */}
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
-
                 {/* 기타 → 홈 */}
                 <Route
                     path="*"
