@@ -22,7 +22,7 @@ function KakaoMap({ center }) {
                 const container = mapRef.current;
                 const options = {
                     center: new window.kakao.maps.LatLng(center.lat, center.lng),
-                    level: 3,
+                    level: 2,
                 };
                 const createdMap = new window.kakao.maps.Map(container, options);
                 setMap(createdMap);
