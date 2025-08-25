@@ -8,6 +8,7 @@ const StoreBoxStyle = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 60px;
 `;
 
 function AllSavedStore() {

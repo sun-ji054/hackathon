@@ -28,6 +28,7 @@ const MapSortWrapper = styled.div`
   z-index: 10;
   white-space: nowrap;
   overflow-x: auto;
+  margin-bottom: 5px;
   &::-webkit-scrollbar {
     display: none;
   }
