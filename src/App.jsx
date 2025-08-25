@@ -1,3 +1,4 @@
+// App.jsx
 import { Routes, Route } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
@@ -13,8 +14,9 @@ import CouponDetailsPage from './pages/CouponDetailsPage';
 import EarnStampsPage from './pages/EarnStampsPage';
 import MyPage from './pages/MyPage';
 import DeactivePage from './pages/DeactivatePage';
-import { useOwnStore } from './store/useOwnStore';
-
+// ⛔ useOwnStore 제거
+import AICouponDetailsPage from './pages/AICouponDetailsPage';
+import AINonSavedCouponDetailsPage from './pages/AINonSavedCouponDetails';
 import { useLocationStore } from './store/useLocationStore';
 import ProfilePage from './pages/ProfilePage';
 import MyPage_ID from './pages/MyPage_ID';
@@ -24,13 +26,10 @@ const AiPage = () => <div className="p-4">AI 페이지 (TODO)</div>;
 
 export default function App() {
     const fetchLocations = useLocationStore((state) => state.fetchLocations);
-    const { fetchOwn } = useOwnStore();
+
     useEffect(() => {
         fetchLocations();
     }, [fetchLocations]);
-    useEffect(() => {
-        fetchOwn();
-    }, [fetchOwn]);
 
     return (
         <MobileFrame>
@@ -89,6 +88,22 @@ export default function App() {
                     }
                 />
                 <Route
+                    path="/aicoupondetails"
+                    element={
+                        <MainLayout>
+                            <AICouponDetailsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path="/ainewcoupondetails"
+                    element={
+                        <MainLayout>
+                            <AINonSavedCouponDetailsPage />
+                        </MainLayout>
+                    }
+                />
+                <Route
                     path="/stamps"
                     element={
                         <MainLayout>
@@ -123,8 +138,6 @@ export default function App() {
                 <Route path="/mapStore" element={<MapStorePage />} />
 
                 {/* 하단바 없는 페이지 */}
-
-                {/* 로그인 */}
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/signUpPage" element={<SignUpPage />} />
 

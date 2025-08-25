@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import HomeBottomNav from '../components/HomeBottomNav';
@@ -13,6 +13,9 @@ export default function EarnStampsPage() {
     const navigate = useNavigate();
     const { state, search } = useLocation();
 
+    // 임시로 추가할 스탬프 개수 상태 (기본값 1로 설정)
+    const [stampsToAdd] = useState(1);
+
     const couponId =
         state?.couponId ??
         (() => {
@@ -26,8 +29,12 @@ export default function EarnStampsPage() {
     const order = useCouponbookCouponsStore((s) => s.order);
 
     useEffect(() => {
-        fetchCoupons();
-    }, [fetchCoupons]);
+        if (couponId) {
+            fetchCoupons(couponId);
+        } else {
+            fetchCoupons();
+        }
+    }, [couponId, fetchCoupons]);
 
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
@@ -56,14 +63,12 @@ export default function EarnStampsPage() {
                 />
             </div>
 
-            {/* 상단 */}
             <div className="px-5 pt-[67px]">
                 <h1 className="text-[24px] font-bold leading-snug">스탬프 적립 성공!</h1>
                 <p className="text-[16px] leading-snug">새로운 스탬프가 추가되었어요.</p>
             </div>
 
-            {/* ✅ API 값으로 연결된 스탬프 그리드 */}
-            <AddStamps total={total} used={used} className="mt-4" />
+            <AddStamps total={total} used={used} stampsToAdd={stampsToAdd} className="mt-4" />
 
             <div className="flex justify-center mt-7">
                 <img src={ThumbsupIcon} alt="Success" className="w-[210px] h-[210px]" />

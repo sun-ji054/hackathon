@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 import { useNavigate } from 'react-router-dom';
+import { saveCoupon } from '../api/CouponApi';
 import { Star } from 'lucide-react';
+import box from '../assets/icons/box.png';
 import stampOrange from '../assets/icons/Stamp.png';
 import stampGray from '../assets/icons/Empty.png';
 import { api } from '../api/Api';
 import couponStatsStore from '../store/couponStatsStore';
-
-export default function StampsCheck({ couponId, className = '', onClick }) {
+import { Box, BoxImg, BoxText } from './KaKaoStoreStyle';
+export default function NonSavedStampsCheck({ couponId, className = '', onClick }) {
     const navigate = useNavigate();
 
     // ✅ 스토어에서 쿠폰북 ID를 가져오고 로딩 상태도 가져옵니다.
@@ -24,7 +26,13 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
     // ✅ 즐겨찾기 상태를 관리하는 로컬 state
     const [isFavorite, setIsFavorite] = useState(false);
     const [favoriteId, setFavoriteId] = useState(null);
-
+    // 저장 버튼 클릭
+    const handleSave = async () => {
+        const saved = await saveCoupon(selectedStore.id); // ← 전시중인 쿠폰 id
+        if (saved) {
+            alert('쿠폰이 내 쿠폰북에 저장되었습니다!');
+        }
+    };
     // ✅ couponId가 있을 때만 호출
     useEffect(() => {
         if (couponId) fetchCoupon(couponId);
@@ -70,37 +78,6 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
 
     const stop = (e) => e.stopPropagation();
 
-    // ✅ 별 버튼 클릭 시 즐겨찾기 상태를 토글
-    const handleFavoriteClick = async (e) => {
-        e.stopPropagation();
-        if (!couponbookId || !coupon?.id) {
-            console.error('쿠폰북 ID 또는 쿠폰 ID를 찾을 수 없습니다.');
-            return;
-        }
-
-        try {
-            if (isFavorite) {
-                // 즐겨찾기 해제: DELETE 요청 엔드포인트 수정
-                await api.delete(`/couponbook/own-couponbook/favorites/${favoriteId}/`);
-                setIsFavorite(false);
-                setFavoriteId(null);
-            } else {
-                // 즐겨찾기 추가: POST 요청
-                const { data } = await api.post(`/couponbook/couponbooks/${couponbookId}/favorites/`, {
-                    coupon: coupon.id,
-                });
-                setIsFavorite(true);
-                setFavoriteId(data.id);
-            }
-        } catch (e) {
-            console.error('즐겨찾기 상태 변경 실패:', e.response?.data?.detail || e.message);
-            alert('즐겨찾기 상태 변경에 실패했습니다.');
-        }
-    };
-
-    // ✅ 쿠폰북과 쿠폰 데이터 로딩 중인지 확인
-    const isDataLoading = statsLoading || loading;
-
     return (
         <div className="flex justify-center items-center bg-[#F2592A]">
             {/* 카드 전체를 클릭 가능한 영역으로 */}
@@ -117,15 +94,12 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
                     {/* 우상단 버튼 (상위 클릭 전파 방지) */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2">
                         {/* ✅ 로딩 중일 때 버튼 비활성화 및 스타일 변경 */}
-                        <button
-                            onClick={handleFavoriteClick}
-                            disabled={isDataLoading}
-                            className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${
-                                isDataLoading ? 'cursor-not-allowed opacity-50' : ''
-                            }`}
-                        >
-                            <Star className={`w-5 h-5 ${isFavorite ? 'text-[#F2592A]' : 'text-gray-400'}`} />
-                        </button>
+                        <Box onClick={handleSave}>
+                            {' '}
+                            {/* 저장 실행 */}
+                            <BoxImg src={box} alt="box"></BoxImg>
+                            <BoxText>내 쿠폰북에 저장</BoxText>
+                        </Box>
                     </div>
 
                     {/* 가게명 + 설명 + 진행바 */}

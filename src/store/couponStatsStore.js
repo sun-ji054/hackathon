@@ -10,50 +10,51 @@ const initialStats = {
 };
 
 const CREATE_ENDPOINT = '/couponbook/';
+const OWN_COUPONBOOK_ENDPOINT = '/couponbook/own-couponbook/';
 
 const couponStatsStore = create((set) => ({
     stats: initialStats,
     loading: false,
     error: null,
+    isReady: false, // ✅ 새로 추가된 상태
 
     fetchStats: async () => {
-        set({ loading: true, error: null });
+        set({ loading: true, error: null, isReady: false }); // ✅ 로딩 시작 시 isReady를 false로 설정
+
         try {
-            // 내 쿠폰북 조회
-            const res = await api.get('/couponbook/own-couponbook/');
-            set({ stats: res.data, loading: false });
+            const res = await api.get(OWN_COUPONBOOK_ENDPOINT);
+            set({ stats: res.data, loading: false, isReady: true }); // ✅ 성공 시 isReady를 true로 설정
         } catch (err) {
             const status = err.response?.status;
+            let finalError = '쿠폰북 조회 실패';
 
             if (status === 404) {
-                // 없으면 생성 시도
                 try {
-                    const created = await api.post(CREATE_ENDPOINT, {}); // 필요하면 body 넣기
-                    set({ stats: created.data, loading: false });
+                    const created = await api.post(CREATE_ENDPOINT, {});
+                    set({ stats: created.data, loading: false, isReady: true }); // ✅ 성공 시 isReady를 true로 설정
+                    return;
                 } catch (createErr) {
-                    // 동시 생성/중복 등으로 409면 다시 조회
                     if (createErr.response?.status === 409) {
                         try {
-                            const res2 = await api.get('/couponbook/own-couponbook/');
-                            set({ stats: res2.data, loading: false, error: null });
+                            const res2 = await api.get(OWN_COUPONBOOK_ENDPOINT);
+                            set({ stats: res2.data, loading: false, error: null, isReady: true }); // ✅ 성공 시 isReady를 true로 설정
+                            return;
                         } catch (reErr) {
-                            set({ stats: initialStats, loading: false, error: '쿠폰북 조회 실패' });
+                            finalError = '쿠폰북 재조회 실패';
                         }
                     } else {
-                        set({
-                            stats: initialStats,
-                            loading: false,
-                            error: createErr.response?.data?.detail || '쿠폰북 생성 실패',
-                        });
+                        finalError = createErr.response?.data?.detail || '쿠폰북 생성 실패';
                     }
                 }
-                return;
+            } else {
+                finalError = err.response?.data?.detail || '쿠폰북 조회 실패';
             }
 
             set({
                 stats: initialStats,
                 loading: false,
-                error: err.response?.data?.detail || '쿠폰북 조회 실패',
+                error: finalError,
+                isReady: false, // ✅ 실패 시 isReady를 false로 유지
             });
         }
     },

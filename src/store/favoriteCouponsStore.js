@@ -35,7 +35,7 @@ const favoriteCouponsStore = create((set) => ({
                 return {
                     // CouponCard가 쓰는 필드들
                     name: place.name || '(이름 미상)',
-                    description: `${rewardInfo.amount ?? total}회 방문하면 ${rewardInfo.reward ?? ''}`,
+                    description: `${rewardInfo.reward ?? ''}`,
                     progress,
                     total,
                     expire: typeof days === 'number' ? `${days}일 남음` : '',
