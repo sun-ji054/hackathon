@@ -4,10 +4,10 @@ import HomeBottomNav from '../components/HomeBottomNav';
 import CouponCarousel from '../components/CouponCarousel';
 import lineImg from '../assets/Line-35.png';
 import CouponStats from '../components/CouponStats';
-import SearchBar from '../components/SearchBar';
+import SaveSearch from '../components/SaveSearch';
 import MapSort from '../components/MapSort';
-import WidthCoupon from '../components/WidthCoupon';
 import AllSavedStore from '../components/AllSavedStore';
+import SaveSort from '../components/SaveSort';
 
 // 스토어들
 import couponStatsStore from '../store/couponStatsStore';
@@ -68,9 +68,9 @@ export default function MycouponbookPage() {
                 <h3 className="text-[20px] font-semibold leading-snug pt-[23px] ">
                     저장한 모든 쿠폰
                 </h3>
-                <SearchBar className="pt-[23px]" />
+                <SaveSearch className="pt-[23px]" />
                 <div className="ml-[17px] mt-[10px]">
-                    <MapSort />
+                    <SaveSort />
                 </div>
 
                 <div

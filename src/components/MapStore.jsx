@@ -12,14 +12,13 @@ const StoreBoxStyle = styled.div`
 `;
 
 function MapStore() {
-  const { coupons, fetchCoupons, loading, error } = useCouponStore();
+  const { coupons, fetchCoupons, error } = useCouponStore();
   const district = useLocationStore((state) => state.district);
 
   useEffect(() => {
     fetchCoupons(); // 전체 쿠폰 가져오기
   }, [fetchCoupons]);
 
-  if (loading) return <p>로딩중...</p>;
   if (error) return <p>에러 발생: {error}</p>;
 
   // ✅ district와 일치하는 쿠폰만 필터링
