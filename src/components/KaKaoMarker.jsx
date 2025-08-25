@@ -34,12 +34,20 @@ function KakaoMarker({ map, store, isActive, onClick }) {
 
         setActiveStyle(isActive);
 
+        const position = new window.kakao.maps.LatLng(
+            store.position.lat,
+            store.position.lng
+        );
+
         el.addEventListener('click', () => {
+            // 클릭 시 지도 중심 이동
+            map.setCenter(position);
+
             if (onClick) onClick(store);
         });
 
         const overlay = new window.kakao.maps.CustomOverlay({
-            position: new window.kakao.maps.LatLng(store.position.lat, store.position.lng),
+            position,
             yAnchor: 1,
             content: el,
             map,
