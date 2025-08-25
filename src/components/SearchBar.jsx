@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import searchIcon from "../assets/icons/Search.png";
-import { useCouponStore } from "../store/useCouponStore";
+import { useState, useEffect } from 'react';
+import searchIcon from '../assets/icons/Search.png';
+import { useCouponStore } from '../store/useCouponStore';
+import { useNavigate } from 'react-router-dom'; // ✅ useNavigate 추가
 
-export default function SearchBar({ className = "" }) {
-    const [keyword, setKeyword] = useState("");
-    const [selectedKeyword, setSelectedKeyword] = useState(""); // 마지막 선택 값
+export default function SearchBar({ className = '' }) {
+    const navigate = useNavigate(); // ✅ useNavigate 훅 선언
+    const [keyword, setKeyword] = useState('');
+    const [selectedKeyword, setSelectedKeyword] = useState(''); // 마지막 선택 값
     const [showDropdown, setShowDropdown] = useState(false);
     const fetchCoupons = useCouponStore((state) => state.fetchCoupons);
     const coupons = useCouponStore((state) => state.coupons);
@@ -24,20 +26,33 @@ export default function SearchBar({ className = "" }) {
         return () => clearTimeout(timer);
     }, [keyword, selectedKeyword, fetchCoupons]);
 
-    // 드롭다운에서 아이템 클릭
-    const handleSelect = (name) => {
-        setKeyword(name);           // 검색창에 값 넣기
-        setSelectedKeyword(name);   // 마지막 선택값 저장
-        setShowDropdown(false);     // 드롭다운 닫기
-        fetchCoupons({ name });     // 선택 시 API 호출
+    // ✅ 드롭다운에서 아이템 클릭 시
+    const handleSelect = (couponId) => {
+        const selectedCoupon = coupons.find((coupon) => coupon.id === couponId);
+        if (selectedCoupon) {
+            setKeyword(selectedCoupon.place.name); // 검색창에 값 넣기
+            setSelectedKeyword(selectedCoupon.place.name); // 마지막 선택값 저장
+            setShowDropdown(false); // 드롭다운 닫기
+
+            // ✅ 네비게이트 실행
+            navigate(`/coupondetails?couponId=${couponId}`);
+        }
     };
 
-    // 🔥 돋보기 클릭 시 검색
+    // ✅ 돋보기 클릭 시 검색
     const handleSearch = () => {
         if (!keyword.trim()) return;
-        setSelectedKeyword(keyword); // 선택값 갱신
-        setShowDropdown(false);      // 드롭다운 닫기
-        fetchCoupons({ name: keyword }); // API 호출
+        const foundCoupon = coupons.find((coupon) => coupon.place.name === keyword);
+        if (foundCoupon) {
+            setSelectedKeyword(keyword); // 선택값 갱신
+            setShowDropdown(false); // 드롭다운 닫기
+
+            // ✅ 네비게이트 실행
+            navigate(`/coupondetails?couponId=${foundCoupon.id}`);
+        } else {
+            // 일치하는 쿠폰이 없을 경우 처리
+            // 예: alert('일치하는 쿠폰을 찾을 수 없습니다.');
+        }
     };
 
     return (
@@ -65,7 +80,8 @@ export default function SearchBar({ className = "" }) {
                         <div
                             key={coupon.id}
                             className="flex items-center gap-3 p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100"
-                            onClick={() => handleSelect(coupon.place.name)}
+                            // ✅ 드롭다운 아이템 클릭 시 handleSelect 함수 호출
+                            onClick={() => handleSelect(coupon.id)}
                         >
                             <img
                                 src={coupon.place.image_url}
