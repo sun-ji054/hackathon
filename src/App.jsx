@@ -35,7 +35,7 @@ export default function App() {
         <MobileFrame>
             <Routes>
                 {/* 홈 */}
-                <Route path="/home" element={<HomePage />} />
+
 
                 {/* 하단바 포함 페이지 */}
                 <Route
@@ -47,7 +47,14 @@ export default function App() {
                     }
                 />
 
-                <Route path="/mapPage" element={<MapPage />} />
+                <Route
+                    path="/mapPage"
+                    element={
+                        <MainLayout>
+                            <MapPage />
+                        </MainLayout>
+                    }
+                />
                 <Route
                     path="/couponbook"
                     element={
@@ -128,7 +135,14 @@ export default function App() {
                         </MainLayout>
                     }
                 />
-                <Route path="/mapStore" element={<MapStorePage />} />
+                <Route
+                    path="/mapStore"
+                    element={
+                        <MainLayout>
+                            <MapStorePage />
+                        </MainLayout>
+                    }
+                />
 
                 {/* 하단바 없는 페이지 */}
                 <Route path="/" element={<LoginPage />} />

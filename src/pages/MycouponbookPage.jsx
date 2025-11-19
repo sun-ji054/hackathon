@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import CouponbookHeaderBar from '../components/CouponbookHeaderBar';
-import HomeBottomNav from '../components/HomeBottomNav';
 import CouponCarousel from '../components/CouponCarousel';
 import lineImg from '../assets/Line-35.png';
 import CouponStats from '../components/CouponStats';
@@ -86,7 +85,6 @@ export default function MycouponbookPage() {
                     <AllSavedStore />
                 </div>
             </main>
-            <HomeBottomNav />
         </div>
     );
 }

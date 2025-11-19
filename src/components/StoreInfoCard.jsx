@@ -10,28 +10,30 @@ function hhmm(t) {
     return m ? `${m[1].padStart(2, '0')}:${m[2]}` : String(t);
 }
 
-export default function StoreInfoCard({ couponId, className = '' }) {
+export default function StoreInfoCard({ couponId, coupon: propCoupon, className = '' }) {
     const fetchCoupon = useCouponbookCouponsStore((s) => s.fetchCoupon);
     const loading = useCouponbookCouponsStore((s) => s.loading);
     const error = useCouponbookCouponsStore((s) => s.error);
     const byId = useCouponbookCouponsStore((s) => s.couponsById);
-    const order = useCouponbookCouponsStore((s) => s.order); // ✅ order 추가
+    const order = useCouponbookCouponsStore((s) => s.order);
 
     useEffect(() => {
-        if (couponId) {
+        if (couponId && !propCoupon) {
             fetchCoupon(couponId);
         }
-    }, [couponId, fetchCoupon]);
+    }, [couponId, propCoupon, fetchCoupon]);
 
-    const coupon = useMemo(() => {
+    const storeCoupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];
         const firstId = order?.[0];
         return firstId ? byId[firstId] : undefined;
     }, [couponId, byId, order]);
 
+    const coupon = propCoupon || storeCoupon;
+
     const place = coupon?.place;
-    const address = place?.address ?? (loading ? '불러오는 중…' : error ? `정보 없음 (${error})` : '정보 없음'); // ✅ 에러 처리 개선
+    const address = place?.address ?? (loading ? '불러오는 중…' : error ? `정보 없음 (${error})` : '정보 없음');
     const opens = hhmm(place?.opens_at);
     const closes = hhmm(place?.closes_at);
     const lastOrder = hhmm(place?.last_order);

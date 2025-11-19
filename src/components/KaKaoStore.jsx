@@ -42,7 +42,7 @@ function KaKaoStore() {
     const handleStoreClick = () => {
         // ✅ coupon.id 대신 selectedStore.id를 사용
         if (selectedStore.id) {
-            navigate(`/coupondetails?couponId=${selectedStore.id}`);
+            navigate(`/ainewcoupondetails?couponId=${selectedStore.id}`);
         }
     };
 

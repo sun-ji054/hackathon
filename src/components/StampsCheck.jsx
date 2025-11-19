@@ -7,7 +7,7 @@ import stampGray from '../assets/icons/Empty.png';
 import { api } from '../api/Api';
 import couponStatsStore from '../store/couponStatsStore';
 
-export default function StampsCheck({ couponId, className = '', onClick }) {
+export default function StampsCheck({ couponId, coupon: propCoupon, className = '', onClick }) {
     const navigate = useNavigate();
 
     // ✅ 스토어에서 쿠폰북 ID를 가져오고 로딩 상태도 가져옵니다.
@@ -25,17 +25,19 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [favoriteId, setFavoriteId] = useState(null);
 
-    // ✅ couponId가 있을 때만 호출
+    // ✅ couponId가 있고 propCoupon이 없을 때만 호출
     useEffect(() => {
-        if (couponId) fetchCoupon(couponId);
-    }, [couponId, fetchCoupon]);
+        if (couponId && !propCoupon) fetchCoupon(couponId);
+    }, [couponId, propCoupon, fetchCoupon]);
 
-    const coupon = useMemo(() => {
+    const storeCoupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];
         const firstId = order?.[0];
         return firstId ? byId[firstId] : undefined;
     }, [couponId, byId, order]);
+
+    const coupon = propCoupon || storeCoupon;
 
     // ✅ coupon 객체가 업데이트될 때마다 즐겨찾기 상태를 동기화
     useEffect(() => {
@@ -56,8 +58,8 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
     const desc = coupon?.reward_info
         ? ` ${coupon.reward_info.reward ?? ''}`.trim()
         : total
-        ? `스탬프 ${total}개 채우면 보상`
-        : '';
+            ? `스탬프 ${total}개 채우면 보상`
+            : '';
     const photo = coupon?.place?.image_url || 'https://picsum.photos/400/300';
 
     // ✅ 최종 쿠폰 ID (없으면 기본 내비 막음)
@@ -120,9 +122,8 @@ export default function StampsCheck({ couponId, className = '', onClick }) {
                         <button
                             onClick={handleFavoriteClick}
                             disabled={isDataLoading}
-                            className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${
-                                isDataLoading ? 'cursor-not-allowed opacity-50' : ''
-                            }`}
+                            className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${isDataLoading ? 'cursor-not-allowed opacity-50' : ''
+                                }`}
                         >
                             <Star className={`w-5 h-5 ${isFavorite ? 'text-[#F2592A]' : 'text-gray-400'}`} />
                         </button>

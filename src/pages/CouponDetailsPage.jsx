@@ -1,11 +1,11 @@
-import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
 import CloseIcon from '../assets/icons/Close_LG.png';
 import StampsCheck from '../components/StampsCheck';
 import { useNavigate, useLocation } from 'react-router-dom';
 import couponStatsStore from '../store/couponStatsStore';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useCouponbookCouponsStore } from '../store/useCouponbookCouponsStore';
 
 export default function CouponDetailsPage() {
     const navigate = useNavigate();
@@ -30,6 +30,20 @@ export default function CouponDetailsPage() {
         })() ??
         null;
 
+    // 쿠폰 상세 정보 가져오기 (StoreInfoCard용)
+    const fetchCoupon = useCouponbookCouponsStore((s) => s.fetchCoupon);
+    const byId = useCouponbookCouponsStore((s) => s.couponsById);
+
+    useEffect(() => {
+        if (couponId) {
+            fetchCoupon(couponId);
+        }
+    }, [couponId, fetchCoupon]);
+
+    const coupon = useMemo(() => {
+        return couponId ? byId[String(couponId)] : null;
+    }, [couponId, byId]);
+
     return (
         <div className="flex flex-col h-full bg-[#F2592A] text-white ">
             <div className="flex justify-end px-4 pt-4">
@@ -49,6 +63,7 @@ export default function CouponDetailsPage() {
                 {isReady && couponId && (
                     <StampsCheck
                         couponId={couponId}
+                        coupon={coupon}
                         className="mt-[28px] mb-[60px]"
                         onClick={(e, id) => id && navigate('/usecoupon', { state: { couponId: id } })}
                     />
@@ -59,11 +74,10 @@ export default function CouponDetailsPage() {
                     <p className="text-center mt-[100px] text-gray-700">정보를 불러오는 중입니다...</p>
                 )}
 
-                <StoreInfoCard couponId={couponId} />
+                <StoreInfoCard couponId={couponId} coupon={coupon} />
             </main>
 
             <img src={lineImg} alt="line" className=" w-full" />
-            <HomeBottomNav />
         </div>
     );
 }

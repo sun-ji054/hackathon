@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import MyPageBG from "../components/MyPageBG";
 import BacktoMyPage from "../components/BacktoMyPage";
 import MyPageTitle from "../components/MyPageTitle";
@@ -6,7 +6,7 @@ import MyPageSubtitle from "../components/MyPageSubtitle";
 import MyPageInput from "../components/MyPageInput";
 import MyPageSubmit from "../components/MyPageSubmit";
 import styled from "styled-components";
-import {userInfoStore} from "../store/userInfoStore";
+import { userInfoStore } from "../store/userInfoStore";
 import { deactivate } from "../api/UserApi";
 
 const Warning = styled.div`
@@ -25,7 +25,7 @@ const Text = styled.p`
 `
 
 function DeactivePage() {
-  const {password, setPassword} = userInfoStore();
+  const { password, setPassword } = userInfoStore();
   const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -36,15 +36,15 @@ function DeactivePage() {
       return;
     }
 
-    const res = await deactivate();
+    const res = await deactivate(password);
     if (res) {
       alert("회원 탈퇴가 완료되었습니다.");
       localStorage.clear();
-      window.location.href='/home';
+      window.location.href = '/home';
     }
   }
 
-  return(
+  return (
     <MyPageBG>
       <BacktoMyPage />
       <MyPageTitle title='회원 탈퇴' />
@@ -52,17 +52,17 @@ function DeactivePage() {
         style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
         onSubmit={handleSubmit}>
         <Warning>
-        <Text>회원 탈퇴 시, 모든 데이터가 삭제되며 복구할 수 없습니다.<br/>
-           신중하게 결정해주세요.
-        </Text>
+          <Text>회원 탈퇴 시, 모든 데이터가 삭제되며 복구할 수 없습니다.<br />
+            신중하게 결정해주세요.
+          </Text>
         </Warning>
         <MyPageSubtitle subtitle="비밀번호 확인" />
         <MyPageInput
-            inputType="password"
-            placeholder="현재 비밀번호를 입력하세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          inputType="password"
+          placeholder="현재 비밀번호를 입력하세요"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <label style={{ fontSize: "12px", marginTop: "15px" }}>
           <input
             type="checkbox"

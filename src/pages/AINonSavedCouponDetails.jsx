@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
 import CloseIcon from '../assets/icons/Close_LG.png';
@@ -53,13 +52,12 @@ export default function AINonCouponDetailsPage() {
                 <h1 className="text-[24px] font-bold leading-snug mt-[53px]">쿠폰 상세보기</h1>
                 <p className="text-[16px] font-medium leading-snug">맘에 드는 쿠폰을 저장해보세요.</p>
 
-                <NonSavedStampsCheck couponId={couponId} className="mt-[28px] mb-[60px]" />
+                <NonSavedStampsCheck couponId={couponId} coupon={coupon} className="mt-[28px] mb-[60px]" />
 
-                <StoreInfoCard couponId={couponId} />
+                <StoreInfoCard couponId={couponId} coupon={coupon} />
             </main>
 
             <img src={lineImg} alt="line" className=" w-full" />
-            <HomeBottomNav />
         </div>
     );
 }

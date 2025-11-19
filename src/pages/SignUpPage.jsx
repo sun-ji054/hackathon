@@ -9,15 +9,35 @@ import { FormNameStyle2, CenterStyle, SelectStyle, FormStyle3, Subheading, Subhe
 import InputSubmit from "../components/InputSubmit";
 import { signUp } from "../api/AuthApi";
 import styled from "styled-components";
+import { userInfoStore } from "../store/userInfoStore";
+import { useLocationStore } from "../store/useLocationStore";
 
 function SignUpPage() {
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+
+    const { username, email, password, phone } = userInfoStore.getState();
+    const { province, city, district } = useLocationStore.getState();
+
+    const userData = {
+      username,
+      email,
+      password,
+      phone,
+      favorite_locations: [
+        {
+          province,
+          city,
+          district,
+        },
+      ],
+    };
+
     try {
-      const result = await signUp();
-      if(result){
+      const result = await signUp(userData);
+      if (result) {
         alert("회원가입 성공");
         navigate("/");
       } else {
@@ -29,10 +49,10 @@ function SignUpPage() {
     }
   };
 
-  return(
+  return (
     <>
 
-      <div style={{backgroundColor:'#FCFAF7', height: '100%', overflowY: "auto" }}>
+      <div style={{ backgroundColor: '#FCFAF7', height: '100%', overflowY: "auto" }}>
         <SignUpBack></SignUpBack>
         <FormNameStyle2>회원가입</FormNameStyle2>
         <form onSubmit={handleSignUp}>
