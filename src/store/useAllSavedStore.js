@@ -6,9 +6,9 @@ export const useAllSavedStore = create((set, get) => ({
     coupons: [],
     loading: false,
     error: null,
-    selectedTag: '전체',
 
-    fetchAllSaved: async (params = {}) => {
+    fetchAllSaved: async () => {
+        set({ loading: true, error: null });
         const { own } = useOwnStore.getState();
 
         if (!own?.id) {
@@ -16,14 +16,13 @@ export const useAllSavedStore = create((set, get) => ({
             return;
         }
 
-        set({ loading: true, error: null });
         try {
-            const response = await api.get(`/couponbook/couponbooks/${own.id}/coupons/`, { params });
+            const response = await api.get(`/couponbook/couponbooks/${own.id}/coupons/`);
+            // ✅ API 응답이 성공하면, 데이터가 비어있더라도 coupons 상태를 업데이트합니다.
             set({ coupons: response.data, loading: false });
         } catch (error) {
+            // ✅ API 호출 자체가 실패했을 때만 error 상태를 설정합니다.
             set({ error: error.message, loading: false });
         }
     },
-
-    setSelectedTag: (tag) => set({ selectedTag: tag }),
 }));
