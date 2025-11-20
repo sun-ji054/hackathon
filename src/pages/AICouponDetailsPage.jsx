@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
 import CloseIcon from '../assets/icons/Close_LG.png';
@@ -55,15 +54,15 @@ export default function AICouponDetailsPage() {
 
                 <StampsCheck
                     couponId={couponId}
+                    coupon={coupon}
                     className="mt-[28px] mb-[60px]"
                     onClick={(e, id) => id && navigate('/usecoupon', { state: { couponId: id } })}
                 />
 
-                <StoreInfoCard couponId={couponId} />
+                <StoreInfoCard couponId={couponId} coupon={coupon} />
             </main>
 
             <img src={lineImg} alt="line" className=" w-full" />
-            <HomeBottomNav />
         </div>
     );
 }

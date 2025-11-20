@@ -4,7 +4,6 @@ import MapSearch from "../components/MapSearch";
 import MapListBtn from "../components/MapListBtn";
 import MapSort from "../components/MapSort";
 import styled from "styled-components";
-import BottomNav from "../components/HomeBottomNav";
 import { useMapStore } from "../store/useMapStore";
 
 const MapContainer = styled.div`
@@ -29,10 +28,10 @@ const MapSortWrapper = styled.div`
 `
 
 function MapPage() {
-  const [center, setCenter] = useState({ lat: 37.6042, lng: 127.0635  }); // 한국외대
+  const [center, setCenter] = useState({ lat: 37.6042, lng: 127.0635 }); // 한국외대
   const { setSelectedStore } = useMapStore();
 
-   // 검색 시 호출될 함수
+  // 검색 시 호출될 함수
   const handleSearchResult = (place, coupon) => {
     // 지도 중심 이동
     setCenter({ lat: parseFloat(place.y), lng: parseFloat(place.x) });
@@ -52,7 +51,6 @@ function MapPage() {
         <MapSort />
       </MapSortWrapper>
       <KakaoMap center={center} />
-      <BottomNav />
     </MapContainer>
   );
 }

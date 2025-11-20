@@ -1,7 +1,6 @@
 import React from "react";
 import MapSort from "../components/MapSort";
 import MapStoreHeader from "../components/MapStoreHeader";
-import HomeBottomNav from "../components/HomeBottomNav";
 import MapStore from "../components/MapStore";
 import SearchBar from "../components/SearchBar";
 import styled from "styled-components";
@@ -23,7 +22,6 @@ function MapStorePage() {
       <div style={{ flex: 1, overflowY: "auto", height: "495px" }}>
         <MapStore></MapStore>
       </div>
-      <HomeBottomNav></HomeBottomNav>
     </div>
   );
 }

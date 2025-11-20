@@ -8,6 +8,7 @@ function CouponCarousel({ coupons }) {
     return (
         <Swiper
             spaceBetween={25}
+            slidesOffsetBefore={25}
             slidesPerView="auto"
             pagination={{
                 clickable: true,

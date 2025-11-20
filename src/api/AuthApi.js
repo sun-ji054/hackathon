@@ -1,26 +1,10 @@
 import { api } from './Api';
-import { userInfoStore } from '../store/userInfoStore';
-import { useLocationStore } from '../store/useLocationStore';
+
 
 //회원가입
-export const signUp = async () => {
-    const { username, email, password, phone } = userInfoStore.getState();
-    const { province, city, district } = useLocationStore.getState();
-
+export const signUp = async (userData) => {
     try {
-        const response = await api.post('/accounts/auth/register/customer/', {
-            username,
-            email,
-            password,
-            phone,
-            favorite_locations: [
-                {
-                    province,
-                    city,
-                    district,
-                },
-            ],
-        });
+        const response = await api.post('/accounts/auth/register/customer/', userData);
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -30,12 +14,10 @@ export const signUp = async () => {
 };
 
 //로그인
-export const login = async () => {
-    const { username, email, password } = userInfoStore.getState();
-
+export const login = async (identifier, password) => {
     try {
         const response = await api.post('/accounts/auth/login/', {
-            identifier: username || email,
+            identifier,
             password,
         });
 
@@ -44,24 +26,10 @@ export const login = async () => {
             localStorage.setItem('refresh_token', response.data.refresh);
         }
 
-        const meRes = await api.get('/accounts/auth/me/', {
-            headers: { Authorization: `Bearer ${response.data.access}` },
-        });
-
-        const meData = meRes.data;
-
-        userInfoStore.getState().setUserInfo({
-            id: meData.id,
-            username: meData.username,
-            email: meData.email,
-        });
-        if (meData.favorite_locations && meData.favorite_locations.length > 0) {
-            const favLocation = meData.favorite_locations[0];
-
-            useLocationStore.getState().selectProvince(favLocation.province);
-            useLocationStore.getState().selectCity(favLocation.city);
-            useLocationStore.getState().selectDistrict(favLocation.district);
-        }
+        // Store update logic moved to component/store action
+        // const meRes = await api.get('/accounts/auth/me/', {
+        //     headers: { Authorization: `Bearer ${response.data.access}` },
+        // });
 
         console.log('로그인 성공:', response.data);
         return response.data;
@@ -93,8 +61,9 @@ export const logout = async () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
-        userInfoStore.persist?.clearStorage();
-        useLocationStore.persist?.clearStorage();
+        // Store clearing logic moved to component/store action
+        // userInfoStore.persist?.clearStorage();
+        // useLocationStore.persist?.clearStorage();
 
         console.log('로그아웃 성공');
     } catch (error) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +9,18 @@ body,
 #root {
     height: 100%;
 }
+
 body {
     background: #fff;
     color: #111;
+    margin: 0;
 }
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
 /* 인디케이터 스타일 */
 .swiper-pagination {
     position: relative !important;
@@ -25,7 +35,8 @@ body {
     background-color: #d7d7d7 !important;
     opacity: 1 !important;
     margin: 0 3px !important;
-    border-radius: 50% !important; /* 원형 */
+    border-radius: 50% !important;
+    /* 원형 */
 }
 
 /* 활성 점 */

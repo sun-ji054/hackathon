@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import HomeBottomNav from '../components/HomeBottomNav';
 import lineImg from '../assets/Line-35.png';
 import StoreInfoCard from '../components/StoreInfoCard';
 import CloseIcon from '../assets/icons/Close_LG.png';
@@ -31,6 +30,21 @@ export default function AINonCouponDetailsPage() {
         }
     }, [couponId, fetchCoupon]);
 
+    // ✅ couponId가 없으면 에러 처리
+    if (!couponId) {
+        return (
+            <div className="flex flex-col h-full bg-[#F2592A] text-white justify-center items-center">
+                <p className="text-xl font-bold mb-4">잘못된 접근입니다.</p>
+                <button
+                    onClick={() => navigate('/mapPage')}
+                    className="bg-white text-[#F2592A] px-4 py-2 rounded-lg font-bold"
+                >
+                    지도에서 다시 찾기
+                </button>
+            </div>
+        );
+    }
+
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];
@@ -53,13 +67,12 @@ export default function AINonCouponDetailsPage() {
                 <h1 className="text-[24px] font-bold leading-snug mt-[53px]">쿠폰 상세보기</h1>
                 <p className="text-[16px] font-medium leading-snug">맘에 드는 쿠폰을 저장해보세요.</p>
 
-                <NonSavedStampsCheck couponId={couponId} className="mt-[28px] mb-[60px]" />
+                <NonSavedStampsCheck couponId={couponId} coupon={coupon} isSaved={false} className="mt-[28px] mb-[60px]" />
 
-                <StoreInfoCard couponId={couponId} />
+                <StoreInfoCard couponId={couponId} coupon={coupon} />
             </main>
 
             <img src={lineImg} alt="line" className=" w-full" />
-            <HomeBottomNav />
         </div>
     );
 }
