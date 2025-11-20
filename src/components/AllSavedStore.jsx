@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAllSavedStore } from '../store/useAllSavedStore';
-import couponStatsStore from '../store/couponStatsStore'; // ✅ 변경
+import couponStatsStore from '../store/couponStatsStore'; // 변경
 import WidthCoupon2 from './WidthCoupon2';
 
 const StoreBoxStyle = styled.div`
@@ -16,8 +16,8 @@ const StoreBoxStyle = styled.div`
 function AllSavedStore() {
     const navigate = useNavigate();
 
-    const { stats } = couponStatsStore(); // ✅ useOwnStore 대신 couponStatsStore 사용
-    // ✅ allSaved 대신 coupons 변수를 사용하도록 수정
+    const { stats } = couponStatsStore(); 
+    // allSaved 대신 coupons 변수를 사용하도록 수정
     const { coupons, error, loading } = useAllSavedStore();
 
     if (loading) {

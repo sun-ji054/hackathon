@@ -67,6 +67,10 @@ export default function StampsCheck({ couponId, coupon: propCoupon, className = 
 
     const handleCardClick = (e) => {
         if (typeof onClick === 'function') return onClick(e, resolvedId);
+
+        //  저장되지 않은 쿠폰(템플릿)이면 스탬프 찍기 페이지로 이동하지 않음
+        if (!isSaved) return;
+
         if (resolvedId) navigate('/usecoupon', { state: { couponId: resolvedId } });
     };
 

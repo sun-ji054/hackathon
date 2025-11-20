@@ -21,11 +21,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 function KaKaoStore() {
-    const navigate = useNavigate(); // ✅ useNavigate 훅을 컴포넌트 내에서 선언
+    const navigate = useNavigate(); //  useNavigate 훅을 컴포넌트 내에서 선언
     const { selectedStore, clearSelectedStore } = useMapStore();
-    const { stats, fetchStats } = couponStatsStore(); // ✅ 내 쿠폰북 정보 가져오기
+    const { stats, fetchStats } = couponStatsStore(); //  내 쿠폰북 정보 가져오기
 
-    // ✅ 쿠폰북 ID가 없으면 불러오기
+    //  쿠폰북 ID가 없으면 불러오기
     useEffect(() => {
         if (!stats?.id) {
             fetchStats();
@@ -70,7 +70,12 @@ function KaKaoStore() {
                         <BoxImg src={box} alt="box"></BoxImg>
                         <BoxText>내 쿠폰북에 저장</BoxText>
                     </Box>
-                    <X onClick={clearSelectedStore}>
+                    <X
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            clearSelectedStore();
+                        }}
+                    >
                         <img src={x} alt="닫기"></img>
                     </X>
                 </Top>

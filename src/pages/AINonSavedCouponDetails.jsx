@@ -30,6 +30,21 @@ export default function AINonCouponDetailsPage() {
         }
     }, [couponId, fetchCoupon]);
 
+    // ✅ couponId가 없으면 에러 처리
+    if (!couponId) {
+        return (
+            <div className="flex flex-col h-full bg-[#F2592A] text-white justify-center items-center">
+                <p className="text-xl font-bold mb-4">잘못된 접근입니다.</p>
+                <button
+                    onClick={() => navigate('/mapPage')}
+                    className="bg-white text-[#F2592A] px-4 py-2 rounded-lg font-bold"
+                >
+                    지도에서 다시 찾기
+                </button>
+            </div>
+        );
+    }
+
     const coupon = useMemo(() => {
         const idStr = couponId != null ? String(couponId) : '';
         if (idStr && byId[idStr]) return byId[idStr];
