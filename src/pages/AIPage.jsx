@@ -32,6 +32,7 @@ const Header = styled.div`
 const MessagesArea = styled.div`
   flex: 1;
   padding: 22px;
+  padding-bottom: 8rem;
   overflow-y: auto;
   background-color: #f9f9f9;
   display: flex;
@@ -74,6 +75,7 @@ const SuggestionsArea = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid #eee;
+  background-color: #f9f9f9;
 
   &::-webkit-scrollbar {
     height: 4px;
