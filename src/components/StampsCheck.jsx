@@ -7,7 +7,7 @@ import stampGray from '../assets/icons/Empty.png';
 import { api } from '../api/Api';
 import couponStatsStore from '../store/couponStatsStore';
 
-export default function StampsCheck({ couponId, coupon: propCoupon, className = '', onClick }) {
+export default function StampsCheck({ couponId, coupon: propCoupon, className = '', onClick, isSaved = true }) {
     const navigate = useNavigate();
 
     // ✅ 스토어에서 쿠폰북 ID를 가져오고 로딩 상태도 가져옵니다.
@@ -86,6 +86,7 @@ export default function StampsCheck({ couponId, coupon: propCoupon, className = 
                 await api.delete(`/couponbook/own-couponbook/favorites/${favoriteId}/`);
                 setIsFavorite(false);
                 setFavoriteId(null);
+                alert('즐겨찾기가 해제되었습니다.'); // ✅ 알림 추가
             } else {
                 // 즐겨찾기 추가: POST 요청
                 const { data } = await api.post(`/couponbook/couponbooks/${couponbookId}/favorites/`, {
@@ -93,6 +94,7 @@ export default function StampsCheck({ couponId, coupon: propCoupon, className = 
                 });
                 setIsFavorite(true);
                 setFavoriteId(data.id);
+                alert('즐겨찾기에 등록되었습니다!'); // ✅ 알림 추가
             }
         } catch (e) {
             console.error('즐겨찾기 상태 변경 실패:', e.response?.data?.detail || e.message);
@@ -100,7 +102,7 @@ export default function StampsCheck({ couponId, coupon: propCoupon, className = 
         }
     };
 
-    // ✅ 쿠폰북과 쿠폰 데이터 로딩 중인지 확인
+    //  쿠폰북과 쿠폰 데이터 로딩 중인지 확인
     const isDataLoading = statsLoading || loading;
 
     return (
@@ -117,17 +119,19 @@ export default function StampsCheck({ couponId, coupon: propCoupon, className = 
                     <img src={photo} alt="store" className="w-full h-full object-cover rounded-3xl" />
 
                     {/* 우상단 버튼 (상위 클릭 전파 방지) */}
-                    <div className="absolute top-4 right-4 flex flex-col gap-2">
-                        {/* ✅ 로딩 중일 때 버튼 비활성화 및 스타일 변경 */}
-                        <button
-                            onClick={handleFavoriteClick}
-                            disabled={isDataLoading}
-                            className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${isDataLoading ? 'cursor-not-allowed opacity-50' : ''
-                                }`}
-                        >
-                            <Star className={`w-5 h-5 ${isFavorite ? 'text-[#F2592A]' : 'text-gray-400'}`} />
-                        </button>
-                    </div>
+                    {isSaved && (
+                        <div className="absolute top-4 right-4 flex flex-col gap-2">
+                            {/* ✅ 로딩 중일 때 버튼 비활성화 및 스타일 변경 */}
+                            <button
+                                onClick={handleFavoriteClick}
+                                disabled={isDataLoading}
+                                className={`bg-white/90 rounded-full p-2 shadow border border-[#F2592A] transition-colors duration-200 ${isDataLoading ? 'cursor-not-allowed opacity-50' : ''
+                                    }`}
+                            >
+                                <Star className={`w-5 h-5 ${isFavorite ? 'text-[#F2592A]' : 'text-gray-400'}`} />
+                            </button>
+                        </div>
+                    )}
 
                     {/* 가게명 + 설명 + 진행바 */}
                     <div className="absolute bottom-[30px] left-3 text-white">

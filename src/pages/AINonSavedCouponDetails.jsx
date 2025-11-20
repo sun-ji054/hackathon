@@ -52,7 +52,7 @@ export default function AINonCouponDetailsPage() {
                 <h1 className="text-[24px] font-bold leading-snug mt-[53px]">쿠폰 상세보기</h1>
                 <p className="text-[16px] font-medium leading-snug">맘에 드는 쿠폰을 저장해보세요.</p>
 
-                <NonSavedStampsCheck couponId={couponId} coupon={coupon} className="mt-[28px] mb-[60px]" />
+                <NonSavedStampsCheck couponId={couponId} coupon={coupon} isSaved={false} className="mt-[28px] mb-[60px]" />
 
                 <StoreInfoCard couponId={couponId} coupon={coupon} />
             </main>

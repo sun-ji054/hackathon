@@ -33,11 +33,11 @@ export default function HomePage() {
     }, [stats?.id, fetchFavorites]);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col min-h-full">
             <HomeHeaderBar />
 
             {/* 본문 */}
-            <main className="px-4 py-4 space-y-4 bg-[#FCF9F7]">
+            <main className="flex-1 px-4 py-4 space-y-4 bg-[#FCF9F7]">
                 <section className="text-left space-y-1">
                     <h1 className="text-[24px] font-bold leading-snug ">반가워요, {username || '익명'}님!</h1>
                     <p className="text-[16px] font-mediup leading-sung ">오늘도 새로운 스탬프를 모아보세요.</p>
