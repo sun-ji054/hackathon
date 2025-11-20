@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import HomeBottomNav from '../components/HomeBottomNav';
 import CloseIcon from '../assets/icons/Close_LG.png';
 import PreviousIcon from '../assets/icons/Arrow_Left_LG.png';
 import ThumbsupIcon from '../assets/icons/Success.png';
@@ -47,7 +46,7 @@ export default function EarnStampsPage() {
     const used = Number(coupon?.current_stamps ?? 0) || 0;
 
     return (
-        <div className="flex flex-col h-screen bg-[#F2592A] text-white">
+        <div className="flex flex-col h-full bg-[#F2592A] text-white">
             <div className="flex justify-between items-center px-4 pt-4 ">
                 <img
                     src={PreviousIcon}
@@ -73,8 +72,6 @@ export default function EarnStampsPage() {
             <div className="flex justify-center mt-7">
                 <img src={ThumbsupIcon} alt="Success" className="w-[210px] h-[210px]" />
             </div>
-
-            <HomeBottomNav />
         </div>
     );
 }
