@@ -10,17 +10,17 @@ const MapSortWrapper = styled.div`
   margin-top: 10px;
   margin-left: 23px;
   padding-bottom: 5px;
-`
+`;
 
-function MapStorePage(){
-  return(
-    <div style={{backgroundColor: '#FCFAF7', width: '100%', height:'100%'}}>
+function MapStorePage() {
+  return (
+    <div style={{ backgroundColor: "#FCFAF7", width: "100%", height: "100%" }}>
       <MapStoreHeader></MapStoreHeader>
       <SearchBar></SearchBar>
       <MapSortWrapper>
         <MapSort></MapSort>
       </MapSortWrapper>
-      <div style={{flex: 1, overflowY: 'auto', height: '495px'}}>
+      <div style={{ flex: 1, overflowY: "auto", height: "495px" }}>
         <MapStore></MapStore>
       </div>
       <HomeBottomNav></HomeBottomNav>
